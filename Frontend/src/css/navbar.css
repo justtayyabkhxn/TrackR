@@ -30,9 +30,9 @@ body {
 .navbar {
   background-color: var(--bg-color);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 10px;
-  align-items: center;
+  /* align-items: center; */
   box-shadow: 2px 2px 5px black;
   border-radius: 0px 0px 30px 30px;
   width: 100%;
@@ -55,7 +55,7 @@ body {
 
 .logo img {
   height: 80px;
-  margin: 10px;
+  margin: 2px;
   border-radius: 40px;
   box-shadow: 1px 1px 3px black;
 }
@@ -69,7 +69,7 @@ body {
 
 .signin > ul {
   margin: 15px 10px 15px 5px;
-  font-size: 18px;
+  font-size: 22px;
   cursor: pointer;
 }
 
@@ -91,39 +91,60 @@ body {
 .signin > ul:hover {
   color: var(--hover-color);
 }
-
+.lost-item{
+  margin-right: 500px;
+}
 /* Post-sign-in styles */
 .postsignin {
-  color: var(--text-color);
   display: flex;
-  flex-wrap: wrap;
-  color: var(--text-color);
-  flex-direction: row-reverse;
-}
-.loginLink {
-  margin-left: -50px;
-}
-.childrens{
-  display: flex;
-  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-.postsignin > ul {
-  margin: 6px 10px 0 10px;
-  font-size: 18px;
-  cursor: pointer;
+
+.logo2 img {
+  height: 80px;
+  /* margin-right: 400px; */
+  border-radius: 40px;
+  margin-left: 0px;
+  box-shadow: 1px 1px 3px black;
+}
+.otherRoutes {
   display: flex;
+  flex-direction: row-reverse;
+  justify-content:end;
   width: 100%;
-  justify-content: space-between;
-  flex-wrap: wrap; /* Wrap content to avoid overflow */
+  align-items: center;
 }
-.postsignin a {
-  margin-right: 20px;
-  font-size: 20px;
+
+.otherRoutes ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  /* margin-right: 20px; */
 }
-#test {
-  text-decoration: none;
+
+.otherRoutes a {
   color: var(--text-color);
+  font-size: 20px;
+  margin-right: 20px;
+  padding: 10px;
+  text-transform: uppercase;
+  border-right: 3px solid var(--footer-bg-color);
+  border-bottom: 3px solid var(--footer-bg-color);
+  box-shadow: 2px 2px 2px black;
+  text-shadow: 2px 2px 2px black;
+}
+
+.otherRoutes a:hover {
+  color: var(--hover-color);
+  text-decoration: underline;
+}
+
+.loginLink {
+  margin-left: -50px;
 }
 
 /* Footer styles */
@@ -164,15 +185,7 @@ body {
 .personal-info > p {
   margin-bottom: auto;
 }
-.logo2{
-  margin-right: 20px;
-}
-.logo2 img{
-  height: 80px;
-  margin: 10px;
-  border-radius: 40px;
-  box-shadow: 1px 1px 3px black;
-}
+
 /* Icon styles */
 .icon {
   width: var(--icon-size);
@@ -184,6 +197,29 @@ body {
 }
 
 /* Responsive styles */
+@media (max-width: 1100px) {
+  .logo > h2 {
+    font-size: 28px;
+  }
+
+  .signin > ul,
+  .postsignin > ul {
+    font-size: 16px;
+  }
+
+  .postsignin {
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+
+  .otherRoutes {
+    width: 100%;
+  }
+  .otherRoutes a{
+    font-size: 15px;
+    border:none
+  }
+}
 @media (max-width: 768px) {
   .logo > h2 {
     font-size: 28px;
@@ -193,6 +229,15 @@ body {
   .postsignin > ul {
     font-size: 16px;
   }
+
+  .postsignin {
+    flex-direction: row-reverse;
+    align-items: flex-start;
+  }
+
+  .otherRoutes {
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -201,10 +246,14 @@ body {
     align-items: flex-start;
   }
 
-  .postsignin > ul {
+  .postsignin {
     flex-direction: column;
     width: 100%;
-    justify-content: space-between;
+  }
+
+  .otherRoutes ul {
+    flex-direction: column;
+    width: 100%;
   }
 
   .signin > ul,

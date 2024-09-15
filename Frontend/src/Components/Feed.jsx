@@ -49,7 +49,10 @@ export default function Feed() {
           const userIsOwner = item.createdBy === user_info._id;
 
           const card = (
-            <a key={item._id} href={`/${item.name}?cid=${item._id}&type=${item.type}/${userIsOwner}`}>
+            <a
+              key={item._id}
+              href={`/${item.name}?cid=${item._id}&type=${item.type}/${userIsOwner}`}
+            >
               <Col style={{ marginTop: "2%" }} md={3}>
                 <Card bsPrefix="item-card">
                   <Card.Img
@@ -57,15 +60,30 @@ export default function Feed() {
                     src={`http://localhost:5000/${item.itemPictures[0].img}`}
                   />
                   <Card.Body bsPrefix="card-body">
-                    <Card.Title style={{ fontFamily: "'Noto Sans JP', sans-serif", fontWeight: "1.35rem" }}>
+                    <Card.Title
+                      style={{
+                        fontFamily: "'Noto Sans JP', sans-serif",
+                        fontWeight: "1.35rem",
+                      }}
+                    >
                       Item: {item.name}
                     </Card.Title>
                     {item.description && (
-                      <Card.Text style={{ fontFamily: "'Noto Sans JP', sans-serif", fontSize: "1rem" }}>
+                      <Card.Text
+                        style={{
+                          fontFamily: "'Noto Sans JP', sans-serif",
+                          fontSize: "1rem",
+                        }}
+                      >
                         Description: <ReadMore>{item.description}</ReadMore>
                       </Card.Text>
                     )}
-                    <Card.Text style={{ fontFamily: "'Noto Sans JP', sans-serif", fontSize: "1rem" }}>
+                    <Card.Text
+                      style={{
+                        fontFamily: "'Noto Sans JP', sans-serif",
+                        fontSize: "1rem",
+                      }}
+                    >
                       Created at: {createdAt}
                     </Card.Text>
                   </Card.Body>
@@ -95,12 +113,32 @@ export default function Feed() {
   return (
     <div>
       <Navbar />
-      <h2 style={{ fontFamily: "'Noto Sans JP', sans-serif", marginLeft: "5px" }}>
-        Welcome {user_info.firstname} 👋!
-      </h2>
+      <span
+        style={{
+          fontFamily: "Concert One, sans-serif",
+          marginLeft: "5px",
+          textTransform: "uppercase",
+          margin: "25px",
+          fontSize: "45px",
+          borderBottom: "5px solid #ff8b4d",
+        }}
+      >
+        Welcome {user_info.firstname} {user_info.lastname}!
+      </span>
 
       <Container fluid>
-        <h2 style={{ textAlign: "center" }}>Lost items:</h2>
+        <h2
+          style={{
+            textAlign: "center",
+            fontFamily: "Concert One, sans-serif",
+            marginLeft: "5px",
+            textTransform: "uppercase",
+            fontSize:"35px",
+            fontWeight:"600"
+          }}
+        >
+          Lost items :
+        </h2>
         <div className="title-border"></div>
         <Row>{items}</Row>
       </Container>

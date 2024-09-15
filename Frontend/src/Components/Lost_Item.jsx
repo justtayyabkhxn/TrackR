@@ -65,8 +65,9 @@ function LostItem() {
 
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
-        Post Item
+      <Button variant="primary" onClick={handleShow}
+      style={{backgroundColor:"#ff8b4d",color:"#0c151d",border:"none",height:"53px",fontSize:"20px",boxShadow:"2px 2px 2px black",textShadow:"0.2px 0.25px .1px black",marginRight:"0px"}}>
+        POST ITEM
       </Button>
 
       <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>

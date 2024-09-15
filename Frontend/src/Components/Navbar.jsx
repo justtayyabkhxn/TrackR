@@ -90,10 +90,10 @@ function Navbar() {
         ) : (
           <div className="postsignin">
             <div className="childrens">
-              <div className="lost-item">
-                <LostItem />
-              </div>
               <div className="otherRoutes">
+                <div className="logo2">
+                  <img src={logo} alt="Logo" />
+                </div>
                 <ul>
                   <a style={{ textDecoration: "none" }} href="/feed">
                     Feed
@@ -111,9 +111,9 @@ function Navbar() {
                   >
                     Sign-out
                   </a>
-                <div className="logo2">
-                  <img src={logo} alt="Logo" />
-                </div>
+                  <div className="lost-item">
+                    <LostItem />
+                  </div>
                 </ul>
               </div>
             </div>

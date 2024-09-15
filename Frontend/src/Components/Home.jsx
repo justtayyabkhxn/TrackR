@@ -242,19 +242,19 @@ export default function Home() {
       <div className="footer">
         <div className="social-icon">
           <a
-            href="https://github.com/justtayyabkhxn"
+            href="https://github.com/justtayyabkhxn/Track-It"
             target="_blank"
             rel="noopener noreferrer"
           >
             <img src={github} className="icon github" alt="" />
           </a>
-          <a
+          {/* <a
             href="https://www.linkedin.com/in/justtayyabkhan/"
             target="_blank"
             rel="noopener noreferrer"
           >
             <img src={linkedin} className="icon" alt="" />
-          </a>
+          </a> */}
           <a
             href="mailto:tayyabkhangk4734@gmail.com"
             target="_blank"
