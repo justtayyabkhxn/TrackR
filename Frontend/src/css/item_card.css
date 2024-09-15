@@ -1,0 +1,25 @@
+.item-card {
+    box-shadow: 0 5px 25px rgba(204, 204, 204, 0.75); /* Updated to modern RGBA syntax */
+    border-radius: 10px;
+    width: 17rem;
+    display: inline-block;
+    max-height: 450px;
+    /* border: 2px solid black; Uncomment this if needed */
+  }
+  
+  .item-card > img {
+    object-fit: contain;
+    max-height: 267px;
+    border-radius: 10px 10px 0 0;
+    /* display: none; Uncomment this to hide images */
+  }
+  
+  .card-body {
+    text-align: left;
+    width: max-content;
+  }
+  
+  .item-desc {
+    display: none; /* To hide descriptions */
+  }
+  

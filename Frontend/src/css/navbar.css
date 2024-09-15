@@ -1,0 +1,215 @@
+/* Global styles */
+@import url("https://fonts.googleapis.com/css2?family=Concert+One&display=swap");
+
+* {
+  font-family: "Concert One", sans-serif;
+  font-weight: 400;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+:root {
+  --bg-color: #0c151d;
+  --navbar-bg-color: #1e1240f0;
+  --text-color: #ff8b4d;
+  --hover-color: #ff8900;
+  --footer-bg-color: #ff8b4d;
+  --secondary-text-color: #898497;
+  --icon-size: 35px;
+  --social-icon-size: 33px;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  box-shadow: 2px 2px 5px black;
+  border-radius: 0px 0px 30px 30px;
+  width: 100%;
+  max-width: 100vw; /* Prevent horizontal overflow */
+}
+
+.logo {
+  margin-left: 10px;
+}
+
+.logo > h2 {
+  color: var(--text-color);
+  font-size: 35px;
+}
+
+.logo > h2:hover {
+  text-decoration: none;
+  color: var(--hover-color);
+}
+
+.logo img {
+  height: 80px;
+  margin: 10px;
+  border-radius: 40px;
+  box-shadow: 1px 1px 3px black;
+}
+
+/* Sign-in styles */
+.signin {
+  display: flex;
+  color: var(--text-color);
+  flex-wrap: wrap; /* Allow items to wrap on small screens */
+}
+
+.signin > ul {
+  margin: 15px 10px 15px 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.signin span {
+  border-bottom: solid 3px var(--text-color);
+  border-right: solid 3px var(--text-color);
+  box-shadow: 4px 4px 2px black;
+  text-shadow: 2px 0px 2px black;
+  color: var(--text-color);
+  margin: 5px;
+  padding: 10px;
+  transition: all 0.5s;
+}
+.signin span:hover {
+  color: var(--hover-color);
+  text-decoration: underline;
+}
+
+.signin > ul:hover {
+  color: var(--hover-color);
+}
+
+/* Post-sign-in styles */
+.postsignin {
+  color: var(--text-color);
+  display: flex;
+  flex-wrap: wrap;
+  color: var(--text-color);
+  flex-direction: row-reverse;
+}
+.loginLink {
+  margin-left: -50px;
+}
+.childrens{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.postsignin > ul {
+  margin: 6px 10px 0 10px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Wrap content to avoid overflow */
+}
+.postsignin a {
+  margin-right: 20px;
+  font-size: 20px;
+}
+#test {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+/* Footer styles */
+.footer {
+  margin-top: 5%;
+  background-color: var(--footer-bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%; /* Ensure the footer takes up full width */
+}
+
+.social-icon {
+  margin: 15px 0;
+  width: 200px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.social-icon .github {
+  width: var(--social-icon-size);
+  height: var(--social-icon-size);
+}
+
+/* Personal info section */
+.personal-info {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.personal-info > h6,
+.personal-info > h4,
+.personal-info > a {
+  margin: 10px 0;
+}
+
+.personal-info > p {
+  margin-bottom: auto;
+}
+.logo2{
+  margin-right: 20px;
+}
+.logo2 img{
+  height: 80px;
+  margin: 10px;
+  border-radius: 40px;
+  box-shadow: 1px 1px 3px black;
+}
+/* Icon styles */
+.icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.symbol {
+  color: var(--secondary-text-color);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .logo > h2 {
+    font-size: 28px;
+  }
+
+  .signin > ul,
+  .postsignin > ul {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .postsignin > ul {
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .signin > ul,
+  .postsignin > ul {
+    width: 100%;
+    justify-content: space-between; /* Prevent overflow */
+  }
+}

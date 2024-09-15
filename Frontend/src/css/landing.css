@@ -1,0 +1,272 @@
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+/* Main container */
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+/* Introduction section */
+.intro {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+}
+:root {
+  --text-color: #ff8b4d;
+}
+.part-1 {
+  height: 500px;
+  width: 350px;
+  position: relative;
+  margin-left: 200px;
+}
+
+/* Title styling */
+.title {
+  position: absolute;
+  top: 50%;
+  transform: translate(8%, -50%);
+}
+
+.title h1 {
+  font-size: 3.75rem; /* 60px */
+  font-weight: 600;
+  font-family: "Concert One", sans-serif;
+  font-weight: 400;
+  /* height: 110px; */
+  color: #0c151d;
+  border-bottom: 10px solid var(--text-color);
+  text-shadow: 1px 1px 2px black;
+}
+
+.title p {
+  font-size: 1.25rem; /* 26px */
+  font-family: "Mali", cursive;
+  font-weight: 600;
+  text-shadow: 0.5px 0px 0.25px black;
+}
+
+.image {
+  margin-right: 1.5rem; /* 25px */
+}
+
+/* Button styling */
+.button {
+  border: 2px solid black;
+  color: black;
+  padding: 0.625rem 1.25rem; /* 10px 20px */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0.25rem; /* 4px 2px */
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+/* Post item */
+.post-item {
+  align-self: center;
+}
+
+/* About section */
+.About {
+  background-color: rgba(122, 225, 241, 0.51); /* #7ae1f182 */
+}
+
+.About h1 {
+  margin-left: 2%;
+  font-family: "Staatliches", cursive;
+}
+
+/* Demo video section */
+.demo_video {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 3.125rem 0; /* 50px 0px */
+}
+
+.demo_video .section-heading {
+  color: #2e186a;
+  font-size: 2.575rem;
+  padding: 0.5rem;
+  font-family: "Staatliches", cursive;
+  border-bottom: 3px solid var(--text-color);
+}
+
+.yt_video {
+  margin: 1rem 0 4.375rem; /* 15px 0 70px */
+}
+
+/* Inspiration section */
+.total-inspiration {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: -5%;
+}
+
+.inspiration {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  max-width: 700px;
+  text-align: center;
+  font-size: 1.125rem;
+}
+
+.section-heading {
+  color: #0c151d;
+  font-size: 2.575rem;
+  font-family: "Concert One", sans-serif;
+  font-weight: 400;
+  height: 100px;
+  text-shadow: 1px 1px 2px black;
+  font-size: 3.75rem;
+}
+.section-heading span {
+  border-bottom: 10px solid var(--text-color);
+}
+h4 {
+  text-transform: uppercase;
+  text-shadow: 0.5px 0.5px 1px black;
+}
+
+.inspiration p {
+  font-size: 1.25rem; /* 26px */
+  font-family: "Mali", cursive;
+  font-weight: 600;
+  text-shadow: 0.5px 0px 0.25px black;
+}
+
+/* Custom button */
+.btn-custom {
+  margin: auto;
+  background-color: #2e186a;
+  color: white;
+  padding: 0.625rem;
+  border-radius: 16px;
+}
+
+.btn-custom:hover {
+  background-color: #392277;
+  color: white;
+}
+
+/* About section */
+.total-about {
+  margin-top: 10%;
+}
+
+.total-about .section-heading {
+  text-align: center;
+}
+
+.about-heading {
+  width: max-content;
+  margin: auto;
+}
+
+.about-card {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1.5rem 0;
+  justify-content: space-around;
+}
+.about-card p {
+  font-family: "Mali", cursive;
+  font-weight: 800;
+  padding: 20px;
+}
+.about-card h4 {
+  margin-top: 5px;
+}
+.info {
+  text-align: center;
+  box-shadow: 3px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  max-width: 385px;
+  border-radius: 45%;
+}
+.info span {
+  border-bottom: 5px solid var(--text-color);
+}
+
+.signupCircle {
+  margin-bottom: 10px;
+  margin-top: -5px;
+  box-shadow: 1px 1px 2px black;
+}
+p {
+  color: rgb(52, 61, 72);
+  font-size: 1.125rem;
+  text-shadow: 0.5px 0px 0.25px black;
+}
+
+/* Contact form */
+.total-contact-form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10%;
+}
+
+.contact-title .section-heading {
+  width: fit-content;
+  margin: 0;
+}
+
+.contact-title {
+  margin: 0px 25px;
+}
+
+.contact-form {
+  flex-grow: 2;
+  margin-right: 25px;
+}
+
+.contact-title p {
+  max-width: 560px;
+}
+.getStartedButton {
+  box-shadow: 2px 1px 3px black;
+}
+.getStartedButton span {
+  font-family: "Mali", cursive;
+  font-weight: 600;
+  font-size: 18px;
+  text-shadow: 1px 1px 3px black;
+}
+
+/* Developer image */
+.developer-img {
+  width: 500px;
+  height: 500px;
+  margin-left: 100px;
+}
+.personal-info h5{
+  font-family: "Mali", cursive;
+  font-weight: 900;
+}
+/* Responsive styles */
+@media (max-width: 1020px) {
+  .image {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .info {
+    margin: 10px 0px;
+  }
+}
+
+@media (max-width: 480px) {
+  .developer-img {
+    width: 350px;
+    height: 350px;
+  }
+}

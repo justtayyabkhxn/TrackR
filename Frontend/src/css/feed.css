@@ -1,0 +1,18 @@
+.title-border {
+    border-bottom: 3px solid rgba(109, 46, 192, 1);
+    width: 40px;
+    margin: 15px auto 0; /* Combined padding and margin */
+  }
+  
+  .item-card {
+    box-shadow: 0 5px 25px rgba(204, 204, 204, 0.75); /* Updated to modern syntax */
+    border-radius: 10px;
+    display: inline-block;
+    max-height: 427px;
+  }
+  
+  .item-card > img {
+    max-height: 267px;
+    border-radius: 10px 10px 0 0; /* Simplified border-radius */
+  }
+  
