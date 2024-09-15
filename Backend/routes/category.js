@@ -5,7 +5,7 @@ const path = require("path");
 const log = console.log;
 
 const SignUp = require("../models/signup");
-const { postitem } = require("../models/category");
+const { PostItem } = require("../models/category");
 const messageschema = require("../models/messages");
 const { requireSignin, userMiddleware } = require("../middleware");
 
@@ -33,7 +33,7 @@ router.post("/postitem", requireSignin, userMiddleware, upload.array("itemPictur
       itemPictures = req.files.map((file) => ({ img: file.filename }));
     }
 
-    const newPost = await postitem.create({
+    const newPost = await PostItem.create({
       name,
       description,
       question,
@@ -51,7 +51,7 @@ router.post("/postitem", requireSignin, userMiddleware, upload.array("itemPictur
 // GET /getitem
 router.get("/getitem", async (req, res) => {
   try {
-    const postitems = await postitem.find({});
+    const postitems = await PostItem.find({});
     res.status(200).json({ postitems });
   } catch (err) {
     res.status(400).json({ err });
@@ -62,7 +62,7 @@ router.get("/getitem", async (req, res) => {
 router.get("/item/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const item = await postitem.findById(id);
+    const item = await PostItem.findById(id);
     if (!item) return res.status(404).json({ message: "Item not found" });
 
     const answers = await messageschema.find({ itemId: id });
@@ -90,7 +90,7 @@ router.post("/edititem", upload.array("itemPictures"), async (req, res) => {
       itemPictures: olditemPictures ? olditemPictures.map(pic => ({ img: pic })).concat(itemPictures) : itemPictures,
     };
 
-    const updatedItem = await postitem.findByIdAndUpdate(id, updateData, { new: true });
+    const updatedItem = await PostItem.findByIdAndUpdate(id, updateData, { new: true });
     res.status(200).json({ updateItem: updatedItem });
   } catch (err) {
     res.status(400).json({ Error: err });
@@ -101,7 +101,7 @@ router.post("/edititem", upload.array("itemPictures"), async (req, res) => {
 router.post("/deleteitem", async (req, res) => {
   try {
     const { item_id } = req.body;
-    await postitem.findByIdAndDelete(item_id);
+    await PostItem.findByIdAndDelete(item_id);
     await messageschema.deleteMany({ itemId: item_id });
 
     res.status(200).json({ body: req.body });
@@ -127,7 +127,7 @@ router.get("/getnumber/:id", async (req, res) => {
 router.get("/getquestion/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const item = await postitem.findById(id);
+    const item = await PostItem.findById(id);
     if (!item) return res.status(404).json({ message: "Item not found" });
 
     const user = await SignUp.findById(item.createdBy);
@@ -173,7 +173,7 @@ router.get("/myresponses/:id", async (req, res) => {
 router.get("/mylistings/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const listings = await postitem.find({ createdBy: id });
+    const listings = await PostItem.find({ createdBy: id });
     res.status(200).json({ item: listings });
   } catch (err) {
     res.status(400).json({ Error: err });

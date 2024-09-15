@@ -31,7 +31,7 @@ function LostItem() {
 
       setLoading(true);
 
-      axios.post("https://lfs-backend.herokuapp.com/postitem", info, {
+      axios.post("http://localhost:5000/postitem", info, {
         headers: {
           Authorization: token ? `Bearer ${token}` : "",
         },
