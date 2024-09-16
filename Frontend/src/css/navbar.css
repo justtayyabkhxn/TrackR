@@ -156,11 +156,12 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  width: 100%; /* Ensure the footer takes up full width */
+  width: 100%;
+  height:100%; /* Ensure the footer takes up full width */
 }
 
 .social-icon {
-  margin: 15px 0;
+  margin: 5px 5px 10px 5px;
   width: 200px;
   display: flex;
   justify-content: space-evenly;
@@ -173,14 +174,14 @@ body {
 
 /* Personal info section */
 .personal-info {
-  margin-bottom: 15px;
+  margin-bottom: 0px;
   text-align: center;
 }
 
 .personal-info > h6,
 .personal-info > h4,
 .personal-info > a {
-  margin: 10px 0;
+  margin: 0px 0px;
 }
 
 .personal-info > p {

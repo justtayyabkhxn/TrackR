@@ -143,14 +143,21 @@ export default function Home() {
                   style={{ width: "200px", height: "200px" }}
                   alt=""
                 />
-                <h4><span>
-                CREATE AN ACCOUNT
-                </span>
-                  </h4>
+                <h4>
+                  <span>CREATE AN ACCOUNT</span>
+                </h4>
                 <p>Initially, you have to create an account to get started.</p>
                 <a href="/sign-up">
-                  <Button variant="custom" size="lg" className="signupCircle"
-                  style={{textShadow:"0.5px 0.5px 1px black",fontFamily:"Mali, cursive",fontWeight:"600",textTransform:"uppercase"}}
+                  <Button
+                    variant="custom"
+                    size="lg"
+                    className="signupCircle"
+                    style={{
+                      textShadow: "0.5px 0.5px 1px black",
+                      fontFamily: "Mali, cursive",
+                      fontWeight: "600",
+                      textTransform: "uppercase",
+                    }}
                   >
                     Sign Up
                   </Button>
@@ -162,10 +169,9 @@ export default function Home() {
                   style={{ width: "200px", height: "200px" }}
                   alt=""
                 />
-                <h4><span>
-                List Item
-                </span>
-                  </h4>
+                <h4>
+                  <span>List Item</span>
+                </h4>
                 <p>
                   List your item on the wall by filling certain details and
                   image. That's it!
@@ -177,12 +183,12 @@ export default function Home() {
                   style={{ width: "200px", height: "200px" }}
                   alt=""
                 />
-                <h4><span>
-                PRIVACY INTEGRATED
-                </span>
-                  </h4>
+                <h4>
+                  <span>PRIVACY INTEGRATED</span>
+                </h4>
                 <p>
-                Your contact info is shared only with those who answer your security question, ensuring your privacy.
+                  Your contact info is shared only with those who answer your
+                  security question, ensuring your privacy.
                 </p>
               </div>
             </div>
@@ -264,7 +270,14 @@ export default function Home() {
           </a>
         </div>
         <div className="personal-info">
-          <h5 style={{textShadow:"0px 1px 1px black",textTransform:"uppercase"}}>Track It By Tayyab Khan</h5>
+          <h5
+            style={{
+              textShadow: "0px 1px 1px black",
+              textTransform: "uppercase",
+            }}
+          >
+            Track It By Tayyab Khan
+          </h5>
         </div>
       </div>
     </>

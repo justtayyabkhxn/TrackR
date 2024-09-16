@@ -67,6 +67,8 @@ function LostItem() {
         .then((response) => {
           alert("Wohoo 🤩! Item listed successfully.");
           handleClose();
+          window.location.reload();
+          
         })
         .catch((err) => {
           if (err.response) {
