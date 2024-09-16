@@ -5,7 +5,7 @@
   }
   
   .item-card {
-    box-shadow: 0 5px 25px rgba(204, 204, 204, 0.75); /* Updated to modern syntax */
+    box-shadow: 2px 5px 5px black; /* Updated to modern syntax */
     border-radius: 10px;
     display: inline-block;
     width: 100%;

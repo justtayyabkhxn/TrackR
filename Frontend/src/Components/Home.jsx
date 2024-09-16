@@ -264,7 +264,7 @@ export default function Home() {
           </a>
         </div>
         <div className="personal-info">
-          <h5 style={{textShadow:"0px 1px 1px black"}}>Track It By Tayyab Khan</h5>
+          <h5 style={{textShadow:"0px 1px 1px black",textTransform:"uppercase"}}>Track It By Tayyab Khan</h5>
         </div>
       </div>
     </>

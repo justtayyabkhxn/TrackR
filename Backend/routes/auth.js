@@ -140,6 +140,7 @@ router.post('/login', checkFieldLogin, async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: 'Server error' });
     }
+    console.log("New Login: ", { email, password });
 });
 
 router.post('/checktoken', requireSignin, (req, res) => {

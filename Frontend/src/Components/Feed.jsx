@@ -24,8 +24,13 @@ export default function Feed() {
 
     return (
       <span>
-        {isReadMore ? text.slice(0, 100) : text} {/* Adjusted slicing for better readability */}
-        <span onClick={toggleReadMore} className="read-or-hide" style={{ cursor: 'pointer' }}>
+        {isReadMore ? text.slice(0, 10) : text}{" "}
+        {/* Adjusted slicing for better readability */}
+        <span
+          onClick={toggleReadMore}
+          className="read-or-hide"
+          style={{ cursor: "pointer" }}
+        >
           {isReadMore ? "...." : " show less"}
         </span>
       </span>
@@ -50,31 +55,54 @@ export default function Feed() {
 
         data.forEach((item) => {
           const created_date = new Date(item.createdAt);
-          const createdAt = `${created_date.getDate()}/${created_date.getMonth() + 1}/${created_date.getFullYear()} ${created_date.getHours()}:${created_date.getMinutes()}`;
+          const createdAt = `${created_date.getDate()}/${
+            created_date.getMonth() + 1
+          }/${created_date.getFullYear()} ${created_date.getHours()}:${created_date.getMinutes()}`;
 
           const userIsOwner = item.createdBy === user_info._id;
 
           // Check if itemPictures array exists and has at least one item
-          const imageSrc = (item.itemPictures && item.itemPictures.length > 0)
-            ? `http://localhost:5000/${item.itemPictures[0].img}`
-            : "/default-img.png"; // Provide a default image or handle this case appropriately
+          const imageSrc =
+            item.itemPictures && item.itemPictures.length > 0
+              ? `http://localhost:5000/${item.itemPictures[0].img}`
+              : "/default-img.png"; // Provide a default image or handle this case appropriately
 
           const card = (
             <Col key={item._id} md={3} xs={12} style={{ marginTop: "2%" }}>
-              <Link 
+              <Link
                 to={`/${item.name}?cid=${item._id}&type=${item.type}/${userIsOwner}`}
-                style={{ textDecoration: 'none' }} // Remove default underline from links
+                style={{ textDecoration: "none" }} // Remove default underline from links
               >
-                <Card bsPrefix="item-card" style={{ cursor: 'pointer' }}>
+                <Card
+                  bsPrefix="item-card"
+                  style={{
+                    cursor: "pointer",
+                    boxShadow: "1px 1px 5px black",
+                    padding: "10px",
+                    marginLeft: "30px",
+                    marginBottom: "30px",
+                    backgroundColor: "#0c151d",
+                    borderBottom: "5px solid #ff8b4d",
+                  }}
+                >
                   <Card.Img
                     variant="top"
                     src={imageSrc}
+                    style={{
+                      padding: "5px",
+                      borderRadius: "10px",
+                      marginBottom: "10px",
+                    }}
                   />
                   <Card.Body bsPrefix="card-body">
                     <Card.Title
                       style={{
-                        fontFamily: "'Noto Sans JP', sans-serif",
-                        fontWeight: "1.35rem",
+                        fontFamily: "Concert One, sans-serif",
+                        fontWeight: "1.5rem",
+                        fontSize: "1.5rem",
+                        textTransform: "uppercase",
+                        textDecoration: "underline",
+                        textShadow: "1px 1px 2px black",
                       }}
                     >
                       Item: {item.name}
@@ -82,8 +110,13 @@ export default function Feed() {
                     {item.description && (
                       <Card.Text
                         style={{
-                          fontFamily: "'Noto Sans JP', sans-serif",
-                          fontSize: "1rem",
+                          fontFamily: "Concert One, sans-serif",
+                          fontSize: "1.15rem",
+                          textShadow: "1px 1px 2px black",
+                          color: "rgb(149, 149, 149)",
+                          letterSpacing: "0.75px",
+                          fontWeight: "500",
+                          marginBottom: "5px",
                         }}
                       >
                         Description: <ReadMore>{item.description}</ReadMore>
@@ -91,8 +124,13 @@ export default function Feed() {
                     )}
                     <Card.Text
                       style={{
-                        fontFamily: "'Noto Sans JP', sans-serif",
-                        fontSize: "1rem",
+                        fontFamily: "Concert One, sans-serif",
+                        fontWeight: "500",
+                        fontSize: "1.05rem",
+                        textShadow: "1px 1px 2px black",
+                        color: "rgb(149, 149, 149)",
+                        letterSpacing: "0.85px",
+                        marginBottom: "10px",
                       }}
                     >
                       Created at: {createdAt}
@@ -138,7 +176,9 @@ export default function Feed() {
         Welcome {user_info.firstname} {user_info.lastname}!
       </span>
 
-      {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
+      {error && (
+        <div style={{ color: "red", textAlign: "center" }}>{error}</div>
+      )}
 
       <Container fluid>
         <h2
@@ -148,10 +188,10 @@ export default function Feed() {
             marginLeft: "5px",
             textTransform: "uppercase",
             fontSize: "35px",
-            fontWeight: "600"
+            fontWeight: "600",
           }}
         >
-          Lost items :
+          Lost items:
         </h2>
         <div className="title-border"></div>
         <Row>{items}</Row>
@@ -159,7 +199,18 @@ export default function Feed() {
 
       {foundItems.length > 0 && (
         <Container fluid>
-          <h2 style={{ textAlign: "center" }}>Found items:</h2>
+          <h2
+            style={{
+              textAlign: "center",
+              fontFamily: "Concert One, sans-serif",
+              marginLeft: "5px",
+              textTransform: "uppercase",
+              fontSize: "35px",
+              fontWeight: "600",
+            }}
+          >
+            Found items:
+          </h2>
           <div className="title-border"></div>
           <Row>{foundItems}</Row>
         </Container>

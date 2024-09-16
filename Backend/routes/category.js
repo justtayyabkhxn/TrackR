@@ -32,7 +32,7 @@ router.post("/postitem", requireSignin, userMiddleware, upload.array("itemPictur
     if (req.files.length > 0) {
       itemPictures = req.files.map((file) => ({ img: file.filename }));
     }
-    console.log(req.user);
+    // console.log(req.user);
     const newPost = await PostItem.create({
       name,
       description,
@@ -41,6 +41,7 @@ router.post("/postitem", requireSignin, userMiddleware, upload.array("itemPictur
       createdBy: req.user.id,
       itemPictures,
     });
+    console.log("New post: ",newPost);
 
     res.status(201).json({ item: newPost });
   } catch (err) {
@@ -53,9 +54,9 @@ router.get("/getitem", async (req, res) => {
     const postitems = await PostItem.find({});
     if(postitems)
         res.status(200).json({ postitems });
-    console.log("Here");
+    // console.log("Here");
   } catch (err) {
-    console.log("Here in the error")
+    // console.log("Here in the error")
     res.status(400).json({ err });
   }
 });
