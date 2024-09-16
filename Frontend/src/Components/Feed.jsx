@@ -5,6 +5,7 @@ import "../css/feed.css";
 import "../css/item_card.css";
 import Axios from "axios";
 import { Card, Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 export default function Feed() {
   // Fetch user information from localStorage
@@ -14,6 +15,7 @@ export default function Feed() {
 
   const [items, setItems] = useState([]);
   const [foundItems, setFoundItems] = useState([]);
+  const [error, setError] = useState(null); // Added error state
 
   const ReadMore = ({ children }) => {
     const text = children;
@@ -21,12 +23,12 @@ export default function Feed() {
     const toggleReadMore = () => setIsReadMore(!isReadMore);
 
     return (
-      <p style={{ fontSize: "1rem" }} className="text">
-        {isReadMore ? text.slice(0, 15) : text}
-        <span onClick={toggleReadMore} className="read-or-hide">
+      <span>
+        {isReadMore ? text.slice(0, 100) : text} {/* Adjusted slicing for better readability */}
+        <span onClick={toggleReadMore} className="read-or-hide" style={{ cursor: 'pointer' }}>
           {isReadMore ? "...." : " show less"}
         </span>
-      </p>
+      </span>
     );
   };
 
@@ -37,6 +39,10 @@ export default function Feed() {
     const fetchItems = async () => {
       try {
         const response = await Axios.get("http://localhost:5000/getitem");
+        if (!response.data || !response.data.postitems) {
+          throw new Error("Invalid response structure");
+        }
+
         const data = response.data.postitems.reverse();
 
         const lostItems = [];
@@ -44,20 +50,25 @@ export default function Feed() {
 
         data.forEach((item) => {
           const created_date = new Date(item.createdAt);
-          const createdAt = `${created_date.getDate()}/${created_date.getMonth()}/${created_date.getFullYear()} ${created_date.getHours()}:${created_date.getMinutes()}`;
+          const createdAt = `${created_date.getDate()}/${created_date.getMonth() + 1}/${created_date.getFullYear()} ${created_date.getHours()}:${created_date.getMinutes()}`;
 
           const userIsOwner = item.createdBy === user_info._id;
 
+          // Check if itemPictures array exists and has at least one item
+          const imageSrc = (item.itemPictures && item.itemPictures.length > 0)
+            ? `http://localhost:5000/${item.itemPictures[0].img}`
+            : "/default-img.png"; // Provide a default image or handle this case appropriately
+
           const card = (
-            <a
-              key={item._id}
-              href={`/${item.name}?cid=${item._id}&type=${item.type}/${userIsOwner}`}
-            >
-              <Col style={{ marginTop: "2%" }} md={3}>
-                <Card bsPrefix="item-card">
+            <Col key={item._id} md={3} xs={12} style={{ marginTop: "2%" }}>
+              <Link 
+                to={`/${item.name}?cid=${item._id}&type=${item.type}/${userIsOwner}`}
+                style={{ textDecoration: 'none' }} // Remove default underline from links
+              >
+                <Card bsPrefix="item-card" style={{ cursor: 'pointer' }}>
                   <Card.Img
                     variant="top"
-                    src={`http://localhost:5000/${item.itemPictures[0].img}`}
+                    src={imageSrc}
                   />
                   <Card.Body bsPrefix="card-body">
                     <Card.Title
@@ -88,8 +99,8 @@ export default function Feed() {
                     </Card.Text>
                   </Card.Body>
                 </Card>
-              </Col>
-            </a>
+              </Link>
+            </Col>
           );
 
           // Categorize items into Lost and Found
@@ -104,6 +115,7 @@ export default function Feed() {
         setFoundItems(foundItemsList);
       } catch (error) {
         console.error("Error fetching items:", error);
+        setError("Failed to load items. Please try again later.");
       }
     };
 
@@ -126,6 +138,8 @@ export default function Feed() {
         Welcome {user_info.firstname} {user_info.lastname}!
       </span>
 
+      {error && <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>}
+
       <Container fluid>
         <h2
           style={{
@@ -133,8 +147,8 @@ export default function Feed() {
             fontFamily: "Concert One, sans-serif",
             marginLeft: "5px",
             textTransform: "uppercase",
-            fontSize:"35px",
-            fontWeight:"600"
+            fontSize: "35px",
+            fontWeight: "600"
           }}
         >
           Lost items :

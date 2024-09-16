@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import lodash from "lodash";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, Form, Spinner } from "react-bootstrap";
 
@@ -15,7 +14,26 @@ function LostItem() {
   const [type, setType] = useState("");
 
   const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
+
+  const handleClose = () => {
+    setShow(false);
+    setItemName("");
+    setDescription("");
+    setType("");
+    setItemQuestion("");
+    setItemImage([]);
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    const validImages = selectedFiles.filter((file) =>
+      ["image/jpeg", "image/png", "image/jpg"].includes(file.type)
+    );
+    if (validImages.length !== selectedFiles.length) {
+      alert("Please upload only image files (jpg, jpeg, png).");
+    }
+    setItemImage(validImages);
+  };
 
   const handleSubmit = () => {
     if (itemName && description && type) {
@@ -25,48 +43,62 @@ function LostItem() {
       info.append("question", itemQuestion);
       info.append("type", type);
 
-      itemImage.forEach((image) => {
-        info.append("itemPictures", image, image.name);
-      });
+      if (itemImage.length > 0) {
+        itemImage.forEach((image) => {
+          info.append("itemPictures", image, image.name);
+        });
+      }
 
       setLoading(true);
 
-      axios.post("http://localhost:5000/postitem", info, {
-        headers: {
-          Authorization: token ? `Bearer ${token}` : "",
-        },
-        onUploadProgress: (ProgressEvent) => {
-          console.log(
-            `Upload progress: ${Math.round(
-              (ProgressEvent.loaded / ProgressEvent.total) * 100
-            )}%`
-          );
-        },
-      })
+      axios
+        .post("http://localhost:5000/postitem", info, {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+          },
+          onUploadProgress: (ProgressEvent) => {
+            console.log(
+              `Upload progress: ${Math.round(
+                (ProgressEvent.loaded / ProgressEvent.total) * 100
+              )}%`
+            );
+          },
+        })
         .then((response) => {
-          alert("Wohoo 🤩! Item listed successfully.", { appearance: "success" });
-          setItemName("");
-          setDescription("");
-          setType("");
-          setItemQuestion("");
-          setItemImage([]);
+          alert("Wohoo 🤩! Item listed successfully.");
           handleClose();
         })
         .catch((err) => {
-          alert("Oops 😞! Check internet connection or try again later.", { appearance: "error" });
+          if (err.response) {
+            alert(`Error: ${err.response.data.message || 'Something went wrong!'}`);
+          } else {
+            alert("Oops 😞! Check internet connection or try again later.");
+          }
         })
         .finally(() => {
           setLoading(false);
         });
     } else {
-      alert("Did you miss any of the required fields 🙄?", { appearance: "error" });
+      alert("Did you miss any of the required fields 🙄?");
     }
   };
 
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}
-      style={{backgroundColor:"#ff8b4d",color:"#0c151d",border:"none",height:"53px",fontSize:"20px",boxShadow:"2px 2px 2px black",textShadow:"0.2px 0.25px .1px black",marginRight:"0px"}}>
+      <Button
+        variant="primary"
+        onClick={handleShow}
+        style={{
+          backgroundColor: "#ff8b4d",
+          color: "#0c151d",
+          border: "none",
+          height: "53px",
+          fontSize: "20px",
+          boxShadow: "2px 2px 2px black",
+          textShadow: "0.2px 0.25px .1px black",
+          marginRight: "0px",
+        }}
+      >
         POST ITEM
       </Button>
 
@@ -125,15 +157,13 @@ function LostItem() {
                 <option value="Found">Found It</option>
               </Form.Control>
             </Form.Group>
-            
+
             <Form.Group>
               <Form.Label>Upload Image</Form.Label>
               <Form.Control
                 type="file"
                 multiple
-                onChange={(e) => {
-                  setItemImage([...e.target.files]);
-                }}
+                onChange={handleFileChange}
               />
             </Form.Group>
           </Form>

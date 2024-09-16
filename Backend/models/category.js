@@ -1,44 +1,47 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const CategorySchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true, // Ensures the 'name' field is unique
-    },
-    description: {
-        type: String,
-        required: false,
-    },
-    type: {
-        type: String,
-        required: true,
-    },
-    itemPictures: [{
-        img: {
-            type: String,
-            required: false,
-        }
-    }],
-    question: {
-        type: String,
-        required: true,
-    },
-    status: {
-        type: Boolean,
-        default: true,
-    },
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'SignUpSchema',
-        required: true,
-    },
+const PostItemSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true, // Ensures the 'name' field is unique
+  },
+  description: {
+    type: String,
+    required: true, // Ensure description is always required, update based on your needs
+  },
+  type: {
+    type: String,
+    required: true,
+    enum: ["Lost", "Found"], // Validates the type to be either "Lost" or "Found"
+  },
+  itemPictures: [{
+    img: {
+      type: String,
+      required: true, // Ensure all items in the array have a valid image path
+    }
+  }],
+  question: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: Boolean,
+    default: true,
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'SignUp', // Reference the actual model name, not the schema name
+    required: true,
+  },
 }, {
-    timestamps: true, // Automatically adds createdAt and updatedAt fields
+  timestamps: true, // Automatically adds createdAt and updatedAt fields
 });
 
-// Remove unnecessary fields from schema definition
-const PostItem = mongoose.model('PostItem', CategorySchema);
+// Create an index for performance on frequently queried fields
+PostItemSchema.index({ createdBy: 1 });
 
-module.exports = PostItem;
+const PostItem = mongoose.model('PostItem', PostItemSchema);
+
+module.exports = {PostItem};
