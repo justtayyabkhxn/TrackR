@@ -17,7 +17,10 @@ const Feed = () => {
     };
 
     return (
-      <p className="text">
+      <p
+        className="text"
+        style={{ color: "rgb(149, 149, 149)", letterSpacing: "0.1px" }}
+      >
         {isReadMore ? text.slice(0, 15) : text}
         <span onClick={toggleReadMore} className="read-or-hide">
           {isReadMore ? "...." : " show less"}
@@ -37,29 +40,107 @@ const Feed = () => {
       const itemList = data.reverse().map((item) => {
         const createdDate = new Date(item.createdAt);
         const createdAt =
-          `${createdDate.getDate()}/${createdDate.getMonth() + 1}/${createdDate.getFullYear()} ` +
+          `${createdDate.getDate()}/${
+            createdDate.getMonth() + 1
+          }/${createdDate.getFullYear()} ` +
           `${createdDate.getHours()}:${createdDate.getMinutes()}`;
 
         return (
           <Col key={item._id} style={{ marginTop: "2%" }} md={3}>
             <a href={`/${item.name}?cid=${item._id}&type=${item.type}/true`}>
-              <Card bsPrefix="item-card" style={{ maxHeight: "465px" }}>
+              <Card
+                bsPrefix="item-card"
+                style={{
+                  cursor: "pointer",
+                  boxShadow: "1px 1px 5px black",
+                  padding: "10px",
+                  marginLeft: "30px",
+                  marginBottom: "30px",
+                  backgroundColor: "#0c151d",
+                  borderBottom: "5px solid #ff8b4d",
+                  maxHeight: "650px",
+                  maxWidth: "650px",
+                }}
+              >
                 <Card.Img
                   variant="top"
+                  style={{
+                    padding: "5px",
+                    borderRadius: "10px",
+                    marginBottom: "10px",
+                  }}
                   src={`http://localhost:5000/${item.itemPictures[0].img}`}
                 />
                 <Card.Body bsPrefix="card-body">
                   <Badge pill variant={item.status ? "success" : "secondary"}>
                     {item.status ? "Active" : "Inactive"}
                   </Badge>
-                  <Card.Title>Item : {item.name}</Card.Title>
+                  <Card.Title
+                    style={{
+                      fontFamily: "Concert One, sans-serif",
+                      fontWeight: "1.5rem",
+                      fontSize: "1.15rem",
+                      textTransform: "uppercase",
+                      textDecoration: "underline",
+                      textShadow: "1px 1px 2px black",
+                    }}
+                  >
+                    Item : {item.name}
+                  </Card.Title>
                   {item.description && (
-                    <Card.Text>
-                      Description : <ReadMore>{item.description}</ReadMore>
+                    <Card.Text
+                      style={{
+                        fontFamily: "Concert One, sans-serif",
+                        fontSize: "1.15rem",
+                        textShadow: "1px 1px 2px black",
+                        color: "rgb(149, 149, 149)",
+                        letterSpacing: "0.75px",
+                        fontWeight: "500",
+                        marginBottom: "5px",
+                      }}
+                    >
+                      Description:{" "}
+                      <ReadMore
+                        style={{
+                          fontFamily: "Concert One, sans-serif",
+                          fontWeight: "500",
+                          fontSize: "1.05rem",
+                          textShadow: "1px 1px 2px black",
+                          color: "rgb(149, 149, 149)",
+                          letterSpacing: "0.85px",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        {item.description}
+                      </ReadMore>
                     </Card.Text>
                   )}
-                  <Card.Text>Type : {item.type}</Card.Text>
-                  <Card.Text>Created at : {createdAt}</Card.Text>
+                  <Card.Text
+                    style={{
+                      fontFamily: "Concert One, sans-serif",
+                      fontWeight: "500",
+                      fontSize: "1.05rem",
+                      textShadow: "1px 1px 2px black",
+                      color: "rgb(149, 149, 149)",
+                      letterSpacing: "0.85px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    Type : {item.type}
+                  </Card.Text>
+                  <Card.Text
+                    style={{
+                      fontFamily: "Concert One, sans-serif",
+                      fontWeight: "500",
+                      fontSize: "1.05rem",
+                      textShadow: "1px 1px 2px black",
+                      color: "rgb(149, 149, 149)",
+                      letterSpacing: "0.85px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    Created at : {createdAt}
+                  </Card.Text>
                 </Card.Body>
               </Card>
             </a>
