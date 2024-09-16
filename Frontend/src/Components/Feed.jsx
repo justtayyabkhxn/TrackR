@@ -91,7 +91,7 @@ export default function Feed() {
                     style={{
                       padding: "5px",
                       borderRadius: "10px",
-                      marginBottom: "10px",
+                       marginBottom:"10px"
                     }}
                   />
                   <Card.Body bsPrefix="card-body">
@@ -105,7 +105,7 @@ export default function Feed() {
                         textShadow: "1px 1px 2px black",
                       }}
                     >
-                      Item: {item.name}
+                      Item: <ReadMore>{item.name}</ReadMore>
                     </Card.Title>
                     {item.description && (
                       <Card.Text
@@ -115,8 +115,8 @@ export default function Feed() {
                           textShadow: "1px 1px 2px black",
                           color: "rgb(149, 149, 149)",
                           letterSpacing: "0.75px",
-                          fontWeight: "500",
-                          marginBottom: "5px",
+                          fontWeight:"500",
+                          marginBottom:"5px"
                         }}
                       >
                         Description: <ReadMore>{item.description}</ReadMore>
@@ -125,12 +125,12 @@ export default function Feed() {
                     <Card.Text
                       style={{
                         fontFamily: "Concert One, sans-serif",
-                        fontWeight: "500",
+                        fontWeight:"500",
                         fontSize: "1.05rem",
                         textShadow: "1px 1px 2px black",
                         color: "rgb(149, 149, 149)",
                         letterSpacing: "0.85px",
-                        marginBottom: "10px",
+                        marginBottom:"10px"
                       }}
                     >
                       Created at: {createdAt}
