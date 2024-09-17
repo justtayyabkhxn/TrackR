@@ -1,0 +1,41 @@
+.itempage {
+    display: flex;
+    margin: 20px 20px 20px 0px;
+    flex-wrap: wrap; /* Added flex-wrap back to handle responsiveness */
+}
+
+.itemDescription {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    background-color: #F3F3F3;
+}
+
+.details {
+    color: black;
+}
+
+.attributes {
+    color: #777777;
+    font-size: 1.35rem;
+    margin-left: 5px;
+}
+
+.ed-button {
+    margin: 10px 0px;
+}
+
+.ed-button>button {
+    margin-left: 5px;
+}
+
+.responses {
+    margin: 10px 10px;
+    display: inline-block;
+}
+
+@media (max-width: 480px) {
+    .itempage {
+        flex-wrap: wrap;
+    }
+}

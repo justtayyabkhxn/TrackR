@@ -17,7 +17,7 @@ const Feed = () => {
     };
 
     return (
-      <p
+      <span
         className="text"
         style={{ color: "rgb(149, 149, 149)", letterSpacing: "0.1px" }}
       >
@@ -25,7 +25,7 @@ const Feed = () => {
         <span onClick={toggleReadMore} className="read-or-hide">
           {isReadMore ? "...." : " show less"}
         </span>
-      </p>
+      </span>
     );
   };
 

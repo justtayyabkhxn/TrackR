@@ -7,7 +7,7 @@ import Feed from "./Components/Feed";
 // import Response from './Components/Response';
 import PrivateRoute from "./Components/PrivateRoute";
 import Home from "./Components/Home";
-// import ItemPage from './Components/ItemPage';
+import ItemPage from './Components/ItemPage';
 import MyListings from "./Components/MyListings";
 
 function App() {
@@ -26,13 +26,14 @@ function App() {
               </Route>
 
               <Route path="/mylistings" element={<MyListings />} />
+              <Route path="/:item" element={<ItemPage />} />
             </>
+
             /*
           <Route path="/responses" element={<Response />} />
-
-          <Route path="/:item" element={<ItemPage />} /> */
           }
-          {/* <Route path="*" element={<NotFound />} /> */}
+          {/* <Route path="*" element={<NotFound />} /> */
+          }
         </Routes>
       </Router>
     </>
