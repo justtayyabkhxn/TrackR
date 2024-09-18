@@ -79,10 +79,23 @@ router.get("/item/:id", async (req, res) => {
 router.post("/edititem", upload.array("itemPictures"), async (req, res) => {
   try {
     const { id, name, description, question, type, createdBy, olditemPictures } = req.body;
+    
     let itemPictures = [];
-    if (req.files.length > 0) {
+
+    // Check if new files are provided
+    if (req.files && req.files.length > 0) {
       itemPictures = req.files.map((file) => ({ img: file.filename }));
     }
+
+    // Check if old pictures are provided
+    const oldPicturesArray = olditemPictures 
+      ? Array.isArray(olditemPictures) 
+        ? olditemPictures.map(pic => ({ img: pic }))
+        : [{ img: olditemPictures }] // Handling the case where only one old image is passed
+      : [];
+
+    // Combine old and new pictures, if any
+    const finalPictures = oldPicturesArray.concat(itemPictures);
 
     const updateData = {
       name,
@@ -90,15 +103,18 @@ router.post("/edititem", upload.array("itemPictures"), async (req, res) => {
       type,
       question,
       createdBy,
-      itemPictures: olditemPictures ? olditemPictures.map(pic => ({ img: pic })).concat(itemPictures) : itemPictures,
+      itemPictures: finalPictures,
     };
 
+    // Update the item
     const updatedItem = await PostItem.findByIdAndUpdate(id, updateData, { new: true });
+
     res.status(200).json({ updateItem: updatedItem });
   } catch (err) {
-    res.status(400).json({ Error: err });
+    res.status(400).json({ Error: err.message });
   }
 });
+
 
 // POST /deleteitem
 router.post("/deleteitem", async (req, res) => {

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../css/itempage.css";
 import Axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
+
 import {
   Button,
   Modal,
@@ -223,11 +225,18 @@ function ItemPage(props) {
     formData.append("id", item_id);
     formData.append("createdBy", Createdby);
 
-    // newitemimage.length > 0
-    //   ? newitemimage.forEach((img) =>
-    //       formData.append("itemPictures", img, img.name)
-    //     )
-    //   : itemimage.forEach((img) => formData.append("olditemPictures", img.img));
+    if (newitemimage && newitemimage.length > 0) {
+      // If new images are provided, append them
+      newitemimage.forEach((img) => {
+        formData.append("itemPictures", img, img.name);
+      });
+    } else if (itemImage && itemImage.length > 0) {
+      // If no new images, append old images
+      itemImage.forEach((img) => {
+        formData.append("olditemPictures", img.img);
+      });
+    }
+    
 
     Axios.post("http://localhost:5000/edititem", formData)
       .then(() => {
@@ -276,7 +285,20 @@ function ItemPage(props) {
                 alt="item"
               />
             ) : (
-              <p>Loading Image...</p>
+              <div>
+
+              <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                  style={{color: "#0c151d"}}
+                />
+                <span className="sr-only" 
+                style={{fontSize:"1.2rem",color: "#0c151d"} }> Loading...</span>
+                </div>
+            
             )}
           </div>
           <div className="itempage">

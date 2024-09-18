@@ -13,6 +13,7 @@
 }
 .parent{
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-evenly;
 }
@@ -41,7 +42,7 @@
 img{
     height: 350px;
     max-width: 750px;
-    box-shadow: 2px 2px 2px black;
+    /* box-shadow: 2px 2px 2px black; */
     background-color: #0c151d;
 }
 
