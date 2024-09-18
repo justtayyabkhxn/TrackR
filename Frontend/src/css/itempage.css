@@ -7,12 +7,17 @@
 .itemDescription {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    border-radius: 10px;
     background-color: #F3F3F3;
 }
-
+.parent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
 .details {
-    color: black;
+    color: #ff8b4d;
 }
 
 .attributes {
@@ -32,6 +37,12 @@
 .responses {
     margin: 10px 10px;
     display: inline-block;
+}
+img{
+    height: 350px;
+    max-width: 750px;
+    box-shadow: 2px 2px 2px black;
+    background-color: #0c151d;
 }
 
 @media (max-width: 480px) {

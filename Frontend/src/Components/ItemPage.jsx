@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../css/itempage.css";
 import Axios from "axios";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Button,
   Modal,
@@ -17,6 +17,7 @@ import { LOGGED_IN, setConstraint } from "../constraints";
 function ItemPage(props) {
   const navigate = useNavigate();
 
+  const [ItemData, setItemData] = useState([]);
   const [Itemname, setItemname] = useState("");
   const [ActivationRequest, setActivationRequest] = useState(false);
   const [Createdby, setCreatedby] = useState("");
@@ -29,7 +30,7 @@ function ItemPage(props) {
   const [itemname, setItemnameState] = useState("");
   const [description, setDescription] = useState("");
   const [itemquestion, setItemQuestion] = useState("");
-  const [itemimage, setItemImage] = useState([]);
+  const [itemImage, setItemImage] = useState([]);
   const [newitemimage, setNewItemImage] = useState([]);
   const [type, setType] = useState("");
   const [messageId, setMessageId] = useState("");
@@ -44,18 +45,18 @@ function ItemPage(props) {
 
   // Constants and Data Extraction from URL
   setConstraint(true);
-//   const item_type = props.location.search.split("=")[2].split("/")[0];
-//   const item_id = props.location.search.split("=")[1].split("&")[0];
-//   const current_user = props.location.search.split("/")[1];
-const location = useLocation(); // Use the useLocation hook to get the current location object
-const queryParams = new URLSearchParams(location.search); // Create a URLSearchParams object from the query string
+  //   const item_type = props.location.search.split("=")[2].split("/")[0];
+  //   const item_id = props.location.search.split("=")[1].split("&")[0];
+  //   const current_user = props.location.search.split("/")[1];
+  const location = useLocation(); // Use the useLocation hook to get the current location object
+  const queryParams = new URLSearchParams(location.search); // Create a URLSearchParams object from the query string
 
-const item_id = queryParams.get('cid'); // Extract the item ID from the 'cid' parameter
-const item_type = queryParams.get('type').split('/')[0]; // Extract the item type from the 'type' parameter and split it
-const current_user = queryParams.get('type').split('/')[1]; // Extract the current user info from the 'type' parameter
+  const item_id = queryParams.get("cid"); // Extract the item ID from the 'cid' parameter
+  const item_type = queryParams.get("type").split("/")[0]; // Extract the item type from the 'type' parameter and split it
+  const current_user = queryParams.get("type").split("/")[1]; // Extract the current user info from the 'type' parameter
 
-// Use the extracted values in your component logic
-console.log(item_id, item_type, current_user);
+  // Use the extracted values in your component logic
+  // console.log(item_id, item_type, current_user);
 
   // Fetching item data on component mount
   useEffect(() => {
@@ -63,8 +64,11 @@ console.log(item_id, item_type, current_user);
       .then((response) => {
         const data = response.data.Item;
         const answers = response.data.Answers;
-        console.log("Data is: ",data);
+        // console.log("Data is: ", data);
 
+        setItemData(data);
+
+        // console.log("img id: ", ItemData);
         if (JSON.parse(localStorage.getItem("user"))._id === data.givenBy) {
           setAlreadyAnswered(true);
         }
@@ -77,27 +81,89 @@ console.log(item_id, item_type, current_user);
         setItemImage(data.itemPictures);
 
         setItemname(
-          <div className="itemDescription">
-            <h3 className="attributes">
+          <div
+            className="itemDescription"
+            style={{
+              cursor: "pointer",
+              boxShadow: "1px 1px 5px black",
+              padding: "10px",
+              marginLeft: "30px",
+              marginBottom: "30px",
+              backgroundColor: "#0c151d",
+              borderBottom: "5px solid #ff8b4d",
+              maxHeight: "650px",
+              maxWidth: "650px",
+            }}
+          >
+            <h3
+              className="attributes"
+              style={{
+                fontFamily: "Concert One, sans-serif",
+                fontWeight: "1.5rem",
+                fontSize: "1.55rem",
+                textTransform: "uppercase",
+                textDecoration: "underline",
+                textShadow: "1px 1px 2px black",
+              }}
+            >
               Item name : <span className="details">{data.name}</span>
             </h3>
             <hr />
-            <h3 className="attributes">
-              Item description : <span className="details">{data.description}</span>
+            <h3
+              className="attributes"
+              style={{
+                fontFamily: "Concert One, sans-serif",
+                fontSize: "1.25rem",
+                textShadow: "1px 1px 2px black",
+                color: "rgb(149, 149, 149)",
+                letterSpacing: "0.75px",
+                fontWeight: "500",
+                marginBottom: "5px",
+              }}
+            >
+              Item description :{" "}
+              <span className="details">{data.description}</span>
             </h3>
             <hr />
-            <h3 className="attributes">
+            <h3 className="attributes"
+            style={{
+              fontFamily: "Concert One, sans-serif",
+              fontWeight: "500",
+              fontSize: "1.25rem",
+              textShadow: "1px 1px 2px black",
+              color: "rgb(149, 149, 149)",
+              letterSpacing: "0.85px",
+              marginBottom: "10px",
+            }}>
               Item type : <span className="details">{data.type}</span>
             </h3>
             <hr />
-            <h3 className="attributes">
+            <h3 className="attributes"
+            style={{
+              fontFamily: "Concert One, sans-serif",
+              fontWeight: "500",
+              fontSize: "1.25rem",
+              textShadow: "1px 1px 2px black",
+              color: "rgb(149, 149, 149)",
+              letterSpacing: "0.85px",
+              marginBottom: "10px",
+            }}>
               Status :{" "}
               <span className="details">
                 {data.status ? "Active" : "Inactive"}
               </span>
             </h3>
             <hr />
-            <h6 className="attributes">
+            <h6 className="attributes"
+            style={{
+              fontFamily: "Concert One, sans-serif",
+              fontWeight: "500",
+              fontSize: "1.25rem",
+              textShadow: "1px 1px 2px black",
+              color: "rgb(149, 149, 149)",
+              letterSpacing: "0.85px",
+              marginBottom: "10px",
+            }}>
               Created at:{" "}
               <span className="details">
                 {new Date(data.createdAt).toLocaleString()}
@@ -157,11 +223,11 @@ console.log(item_id, item_type, current_user);
     formData.append("id", item_id);
     formData.append("createdBy", Createdby);
 
-    newitemimage.length > 0
-      ? newitemimage.forEach((img) =>
-          formData.append("itemPictures", img, img.name)
-        )
-      : itemimage.forEach((img) => formData.append("olditemPictures", img.img));
+    // newitemimage.length > 0
+    //   ? newitemimage.forEach((img) =>
+    //       formData.append("itemPictures", img, img.name)
+    //     )
+    //   : itemimage.forEach((img) => formData.append("olditemPictures", img.img));
 
     Axios.post("http://localhost:5000/edititem", formData)
       .then(() => {
@@ -193,10 +259,30 @@ console.log(item_id, item_type, current_user);
     <>
       <Navbar />
       <Container fluid>
-        <div className="itempage">
-          <div>{Itemname}</div>
-        </div>
+        <div className="parent">
+          <div style={{marginTop:"20px"}}>
+            {ItemData.itemPictures &&
+            Array.isArray(ItemData.itemPictures) &&
+            ItemData.itemPictures.length > 0 ? (
+              <img
+                style={{
+                  padding: "15px 15px 0px 15px",
+                  borderRadius: "10px",
+                  marginBottom: "10px",
+                  borderBottom: "8px solid #ff8b4d",
 
+                }}
+                src={`http://localhost:5000/${ItemData.itemPictures[0].img}`}
+                alt="item"
+              />
+            ) : (
+              <p>Loading Image...</p>
+            )}
+          </div>
+          <div className="itempage">
+            <div>{Itemname}</div>
+          </div>
+        </div>
         {/* Modals */}
         <Modal show={ActivationRequest} onHide={handleCloseActivation}>
           <Modal.Body>Are you sure?</Modal.Body>
