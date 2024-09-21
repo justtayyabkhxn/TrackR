@@ -127,45 +127,51 @@ function ItemPage(props) {
               <span className="details">{data.description}</span>
             </h3>
             <hr />
-            <h3 className="attributes"
-            style={{
-              fontFamily: "Concert One, sans-serif",
-              fontWeight: "500",
-              fontSize: "1.25rem",
-              textShadow: "1px 1px 2px black",
-              color: "rgb(149, 149, 149)",
-              letterSpacing: "0.85px",
-              marginBottom: "10px",
-            }}>
+            <h3
+              className="attributes"
+              style={{
+                fontFamily: "Concert One, sans-serif",
+                fontWeight: "500",
+                fontSize: "1.25rem",
+                textShadow: "1px 1px 2px black",
+                color: "rgb(149, 149, 149)",
+                letterSpacing: "0.85px",
+                marginBottom: "10px",
+              }}
+            >
               Item type : <span className="details">{data.type}</span>
             </h3>
             <hr />
-            <h3 className="attributes"
-            style={{
-              fontFamily: "Concert One, sans-serif",
-              fontWeight: "500",
-              fontSize: "1.25rem",
-              textShadow: "1px 1px 2px black",
-              color: "rgb(149, 149, 149)",
-              letterSpacing: "0.85px",
-              marginBottom: "10px",
-            }}>
+            <h3
+              className="attributes"
+              style={{
+                fontFamily: "Concert One, sans-serif",
+                fontWeight: "500",
+                fontSize: "1.25rem",
+                textShadow: "1px 1px 2px black",
+                color: "rgb(149, 149, 149)",
+                letterSpacing: "0.85px",
+                marginBottom: "10px",
+              }}
+            >
               Status :{" "}
               <span className="details">
                 {data.status ? "Active" : "Inactive"}
               </span>
             </h3>
             <hr />
-            <h6 className="attributes"
-            style={{
-              fontFamily: "Concert One, sans-serif",
-              fontWeight: "500",
-              fontSize: "1.25rem",
-              textShadow: "1px 1px 2px black",
-              color: "rgb(149, 149, 149)",
-              letterSpacing: "0.85px",
-              marginBottom: "10px",
-            }}>
+            <h6
+              className="attributes"
+              style={{
+                fontFamily: "Concert One, sans-serif",
+                fontWeight: "500",
+                fontSize: "1.25rem",
+                textShadow: "1px 1px 2px black",
+                color: "rgb(149, 149, 149)",
+                letterSpacing: "0.85px",
+                marginBottom: "10px",
+              }}
+            >
               Created at:{" "}
               <span className="details">
                 {new Date(data.createdAt).toLocaleString()}
@@ -211,7 +217,7 @@ function ItemPage(props) {
       .then(() => {
         handleCloseDelete();
         alert("Item deleted successfully!");
-        setTimeout(() => navigate("/feed"), 2000);
+        setTimeout(() => navigate("/feed"), 1500);
       })
       .catch((err) => console.log(err));
   };
@@ -236,7 +242,6 @@ function ItemPage(props) {
         formData.append("olditemPictures", img.img);
       });
     }
-    
 
     Axios.post("http://localhost:5000/edititem", formData)
       .then(() => {
@@ -269,7 +274,7 @@ function ItemPage(props) {
       <Navbar />
       <Container fluid>
         <div className="parent">
-          <div style={{marginTop:"20px"}}>
+          <div style={{ marginTop: "20px" }}>
             {ItemData.itemPictures &&
             Array.isArray(ItemData.itemPictures) &&
             ItemData.itemPictures.length > 0 ? (
@@ -279,26 +284,28 @@ function ItemPage(props) {
                   borderRadius: "10px",
                   marginBottom: "10px",
                   borderBottom: "8px solid #ff8b4d",
-
                 }}
                 src={`http://localhost:5000/${ItemData.itemPictures[0].img}`}
                 alt="item"
               />
             ) : (
               <div>
-
-              <Spinner
+                <Spinner
                   as="span"
                   animation="border"
                   size="sm"
                   role="status"
                   aria-hidden="true"
-                  style={{color: "#0c151d"}}
+                  style={{ color: "#0c151d" }}
                 />
-                <span className="sr-only" 
-                style={{fontSize:"1.2rem",color: "#0c151d"} }> Loading...</span>
-                </div>
-            
+                <span
+                  className="sr-only"
+                  style={{ fontSize: "1.2rem", color: "#0c151d" }}
+                >
+                  {" "}
+                  Loading...
+                </span>
+              </div>
             )}
           </div>
           <div className="itempage">

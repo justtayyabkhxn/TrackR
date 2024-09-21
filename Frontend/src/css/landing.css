@@ -49,7 +49,9 @@
   font-weight: 600;
   text-shadow: 0.5px 0px 0.25px black;
 }
-
+.footer img{
+  background: none;
+}
 .image {
   margin-right: 1.5rem; /* 25px */
 }
