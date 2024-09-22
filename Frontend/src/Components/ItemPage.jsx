@@ -26,12 +26,13 @@ function ItemPage(props) {
   const [show, setShow] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [alreadyAnswered, setAlreadyAnswered] = useState(false);
-  const [showQuestion, setShowQuestion] = useState(false);
+  const [showQuestion, setshowQuestion] = useState(false);
   const [answer, setAnswer] = useState("");
   const [itemid, setItemid] = useState("");
   const [itemname, setItemnameState] = useState("");
   const [description, setDescription] = useState("");
   const [itemquestion, setItemQuestion] = useState("");
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [itemImage, setItemImage] = useState([]);
   const [newitemimage, setNewItemImage] = useState([]);
   const [type, setType] = useState("");
@@ -41,15 +42,13 @@ function ItemPage(props) {
   // Modal Controls
   const handleCloseDelete = () => setShowDelete(false);
   const handleCloseActivation = () => setActivationRequest(false);
-  const handleCloseQuestion = () => setShowQuestion(false);
+  const handleCloseQuestion = () => setshowQuestion(false);
   const handleShowDelete = () => setShowDelete(true);
-  const handleShowQuestion = () => setShowQuestion(true);
+  // const handleShowQuestion = () => setQuestion(true);
+  // const handleShowQuestion = () => setShowQuestion(true);
 
   // Constants and Data Extraction from URL
   setConstraint(true);
-  //   const item_type = props.location.search.split("=")[2].split("/")[0];
-  //   const item_id = props.location.search.split("=")[1].split("&")[0];
-  //   const current_user = props.location.search.split("/")[1];
   const location = useLocation(); // Use the useLocation hook to get the current location object
   const queryParams = new URLSearchParams(location.search); // Create a URLSearchParams object from the query string
 
@@ -252,6 +251,10 @@ function ItemPage(props) {
     setShow(false);
   };
 
+  const show_question = () => {
+    setshowQuestion(true);
+  };
+
   const submitAnswer = () => {
     Axios.post("http://localhost:5000/submitAnswer", {
       itemId: item_id,
@@ -377,26 +380,68 @@ function ItemPage(props) {
           </Modal.Body>
         </Modal>
 
-        <Modal show={showQuestion} onHide={handleCloseQuestion}>
-          <Modal.Header closeButton>
-            <Modal.Title>Submit Answer</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group>
-                <Form.Label>{itemquestion}</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter your answer"
-                  value={answer}
-                  onChange={(e) => setAnswer(e.target.value)}
-                />
-              </Form.Group>
-              <Button variant="primary" onClick={submitAnswer}>
-                Submit
-              </Button>
-            </Form>
-          </Modal.Body>
+        <Modal
+          show={showQuestion}
+          onHide={handleCloseQuestion}
+          backdrop="static"
+        >
+          {showQuestion ? (
+            <div>
+              {/* Question and answer form */}
+              <Modal.Body>
+                <Form.Group>
+                  <Form.Label>{itemquestion}</Form.Label>{" "}
+                  {/* Display the question */}
+                  <Form.Control
+                    as="textarea"
+                    placeholder="Enter Answer"
+                    value={answer}
+                    onChange={(e) => setAnswer(e.target.value)}
+                  />
+                </Form.Group>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="primary" onClick={handleCloseQuestion}>
+                  Close
+                </Button>
+                <Button variant="primary" onClick={submitAnswer}>
+                  {" "}
+                  {/* Submit the answer */}
+                  Submit
+                </Button>
+              </Modal.Footer>
+            </div>
+          ) : (
+            <div>
+              {/* Initial confirmation */}
+              <Modal
+                show={showConfirmation}
+                onHide={() => setShowConfirmation(false)}
+                backdrop="static"
+              >
+                <Modal.Body>
+                  <p>Are you sure you found the item?</p>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    variant="primary"
+                    onClick={() => setShowConfirmation(false)}
+                  >
+                    No
+                  </Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      setShowConfirmation(false);
+                      show_question();
+                    }}
+                  >
+                    Yes
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+            </div>
+          )}
         </Modal>
       </Container>
     </>
