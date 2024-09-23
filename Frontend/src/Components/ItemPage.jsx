@@ -42,6 +42,13 @@ function ItemPage(props) {
   // Modal Controls
   const handleCloseDelete = () => setShowDelete(false);
   const handleCloseActivation = () => setActivationRequest(false);
+  const handleActivateConfirm = () => {
+    setActivationRequest(true); // Open confirmation modal
+  };
+  const handleDeactivateConfirm = () => {
+    setShowConfirmation(true); // Open confirmation modal
+  };
+
   const handleCloseQuestion = () => setshowQuestion(false);
   const handleShowDelete = () => setShowDelete(true);
   // const handleShowQuestion = () => setQuestion(true);
@@ -184,13 +191,83 @@ function ItemPage(props) {
                 <Button variant="primary" onClick={() => setShow(true)}>
                   Edit item
                 </Button>
-                {!data.status && (
-                  <Button
-                    variant="primary"
-                    onClick={() => setActivationRequest(true)}
-                  >
-                    Reactivate Item
-                  </Button>
+                {/* Activate/Deactivate Buttons */}
+
+                {data.status ? (
+                  <>
+                    <Button
+                      variant="primary"
+                      onClick={() => submitDeactivate(item_id)}
+                      style={{
+                        backgroundColor: "#8ccc03",
+                        border: "none",
+                        marginLeft: "5px",
+                      }}
+                    >
+                      Deactivate Item
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      variant="primary"
+                      onClick={() => submitActivate(item_id)}
+                      style={{
+                        marginTop: "0px",
+                        backgroundColor: "green",
+                        border: "none",
+                      }}
+                    >
+                      Reactivate Item
+                    </Button>
+                    {/* Activation Confirmation Modal */}
+                    <Modal
+                      show={ActivationRequest}
+                      onHide={handleCloseActivation}
+                    >
+                      <Modal.Body>
+                        Are you sure you want to activate this item?
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button
+                          variant="primary"
+                          onClick={handleCloseActivation}
+                        >
+                          No
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => submitActivate(item_id)}
+                        >
+                          Yes
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+
+                    {/* Deactivation Confirmation Modal */}
+                    <Modal
+                      show={showConfirmation}
+                      onHide={() => setShowConfirmation(false)}
+                    >
+                      <Modal.Body>
+                        Are you sure you want to deactivate this item?
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button
+                          variant="primary"
+                          onClick={() => setShowConfirmation(false)}
+                        >
+                          No
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => submitDeactivate(item_id)}
+                        >
+                          Yes
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </>
                 )}
               </div>
             )}
@@ -201,7 +278,7 @@ function ItemPage(props) {
   }, [alreadyAnswered, item_id]);
 
   // Submit Functions
-  const submitActivate = () => {
+  const submitActivate = (item_id) => {
     Axios.post(`http://localhost:5000/activateItem/${item_id}`)
       .then(() => {
         alert("Item Activated 👍");
@@ -209,6 +286,17 @@ function ItemPage(props) {
       })
       .catch((err) => console.log(err));
     setActivationRequest(false);
+  };
+
+  //Deactivate Item
+  const submitDeactivate = (item_id) => {
+    Axios.post(`http://localhost:5000/deactivateItem/${item_id}`)
+      .then(() => {
+        alert("Item Deactivated 👍");
+        setTimeout(() => window.location.reload(), 2000);
+      })
+      .catch((err) => console.log(err));
+    setShowConfirmation(false);
   };
 
   const delete_item = () => {
@@ -322,7 +410,7 @@ function ItemPage(props) {
             <Button variant="primary" onClick={handleCloseActivation}>
               No
             </Button>
-            <Button variant="danger" onClick={submitActivate}>
+            <Button variant="danger" onClick={() => submitActivate(item_id)}>
               Yes
             </Button>
           </Modal.Footer>

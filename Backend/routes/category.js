@@ -188,6 +188,48 @@ router.get("/myresponses/:id", async (req, res) => {
   }
 });
 
+// POST /activateItem/:id
+router.post("/activateItem/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Find the item by id and update its status to true (activate the item)
+    const activatedItem = await PostItem.findByIdAndUpdate(
+      id,
+      { $set: { status: true } }, // Use the 'status' field for activation
+      { new: true }
+    );
+
+    if (!activatedItem) return res.status(404).json({ message: "Item not found" });
+
+    res.status(200).json({ msg: "Item activated successfully", item: activatedItem });
+  } catch (err) {
+    res.status(400).json({ msg: err.message });
+  }
+});
+
+// POST /deactivateItem/:id
+// Route to deactivate an item
+router.post("/deactivateItem/:id", async (req, res) => {
+  try {
+    const itemId = req.params.id;
+    const updatedItem = await PostItem.findByIdAndUpdate(
+      itemId,
+      { status: false }, // Set status to false for deactivation
+      { new: true }
+    );
+
+    if (!updatedItem) {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    return res.status(200).json({ message: "Item deactivated successfully", item: updatedItem });
+  } catch (error) {
+    console.error("Error deactivating item: ", error);
+    return res.status(500).json({ error: "Failed to deactivate item" });
+  }
+});
+
 // GET /mylistings/:id
 router.get("/mylistings/:id", async (req, res) => {
   try {

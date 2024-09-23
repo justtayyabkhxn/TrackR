@@ -9,7 +9,7 @@
     flex-direction: column;
     /* border: 1px solid black; */
     border-radius: 10px;
-    background-color: #F3F3F3;
+    background-color: #f3f3f3;
 }
 .parent{
     display: flex;
@@ -20,7 +20,6 @@
 .details {
     color: #ff8b4d;
 }
-
 .attributes {
     color: #777777;
     font-size: 1.35rem;
