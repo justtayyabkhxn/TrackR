@@ -113,21 +113,23 @@ function LostItem() {
       >
         <Modal.Header
           closeButton
-          closeVariant="white"  
+          closeVariant="white"
           style={{
             backgroundColor: "#0c151d",
             color: "#ff8b4d",
             textTransform: "uppercase",
             borderBottom: "5px solid #ff8b4d",
-            
           }}
         >
-          <Modal.Title style={{ fontSize: "2rem" }}>Post item</Modal.Title>
+          <Modal.Title
+            style={{ fontSize: "2rem", textShadow: "0.5px 0.5px 1px black" }}
+          >
+            Post item
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body
           style={{
             backgroundColor: "#0c151d",
-           
           }}
         >
           <Form>
@@ -137,6 +139,7 @@ function LostItem() {
                   fontFamily: "DynaPuff, system-ui",
                   fontWeight: "400",
                   textTransform: "uppercase",
+                  textShadow: "0.5px 0.5px 1px black",
                 }}
               >
                 Item name<span style={{ color: "red" }}>*</span>
@@ -158,6 +161,7 @@ function LostItem() {
                   marginBottom: "1px",
                   fontFamily: "DynaPuff, system-ui",
                   fontWeight: "400",
+                  textShadow: "0.5px 0.5px 1px black",
                 }}
               >
                 Description<span style={{ color: "red" }}>*</span>
@@ -179,6 +183,7 @@ function LostItem() {
                   marginBottom: "1px",
                   fontFamily: "DynaPuff, system-ui",
                   fontWeight: "400",
+                  textShadow: "0.5px 0.5px 1px black",
                 }}
               >
                 Enter a question based on the item
@@ -200,6 +205,7 @@ function LostItem() {
                   marginBottom: "1px",
                   fontFamily: "DynaPuff, system-ui",
                   fontWeight: "400",
+                  textShadow: "0.5px 0.5px 1px black",
                 }}
               >
                 Item type<span style={{ color: "red" }}>*</span>
@@ -225,6 +231,7 @@ function LostItem() {
                   marginBottom: "1px",
                   fontFamily: "DynaPuff, system-ui",
                   fontWeight: "400",
+                  textShadow: "0.5px 0.5px 1px black",
                 }}
               >
                 Upload Image
@@ -258,8 +265,8 @@ function LostItem() {
               marginBottom: "1px",
               fontFamily: "DynaPuff, system-ui",
               fontWeight: "400",
-              backgroundColor:"green",
-              border:"none"
+              backgroundColor: "green",
+              border: "none",
             }}
           >
             {loading ? (

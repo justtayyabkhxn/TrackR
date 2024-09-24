@@ -1,0 +1,19 @@
+.response-title{
+    text-align: center;
+    margin-top: 5px;
+    text-transform: uppercase;
+}
+
+.responses-list{
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.responese-card{
+    border: 1px solid black;
+    display: flexbox;
+    padding: 10px 10px 15px 15px;
+    margin: 10px 10px;
+    box-shadow: 0 5px 25px rgba(204, 204, 204, 0.75); /* Updated to modern RGBA syntax */
+    border-radius: 10px;
+}

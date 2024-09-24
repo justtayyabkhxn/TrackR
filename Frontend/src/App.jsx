@@ -4,10 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Signup from "./Components/SignUp";
 import Login from "./Components/Login";
 import Feed from "./Components/Feed";
-// import Response from './Components/Response';
+import Response from "./Components/Responses";
 import PrivateRoute from "./Components/PrivateRoute";
 import Home from "./Components/Home";
-import ItemPage from './Components/ItemPage';
+import ItemPage from "./Components/ItemPage";
 import MyListings from "./Components/MyListings";
 
 function App() {
@@ -27,13 +27,12 @@ function App() {
 
               <Route path="/mylistings" element={<MyListings />} />
               <Route path="/:item" element={<ItemPage />} />
-            </>
 
-            /*
-          <Route path="/responses" element={<Response />} />
+              <Route path="/responses" element={<Response />} />
+            </>
           }
-          {/* <Route path="*" element={<NotFound />} /> */
-          }
+          /*
+          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Router>
     </>

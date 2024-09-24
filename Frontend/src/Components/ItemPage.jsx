@@ -100,7 +100,7 @@ function ItemPage(props) {
               boxShadow: "1px 1px 5px black",
               padding: "10px",
               marginLeft: "30px",
-              marginBottom: "30px",
+              marginBottom: "0.30px",
               backgroundColor: "#0c151d",
               borderBottom: "5px solid #ff8b4d",
               maxHeight: "650px",
@@ -129,7 +129,8 @@ function ItemPage(props) {
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
                 letterSpacing: "0.75px",
-                marginBottom: "5px",
+                marginBottom: "0.5px",
+                textTransform: "capitalize",
               }}
             >
               Item description :{" "}
@@ -145,7 +146,8 @@ function ItemPage(props) {
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
                 letterSpacing: "0.85px",
-                marginBottom: "10px",
+                marginBottom: "0.10px",
+                textTransform: "capitalize",
               }}
             >
               Item type : <span className="details">{data.type}</span>
@@ -160,7 +162,8 @@ function ItemPage(props) {
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
                 letterSpacing: "0.85px",
-                marginBottom: "10px",
+                marginBottom: ".10px",
+                textTransform: "capitalize",
               }}
             >
               Status :{" "}
@@ -179,6 +182,7 @@ function ItemPage(props) {
                 color: "rgb(149, 149, 149)",
                 letterSpacing: "0.85px",
                 marginBottom: "10px",
+                textTransform: "capitalize",
               }}
             >
               Created at:{" "}
@@ -188,10 +192,26 @@ function ItemPage(props) {
             </h6>
             {current_user === "true" && (
               <div className="ed-button">
-                <Button variant="danger" onClick={handleShowDelete}>
-                  Delete item
+                <Button
+                  variant="danger"
+                  onClick={handleShowDelete}
+                  style={{
+                    fontFamily: "DynaPuff",
+                    fontWeight: "400",
+                    fontSize: "1.05rem",
+                  }}
+                >
+                  Delete Item
                 </Button>
-                <Button variant="primary" onClick={() => setShow(true)}>
+                <Button
+                  variant="primary"
+                  onClick={() => setShow(true)}
+                  style={{
+                    fontFamily: "DynaPuff",
+                    fontWeight: "400",
+                    fontSize: "1.05rem",
+                  }}
+                >
                   Edit item
                 </Button>
                 {/* Activate/Deactivate Buttons */}
@@ -205,6 +225,9 @@ function ItemPage(props) {
                         backgroundColor: "#8ccc03",
                         border: "none",
                         marginLeft: "5px",
+                        fontFamily: "DynaPuff",
+                        fontWeight: "400",
+                        fontSize: "1.05rem",
                       }}
                     >
                       Deactivate Item
@@ -219,6 +242,9 @@ function ItemPage(props) {
                         marginTop: "0px",
                         backgroundColor: "green",
                         border: "none",
+                        fontFamily: "DynaPuff",
+                        fontWeight: "400",
+                        fontSize: "1.05rem",
                       }}
                     >
                       Reactivate Item
@@ -226,26 +252,32 @@ function ItemPage(props) {
                   </>
                 )}
               </div>
-            )}: (
-              <div>
-                {alreadyAnswered ? (
-                  <div className="ed-button">
-                    <Button
-                      variant="secondary"
-                      disabled
-                      onClick={handleShowQuestion}
-                    >
-                      {data.type === "Lost" ? "Found Item" : "Claim Item"}
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="ed-button">
-                    <Button variant="primary" onClick={handleShowQuestion}>
-                      {data.type === "Lost" ? "Found Item" : "Claim Item"}
-                    </Button>
-                  </div>
-                )}
-              </div>
+            )}
+            : (
+            <div>
+              {alreadyAnswered ? (
+                <div className="ed-button">
+                  <Button
+                    variant="secondary"
+                    disabled
+                    onClick={handleShowQuestion}
+                  >
+                    {data.type === "Lost" ? "Found Item" : "Claim Item"}
+                  </Button>
+                </div>
+              ) : (
+                <div className="ed-button">
+                  <Button variant="primary" onClick={handleShowQuestion} 
+                  style={{
+                    fontFamily: "DynaPuff",
+                    fontWeight: "400",
+                    fontSize: "1.05rem",
+                  }}>
+                    {data.type === "Lost" ? "Found Item" : "Claim Item"}
+                  </Button>
+                </div>
+              )}
+            </div>
             )
           </div>
         );
@@ -349,7 +381,7 @@ function ItemPage(props) {
                 style={{
                   padding: "15px 15px 0px 15px",
                   borderRadius: "10px",
-                  marginBottom: "10px",
+                  marginBottom: "0.10px",
                   borderBottom: "8px solid #ff8b4d",
                 }}
                 src={`http://localhost:5000/${ItemData.itemPictures[0].img}`}
@@ -514,9 +546,11 @@ function ItemPage(props) {
 
 export default ItemPage;
 
-
-{/* Activation Confirmation Modal */}
-                    {/* <Modal
+{
+  /* Activation Confirmation Modal */
+}
+{
+  /* <Modal
                       show={ActivationRequest}
                       onHide={handleCloseActivation}
                     >
@@ -539,8 +573,10 @@ export default ItemPage;
                       </Modal.Footer>
                     </Modal>
 
-                    {/* Deactivation Confirmation Modal */}
-                    {/* <Modal
+                    {/* Deactivation Confirmation Modal */
+}
+{
+  /* <Modal
                       show={showConfirmation}
                       onHide={() => setShowConfirmation(false)}
                     >
@@ -561,4 +597,5 @@ export default ItemPage;
                           Yes
                         </Button>
                       </Modal.Footer>
-                    </Modal> */}
+                    </Modal> */
+}
