@@ -29,6 +29,8 @@ function ItemPage(props) {
   const [showQuestion, setshowQuestion] = useState(false);
   const [answer, setAnswer] = useState("");
   const [itemid, setItemid] = useState("");
+  const [Question, setQuestion] = useState(false);
+
   const [itemname, setItemnameState] = useState("");
   const [description, setDescription] = useState("");
   const [itemquestion, setItemQuestion] = useState("");
@@ -41,6 +43,8 @@ function ItemPage(props) {
 
   // Modal Controls
   const handleCloseDelete = () => setShowDelete(false);
+  const handleShowQuestion = () => setshowQuestion(true);
+
   const handleCloseActivation = () => setActivationRequest(false);
   const handleActivateConfirm = () => {
     setActivationRequest(true); // Open confirmation modal
@@ -120,12 +124,11 @@ function ItemPage(props) {
             <h3
               className="attributes"
               style={{
-                fontFamily: "Concert One, sans-serif",
-                fontSize: "1.25rem",
+                fontFamily: "DynaPuff, system-ui",
+                fontWeight: "400",
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
                 letterSpacing: "0.75px",
-                fontWeight: "500",
                 marginBottom: "5px",
               }}
             >
@@ -136,8 +139,8 @@ function ItemPage(props) {
             <h3
               className="attributes"
               style={{
-                fontFamily: "Concert One, sans-serif",
-                fontWeight: "500",
+                fontFamily: "DynaPuff, system-ui",
+                fontWeight: "400",
                 fontSize: "1.25rem",
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
@@ -151,8 +154,8 @@ function ItemPage(props) {
             <h3
               className="attributes"
               style={{
-                fontFamily: "Concert One, sans-serif",
-                fontWeight: "500",
+                fontFamily: "DynaPuff, system-ui",
+                fontWeight: "400",
                 fontSize: "1.25rem",
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
@@ -169,8 +172,8 @@ function ItemPage(props) {
             <h6
               className="attributes"
               style={{
-                fontFamily: "Concert One, sans-serif",
-                fontWeight: "500",
+                fontFamily: "DynaPuff, system-ui",
+                fontWeight: "200",
                 fontSize: "1.25rem",
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
@@ -220,57 +223,30 @@ function ItemPage(props) {
                     >
                       Reactivate Item
                     </Button>
-                    {/* Activation Confirmation Modal */}
-                    <Modal
-                      show={ActivationRequest}
-                      onHide={handleCloseActivation}
-                    >
-                      <Modal.Body>
-                        Are you sure you want to activate this item?
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button
-                          variant="primary"
-                          onClick={handleCloseActivation}
-                        >
-                          No
-                        </Button>
-                        <Button
-                          variant="danger"
-                          onClick={() => submitActivate(item_id)}
-                        >
-                          Yes
-                        </Button>
-                      </Modal.Footer>
-                    </Modal>
-
-                    {/* Deactivation Confirmation Modal */}
-                    <Modal
-                      show={showConfirmation}
-                      onHide={() => setShowConfirmation(false)}
-                    >
-                      <Modal.Body>
-                        Are you sure you want to deactivate this item?
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button
-                          variant="primary"
-                          onClick={() => setShowConfirmation(false)}
-                        >
-                          No
-                        </Button>
-                        <Button
-                          variant="danger"
-                          onClick={() => submitDeactivate(item_id)}
-                        >
-                          Yes
-                        </Button>
-                      </Modal.Footer>
-                    </Modal>
                   </>
                 )}
               </div>
-            )}
+            )}: (
+              <div>
+                {alreadyAnswered ? (
+                  <div className="ed-button">
+                    <Button
+                      variant="secondary"
+                      disabled
+                      onClick={handleShowQuestion}
+                    >
+                      {data.type === "Lost" ? "Found Item" : "Claim Item"}
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="ed-button">
+                    <Button variant="primary" onClick={handleShowQuestion}>
+                      {data.type === "Lost" ? "Found Item" : "Claim Item"}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            )
           </div>
         );
       })
@@ -282,7 +258,7 @@ function ItemPage(props) {
     Axios.post(`http://localhost:5000/activateItem/${item_id}`)
       .then(() => {
         alert("Item Activated 👍");
-        setTimeout(() => window.location.reload(), 2000);
+        setTimeout(() => window.location.reload(), 1000);
       })
       .catch((err) => console.log(err));
     setActivationRequest(false);
@@ -293,7 +269,7 @@ function ItemPage(props) {
     Axios.post(`http://localhost:5000/deactivateItem/${item_id}`)
       .then(() => {
         alert("Item Deactivated 👍");
-        setTimeout(() => window.location.reload(), 2000);
+        setTimeout(() => window.location.reload(), 1000);
       })
       .catch((err) => console.log(err));
     setShowConfirmation(false);
@@ -333,7 +309,7 @@ function ItemPage(props) {
     Axios.post("http://localhost:5000/edititem", formData)
       .then(() => {
         alert("Item edited successfully!");
-        setTimeout(() => window.location.reload(), 2000);
+        setTimeout(() => window.location.reload(), 1000);
       })
       .catch((err) => console.log(err));
     setShow(false);
@@ -354,7 +330,7 @@ function ItemPage(props) {
       .then(() => {
         handleCloseQuestion();
         alert("Response saved ✔️");
-        setTimeout(() => window.location.reload(), 2000);
+        setTimeout(() => window.location.reload(), 1000);
       })
       .catch((err) => console.log(err));
     setAnswer("");
@@ -537,3 +513,52 @@ function ItemPage(props) {
 }
 
 export default ItemPage;
+
+
+{/* Activation Confirmation Modal */}
+                    {/* <Modal
+                      show={ActivationRequest}
+                      onHide={handleCloseActivation}
+                    >
+                      <Modal.Body>
+                        Are you sure you want to activate this item?
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button
+                          variant="primary"
+                          onClick={handleCloseActivation}
+                        >
+                          No
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => submitActivate(item_id)}
+                        >
+                          Yes
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+
+                    {/* Deactivation Confirmation Modal */}
+                    {/* <Modal
+                      show={showConfirmation}
+                      onHide={() => setShowConfirmation(false)}
+                    >
+                      <Modal.Body>
+                        Are you sure you want to deactivate this item?
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button
+                          variant="primary"
+                          onClick={() => setShowConfirmation(false)}
+                        >
+                          No
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => submitDeactivate(item_id)}
+                        >
+                          Yes
+                        </Button>
+                      </Modal.Footer>
+                    </Modal> */}

@@ -18,6 +18,9 @@
     justify-content: space-evenly;
 }
 .details {
+    font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 500;
     color: #ff8b4d;
 }
 .attributes {

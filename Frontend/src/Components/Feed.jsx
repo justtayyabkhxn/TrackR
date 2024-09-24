@@ -40,35 +40,36 @@ export default function Feed() {
   // Fetch lost and found items
   useEffect(() => {
     setConstraint(true);
-  
+
     const fetchItems = async () => {
       try {
         const response = await Axios.get("http://localhost:5000/getitem");
         if (!response.data || !response.data.postitems) {
           throw new Error("Invalid response structure");
         }
-  
+
         const data = response.data.postitems.reverse(); // Reverse data to show latest items first
-  
+
         const lostItems = [];
         const foundItemsList = [];
-  
+
         // Filter and categorize items into Lost and Found, considering the status
         data.forEach((item) => {
-          if (item.status === true) {  // Only consider items with status true
+          if (item.status === true) {
+            // Only consider items with status true
             const created_date = new Date(item.createdAt);
             const createdAt = `${created_date.getDate()}/${
               created_date.getMonth() + 1
             }/${created_date.getFullYear()} ${created_date.getHours()}:${created_date.getMinutes()}`;
-  
+
             const userIsOwner = item.createdBy === user_info._id;
-  
+
             // Check if itemPictures array exists and has at least one item
             const imageSrc =
               item.itemPictures && item.itemPictures.length > 0
                 ? `http://localhost:5000/${item.itemPictures[0].img}`
                 : "/default-img.png"; // Provide a default image
-  
+
             const card = (
               <Col key={item._id} md={3} xs={12} style={{ marginTop: "2%" }}>
                 <Link
@@ -105,6 +106,7 @@ export default function Feed() {
                           textTransform: "uppercase",
                           textDecoration: "underline",
                           textShadow: "1px 1px 2px black",
+                          marginBottom:"20px"
                         }}
                       >
                         Item: <ReadMore>{item.name}</ReadMore>
@@ -112,12 +114,11 @@ export default function Feed() {
                       {item.description && (
                         <Card.Text
                           style={{
-                            fontFamily: "Concert One, sans-serif",
-                            fontSize: "1.15rem",
+                            fontFamily: "DynaPuff",
+                            fontWeight: "400",
                             textShadow: "1px 1px 2px black",
                             color: "rgb(149, 149, 149)",
                             letterSpacing: "0.75px",
-                            fontWeight: "500",
                             marginBottom: "5px",
                           }}
                         >
@@ -126,8 +127,8 @@ export default function Feed() {
                       )}
                       <Card.Text
                         style={{
-                          fontFamily: "Concert One, sans-serif",
-                          fontWeight: "500",
+                          fontFamily: "DynaPuff, system-ui",
+                          fontWeight: "200",
                           fontSize: "1.05rem",
                           textShadow: "1px 1px 2px black",
                           color: "rgb(149, 149, 149)",
@@ -142,7 +143,7 @@ export default function Feed() {
                 </Link>
               </Col>
             );
-  
+
             // Categorize items into Lost and Found
             if (item.type === "Lost") {
               lostItems.push(card);
@@ -151,18 +152,17 @@ export default function Feed() {
             }
           }
         });
-  
-        setItems(lostItems);  // Set lost items with status true
-        setFoundItems(foundItemsList);  // Set found items with status true
+
+        setItems(lostItems); // Set lost items with status true
+        setFoundItems(foundItemsList); // Set found items with status true
       } catch (error) {
         console.error("Error fetching items:", error);
         setError("Failed to load items. Please try again later.");
       }
     };
-  
+
     fetchItems();
   }, [user_info._id]);
-  
 
   return (
     <div>

@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap");
+
 /* Main container */
 .main {
   display: flex;
@@ -45,11 +47,12 @@
 
 .title p {
   font-size: 1.25rem; /* 26px */
-  font-family: "Mali", cursive;
-  font-weight: 600;
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
   text-shadow: 0.5px 0px 0.25px black;
 }
-.footer img{
+.footer img {
   background: none;
 }
 .image {
@@ -140,8 +143,9 @@ h4 {
 
 .inspiration p {
   font-size: 1.25rem; /* 26px */
-  font-family: "Mali", cursive;
-  font-weight: 600;
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
   text-shadow: 0.5px 0px 0.25px black;
 }
 
@@ -180,8 +184,9 @@ h4 {
   justify-content: space-around;
 }
 .about-card p {
-  font-family: "Mali", cursive;
-  font-weight: 800;
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
   padding: 20px;
 }
 .about-card h4 {
@@ -237,8 +242,9 @@ p {
   box-shadow: 2px 1px 3px black;
 }
 .getStartedButton span {
-  font-family: "Mali", cursive;
-  font-weight: 600;
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
   font-size: 18px;
   text-shadow: 1px 1px 3px black;
 }
@@ -249,9 +255,10 @@ p {
   height: 500px;
   margin-left: 100px;
 }
-.personal-info h5{
-  font-family: "Mali", cursive;
-  font-weight: 900;
+.personal-info h5 {
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
 }
 /* Responsive styles */
 @media (max-width: 1020px) {

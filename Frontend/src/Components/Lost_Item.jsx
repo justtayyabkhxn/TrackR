@@ -68,11 +68,12 @@ function LostItem() {
           alert("Wohoo 🤩! Item listed successfully.");
           handleClose();
           window.location.reload();
-          
         })
         .catch((err) => {
           if (err.response) {
-            alert(`Error: ${err.response.data.message || 'Something went wrong!'}`);
+            alert(
+              `Error: ${err.response.data.message || "Something went wrong!"}`
+            );
           } else {
             alert("Oops 😞! Check internet connection or try again later.");
           }
@@ -104,14 +105,40 @@ function LostItem() {
         POST ITEM
       </Button>
 
-      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>Post item</Modal.Title>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header
+          closeButton
+          closeVariant="white"  
+          style={{
+            backgroundColor: "#0c151d",
+            color: "#ff8b4d",
+            textTransform: "uppercase",
+            borderBottom: "5px solid #ff8b4d",
+            
+          }}
+        >
+          <Modal.Title style={{ fontSize: "2rem" }}>Post item</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body
+          style={{
+            backgroundColor: "#0c151d",
+           
+          }}
+        >
           <Form>
-            <Form.Group>
-              <Form.Label>
+            <Form.Group style={{ color: "#ff8b4d" }}>
+              <Form.Label
+                style={{
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "400",
+                  textTransform: "uppercase",
+                }}
+              >
                 Item name<span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Form.Control
@@ -123,7 +150,16 @@ function LostItem() {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>
+              <Form.Label
+                style={{
+                  color: "#ff8b4d",
+                  textTransform: "uppercase",
+                  marginTop: "7.5px",
+                  marginBottom: "1px",
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "400",
+                }}
+              >
                 Description<span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Form.Control
@@ -135,7 +171,18 @@ function LostItem() {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Enter a question based on the item</Form.Label>
+              <Form.Label
+                style={{
+                  color: "#ff8b4d",
+                  textTransform: "uppercase",
+                  marginTop: "7.5px",
+                  marginBottom: "1px",
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "400",
+                }}
+              >
+                Enter a question based on the item
+              </Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Ex:- What is the color of the phone ?"
@@ -145,7 +192,16 @@ function LostItem() {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>
+              <Form.Label
+                style={{
+                  color: "#ff8b4d",
+                  textTransform: "uppercase",
+                  marginTop: "7.5px",
+                  marginBottom: "1px",
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "400",
+                }}
+              >
                 Item type<span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Form.Control
@@ -161,20 +217,51 @@ function LostItem() {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Upload Image</Form.Label>
-              <Form.Control
-                type="file"
-                multiple
-                onChange={handleFileChange}
-              />
+              <Form.Label
+                style={{
+                  color: "#ff8b4d",
+                  textTransform: "uppercase",
+                  marginTop: "7.5px",
+                  marginBottom: "1px",
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "400",
+                }}
+              >
+                Upload Image
+              </Form.Label>
+              <Form.Control type="file" multiple onChange={handleFileChange} />
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+        <Modal.Footer
+          style={{ backgroundColor: "#0c151d", textTransform: "uppercase" }}
+        >
+          <Button
+            variant="secondary"
+            onClick={handleClose}
+            style={{
+              textTransform: "uppercase",
+              marginTop: "7.5px",
+              marginBottom: "1px",
+              fontFamily: "DynaPuff, system-ui",
+              fontWeight: "400",
+            }}
+          >
             Close
           </Button>
-          <Button variant="primary" onClick={handleSubmit}>
+          <Button
+            variant="primary"
+            onClick={handleSubmit}
+            style={{
+              textTransform: "uppercase",
+              marginTop: "7.5px",
+              marginBottom: "1px",
+              fontFamily: "DynaPuff, system-ui",
+              fontWeight: "400",
+              backgroundColor:"green",
+              border:"none"
+            }}
+          >
             {loading ? (
               <>
                 <Spinner

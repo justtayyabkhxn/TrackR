@@ -154,8 +154,8 @@ export default function Home() {
                     className="signupCircle"
                     style={{
                       textShadow: "0.5px 0.5px 1px black",
-                      fontFamily: "Mali, cursive",
-                      fontWeight: "600",
+                      fontFamily: "DynaPuff, system-ui",
+                      fontWeight: "200",
                       textTransform: "uppercase",
                     }}
                   >
@@ -274,6 +274,7 @@ export default function Home() {
             style={{
               textShadow: "0px 1px 1px black",
               textTransform: "uppercase",
+              textDecoration:"underline"
             }}
           >
             Track It By Tayyab Khan

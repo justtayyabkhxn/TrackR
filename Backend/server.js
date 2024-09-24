@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(passport.initialize());
 
 // MongoDB connection using environment variables
-console.log(process.env.MONGO_DB_USER);
+console.log("Wait Connecting to Backend...");
 // mongoose.connect(
 //   `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.6kk18.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
 //   {
