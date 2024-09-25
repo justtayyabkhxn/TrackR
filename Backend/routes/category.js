@@ -80,8 +80,8 @@ router.get("/responseData/:user_id/:item_id", async (req, res) => {
     const user_id = req.params.user_id;
     const item_id = req.params.item_id;
 
-    console.log("user id: ", user_id);
-    console.log("item id: ", item_id);
+    // console.log("user id: ", user_id);
+    // console.log("item id: ", item_id);
 
     // Find all answers where itemId matches and the givenBy field matches the user_id
     const answers = await messageschema.find({ itemId: item_id, givenBy: user_id });

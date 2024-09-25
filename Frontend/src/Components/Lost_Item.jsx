@@ -4,9 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Modal, Form, Spinner } from "react-bootstrap";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../css/lost_item.css"
-
-
+import "../css/lost_item.css";
 
 function LostItem() {
   const [show, setShow] = useState(false);
@@ -34,6 +32,7 @@ function LostItem() {
     const validImages = selectedFiles.filter((file) =>
       ["image/jpeg", "image/png", "image/jpg"].includes(file.type)
     );
+
     if (validImages.length !== selectedFiles.length) {
       toast.warn("Please upload only image files (jpg, jpeg, png).", {
         position: "bottom-right",
@@ -48,12 +47,13 @@ function LostItem() {
         style: {
           fontSize: "1.05rem",
           textTransform: "uppercase",
-          textShadow:"0.5px 0.5px 2px black",
-          color:"#ff8b4d",
-          backgroundColor:"#0c151d"
+          textShadow: "0.5px 0.5px 2px black",
+          color: "#ff8b4d",
+          backgroundColor: "#0c151d",
         },
       });
     }
+
     setItemImage(validImages);
   };
 
@@ -100,9 +100,9 @@ function LostItem() {
             style: {
               fontSize: "1.05rem",
               textTransform: "uppercase",
-              textShadow:"0.5px 0.5px 2px black",
-              color:"#ff8b4d",
-              backgroundColor:"#0c151d"
+              textShadow: "0.5px 0.5px 2px black",
+              color: "#ff8b4d",
+              backgroundColor: "#0c151d",
             },
           });
           handleClose();
@@ -110,43 +110,49 @@ function LostItem() {
         })
         .catch((err) => {
           if (err.response) {
-            toast.error(`Error: ${err.response.data.message || "Something went wrong!"}`, {
-              position: "bottom-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-              transition: Flip,
-              style: {
-                fontSize: "1.05rem",
-                textTransform: "uppercase",
-                textShadow:"0.5px 0.5px 2px black",
-                color:"#ff8b4d",
-                backgroundColor:"#0c151d"
-              },
-            });
+            toast.error(
+              `Error: ${err.response.data.message || "Something went wrong!"}`,
+              {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Flip,
+                style: {
+                  fontSize: "1.05rem",
+                  textTransform: "uppercase",
+                  textShadow: "0.5px 0.5px 2px black",
+                  color: "#ff8b4d",
+                  backgroundColor: "#0c151d",
+                },
+              }
+            );
           } else {
-            toast.error("Oops 😞! Check internet connection or try again later.", {
-              position: "bottom-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-              transition: Flip,
-              style: {
-                fontSize: "1.05rem",
-                textTransform: "uppercase",
-                textShadow:"0.5px 0.5px 2px black",
-                color:"#ff8b4d",
-                backgroundColor:"#0c151d"
-              },
-            });
+            toast.error(
+              "Oops 😞! Check internet connection or try again later.",
+              {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Flip,
+                style: {
+                  fontSize: "1.05rem",
+                  textTransform: "uppercase",
+                  textShadow: "0.5px 0.5px 2px black",
+                  color: "#ff8b4d",
+                  backgroundColor: "#0c151d",
+                },
+              }
+            );
           }
         })
         .finally(() => {
@@ -166,11 +172,11 @@ function LostItem() {
         style: {
           fontSize: "1.05rem",
           textTransform: "uppercase",
-          textShadow:"0.5px 0.5px 2px black",
-          color:"#ff8b4d",
-          backgroundColor:"#0c151d"
+          textShadow: "0.5px 0.5px 2px black",
+          color: "#ff8b4d",
+          backgroundColor: "#0c151d",
         },
-        className:"toastNotif"
+        className: "toastNotif",
       });
     }
   };
@@ -275,13 +281,14 @@ function LostItem() {
                   textShadow: "0.5px 0.5px 1px black",
                 }}
               >
-                Enter a question based on the item
+                Enter a question based on the item<span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Ex:- What is the color of the phone ?"
                 value={itemQuestion}
                 onChange={(e) => setItemQuestion(e.target.value)}
+                required
               />
             </Form.Group>
 

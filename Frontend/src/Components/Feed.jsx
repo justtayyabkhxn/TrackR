@@ -73,7 +73,7 @@ export default function Feed() {
             const card = (
               <Col key={item._id} md={3} xs={12} style={{ marginTop: "2%" }}>
                 <Link
-                  to={`/${item.name}?cid=${item._id}&type=${item.type}/${userIsOwner}`}
+                  to={`/${item.name}?cid=${item._id}&type=${item.type}`}
                   style={{ textDecoration: "none" }} // Remove default underline from links
                 >
                   <Card

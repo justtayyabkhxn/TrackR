@@ -22,6 +22,7 @@ function ItemPage(props) {
   const navigate = useNavigate();
 
   const [ItemData, setItemData] = useState([]);
+  // console.log("Item Data", ItemData);
   // const [Itemname, setItemname] = useState("");
   const [ActivationRequest, setActivationRequest] = useState(false);
   const [Createdby, setCreatedby] = useState("");
@@ -32,6 +33,7 @@ function ItemPage(props) {
   const [answer, setAnswer] = useState("");
   const [itemid, setItemid] = useState("");
   const [Question, setQuestion] = useState(false);
+  const [isOwner, setIsOwner] = useState();
 
   const [itemname, setItemnameState] = useState("");
   const [description, setDescription] = useState("");
@@ -67,29 +69,30 @@ function ItemPage(props) {
 
   const item_id = queryParams.get("cid"); // Extract the item ID from the 'cid' parameter
   const item_type = queryParams.get("type").split("/")[0]; // Extract the item type from the 'type' parameter and split it
-  const current_user = queryParams.get("type").split("/")[1]; // Extract the current user info from the 'type' parameter
+  const item_owner = ItemData.createdBy;
+  // console.log("Item Data: ",ItemData)
+
+  // const current_user = queryParams.get("type").split("/")[1]; // Extract the current user info from the 'type' parameter
 
   const [user_info, setUserInfo] = useState(() => {
     return JSON.parse(localStorage.getItem("user")) || {};
   });
   const user_id = user_info._id;
+  // console.log("User: ", user_id);
+  // console.log("Post owner: ", item_owner);
 
-  // Use the extracted values in your component logic
-  // console.log(item_id, item_type, current_user);
   const validation = [];
   // Fetching item data on component mount
   useEffect(() => {
-    // Axios.get(`http://localhost:5000/responseData/${item_id} & ${}`).then((response) =>{
-
-    // })
     Axios.get(`http://localhost:5000/item/${item_id}`)
       .then((response) => {
         const data = response.data.Item;
         const answers = response.data.Answers;
-        console.log("Data is: ", data);
+        // console.log("Data is: ", data);
 
         setItemData(data);
-
+        // const current_user = ;
+        setIsOwner(user_id == item_owner ? true : false);
         // console.log("img id: ", ItemData);
         Axios.get(
           `http://localhost:5000/responseData/${user_id}/${item_id}`
@@ -203,7 +206,7 @@ function ItemPage(props) {
                 {new Date(data.createdAt).toLocaleString()}
               </span>
             </h6>
-            {current_user === "true" && (
+            {isOwner && (
               <div className="ed-button">
                 <Button
                   variant="danger"
@@ -212,8 +215,7 @@ function ItemPage(props) {
                     fontFamily: "DynaPuff",
                     fontWeight: "400",
                     fontSize: "1.05rem",
-                    textShadow:"0.5px 0.5px 2px black",
-
+                    textShadow: "0.5px 0.5px 2px black",
                   }}
                 >
                   Delete Item
@@ -225,8 +227,7 @@ function ItemPage(props) {
                     fontFamily: "DynaPuff",
                     fontWeight: "400",
                     fontSize: "1.05rem",
-                    textShadow:"0.5px 0.5px 2px black",
-
+                    textShadow: "0.5px 0.5px 2px black",
                   }}
                 >
                   Edit Item
@@ -245,8 +246,7 @@ function ItemPage(props) {
                         fontFamily: "DynaPuff",
                         fontWeight: "400",
                         fontSize: "1.05rem",
-                        textShadow:"0.5px 0.5px 2px black",
-
+                        textShadow: "0.5px 0.5px 2px black",
                       }}
                     >
                       Deactivate Item
@@ -264,8 +264,7 @@ function ItemPage(props) {
                         fontFamily: "DynaPuff",
                         fontWeight: "400",
                         fontSize: "1.05rem",
-                        textShadow:"0.5px 0.5px 2px black",
-
+                        textShadow: "0.5px 0.5px 2px black",
                       }}
                     >
                       Reactivate Item
@@ -282,13 +281,17 @@ function ItemPage(props) {
                     variant="secondary"
                     disabled
                     onClick={handleShowQuestion}
+                    style={{
+                      backgroundColor: "#ff8b4d",
+                      color: "#0c151d",
+                    }}
                   >
                     {data.type === "Lost" ? "Found Item" : "Claim Item"}
                   </Button>
                 </div>
               ) : (
                 <div className="ed-button">
-                  {current_user === "false" ? (
+                  {!isOwner ? (
                     <Button
                       variant="primary"
                       onClick={handleShowQuestion}
@@ -296,6 +299,11 @@ function ItemPage(props) {
                         fontFamily: "DynaPuff",
                         fontWeight: "400",
                         fontSize: "1.05rem",
+                        backgroundColor: "#ff8b4d",
+                        border: "none",
+                        color: "#0c151d",
+                        textShadow: "0.5px 0.5px 0.2px black",
+                        boxShadow: "2px 2px 2px black",
                       }}
                     >
                       {data.type === "Lost" ? "Found Item" : "Claim Item"}
@@ -310,7 +318,7 @@ function ItemPage(props) {
         );
       })
       .catch((err) => console.log(err));
-  }, [alreadyAnswered, item_id]);
+  }, [alreadyAnswered, item_id, isOwner]);
 
   // Submit Functions
   const submitActivate = (item_id) => {
@@ -329,9 +337,9 @@ function ItemPage(props) {
           style: {
             fontSize: "1.05rem",
             textTransform: "uppercase",
-            textShadow:"0.5px 0.5px 2px black",
-            color:"#ff8b4d",
-            backgroundColor:"#0c151d"
+            textShadow: "0.5px 0.5px 2px black",
+            color: "#ff8b4d",
+            backgroundColor: "#0c151d",
           },
         });
         setTimeout(() => window.location.reload(), 2000);
@@ -357,9 +365,9 @@ function ItemPage(props) {
           style: {
             fontSize: "1.05rem",
             textTransform: "uppercase",
-            textShadow:"0.5px 0.5px 2px black",
-            color:"#ff8b4d",
-            backgroundColor:"#0c151d"
+            textShadow: "0.5px 0.5px 2px black",
+            color: "#ff8b4d",
+            backgroundColor: "#0c151d",
           },
         });
         setTimeout(() => window.location.reload(), 2000);
@@ -385,9 +393,9 @@ function ItemPage(props) {
           style: {
             fontSize: "1.05rem",
             textTransform: "uppercase",
-            textShadow:"0.5px 0.5px 2px black",
-            color:"#ff8b4d",
-            backgroundColor:"#0c151d"
+            textShadow: "0.5px 0.5px 2px black",
+            color: "#ff8b4d",
+            backgroundColor: "#0c151d",
           },
         });
         setTimeout(() => navigate("/feed"), 1500);
@@ -431,9 +439,9 @@ function ItemPage(props) {
           style: {
             fontSize: "1.05rem",
             textTransform: "uppercase",
-            textShadow:"0.5px 0.5px 2px black",
-            color:"#ff8b4d",
-            backgroundColor:"#0c151d"
+            textShadow: "0.5px 0.5px 2px black",
+            color: "#ff8b4d",
+            backgroundColor: "#0c151d",
           },
         });
         setTimeout(() => window.location.reload(), 2000);
@@ -469,9 +477,9 @@ function ItemPage(props) {
           style: {
             fontSize: "1.05rem",
             textTransform: "uppercase",
-            textShadow:"0.5px 0.5px 2px black",
-            color:"#ff8b4d",
-            backgroundColor:"#0c151d"
+            textShadow: "0.5px 0.5px 2px black",
+            color: "#ff8b4d",
+            backgroundColor: "#0c151d",
           },
         });
         setTimeout(() => window.location.reload(), 2000);
@@ -537,34 +545,116 @@ function ItemPage(props) {
         </Modal>
 
         <Modal show={showDelete} onHide={handleCloseDelete}>
-          <Modal.Body>Are you sure?</Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={handleCloseDelete}>
+          <Modal.Body
+            style={{
+              fontFamily: "DynaPuff",
+              fontWeight: "400",
+              fontSize: "1.35rem",
+              backgroundColor: "#0c151d",
+              border: "none",
+              color: "#ff8b4d",
+              textShadow: "0.5px 0.5px 0.2px black",
+            }}
+          >
+            Are you sure?
+          </Modal.Body>
+          <Modal.Footer
+            style={{
+              fontFamily: "DynaPuff",
+              fontWeight: "400",
+              fontSize: "1.05rem",
+              backgroundColor: "#0c151d",
+              border: "none",
+              color: "#ff8b4d",
+              textShadow: "0.5px 0.5px 0.2px black",
+              marginTop: "0px",
+            }}
+          >
+            <Button
+              variant="primary"
+              onClick={handleCloseDelete}
+              style={{
+                backgroundColor: "#a80303",
+                border: "none",
+                textShadow: "0.5px 0.5px 2px black",
+                boxShadow: "0.5px 0.5px 2px black",
+              }}
+            >
               No
             </Button>
-            <Button variant="danger" onClick={delete_item}>
+            <Button
+              variant="danger"
+              onClick={delete_item}
+              style={{
+                backgroundColor: "#52a302",
+                border: "none",
+                textShadow: "0.5px 0.5px 2px black",
+                boxShadow: "0.5px 0.5px 2px black",
+              }}
+            >
               Yes
             </Button>
           </Modal.Footer>
         </Modal>
 
         <Modal show={show} onHide={() => setShow(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Item</Modal.Title>
+          <Modal.Header
+            closeButton
+            closeVariant="white"
+            style={{
+              fontFamily: "DynaPuff",
+              fontWeight: "400",
+              fontSize: "1.35rem",
+              backgroundColor: "#0c151d",
+              border: "none",
+              color: "#ff8b4d",
+              textShadow: "0.5px 0.5px 0.2px black",
+            }}
+          >
+            <Modal.Title style={{ fontFamily: "DynaPuff", fontWeight: "400" }}>
+              Edit Item
+            </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body
+            style={{
+              fontSize: "1.05rem",
+              backgroundColor: "#0c151d",
+              border: "none",
+              color: "#ff8b4d",
+              textShadow: "0.5px 0.5px 0.2px black",
+              marginTop: "0px",
+            }}
+          >
             <Form>
               <Form.Group>
-                <Form.Label>Item name</Form.Label>
+                <Form.Label
+                  style={{
+                    fontFamily: "DynaPuff",
+                    fontWeight: "400",
+                    marginBottom: "1px",
+                    marginTop: "8px",
+                  }}
+                >
+                  Item name
+                </Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter item"
-                  value={itemname}
+                  value={ItemData.name}
                   onChange={(e) => setItemnameState(e.target.value)}
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Description</Form.Label>
+                <Form.Label
+                  style={{
+                    fontFamily: "DynaPuff",
+                    fontWeight: "400",
+                    marginBottom: "1px",
+                    marginTop: "8px",
+                  }}
+                >
+                  Description
+                </Form.Label>
                 <Form.Control
                   as="textarea"
                   placeholder="Enter description"
@@ -573,7 +663,16 @@ function ItemPage(props) {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Question</Form.Label>
+                <Form.Label
+                  style={{
+                    fontFamily: "DynaPuff",
+                    fontWeight: "400",
+                    marginBottom: "1px",
+                    marginTop: "8px",
+                  }}
+                >
+                  Question
+                </Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter question"
@@ -581,7 +680,17 @@ function ItemPage(props) {
                   onChange={(e) => setItemQuestion(e.target.value)}
                 />
               </Form.Group>
-              <Button variant="primary" onClick={handleEdit}>
+              <Button
+                variant="primary"
+                onClick={handleEdit}
+                style={{
+                  backgroundColor: "#52a302",
+                  border: "none",
+                  marginTop: "15px",
+                  textShadow: "0.5px 0.5px 2px black",
+                  boxShadow: "0.5px 0.5px 2px black",
+                }}
+              >
                 Submit
               </Button>
             </Form>
@@ -596,23 +705,69 @@ function ItemPage(props) {
           {showQuestion ? (
             <div>
               {/* Question and answer form */}
-              <Modal.Body>
+              <Modal.Body
+                style={{
+                  backgroundColor: "#0c151d",
+                  color: "#ff8b4d",
+                  border: "none",
+                  fontSize: "1.52rem",
+                  textShadow: "0.2px 0.25px 2px black",
+                  marginRight: "0px",
+                  marginBottom: "0px",
+                  textTransform: "capitalize",
+                }}
+              >
                 <Form.Group>
-                  <Form.Label>{itemquestion}</Form.Label>{" "}
+                  <Form.Label>QUESTION: {itemquestion} ?</Form.Label>{" "}
                   {/* Display the question */}
                   <Form.Control
                     as="textarea"
                     placeholder="Enter Answer"
                     value={answer}
                     onChange={(e) => setAnswer(e.target.value)}
+                    style={{
+                      backgroundColor: "#dbd9d9",
+                      border: "none",
+                      color: "#0c151d",
+                    }}
                   />
                 </Form.Group>
               </Modal.Body>
-              <Modal.Footer>
-                <Button variant="primary" onClick={handleCloseQuestion}>
+              <Modal.Footer
+                style={{
+                  backgroundColor: "#0c151d",
+                  color: "#ff8b4d",
+                  border: "none",
+                  fontSize: "1.52rem",
+                  boxShadow: "2px 2px 2px black",
+                  textShadow: "0.2px 0.25px 2px black",
+                  marginRight: "0px",
+                  marginTop: "0px",
+                  textTransform: "capitalize",
+                }}
+              >
+                <Button
+                  variant="primary"
+                  onClick={handleCloseQuestion}
+                  style={{
+                    backgroundColor: "#52a302",
+                    border: "none",
+                    textShadow: "0.5px 0.5px 2px black",
+                    boxShadow: "0.5px 0.5px 2px black",
+                  }}
+                >
                   Close
                 </Button>
-                <Button variant="primary" onClick={submitAnswer}>
+                <Button
+                  variant="primary"
+                  onClick={submitAnswer}
+                  style={{
+                    backgroundColor: "#a80303",
+                    border: "none",
+                    textShadow: "0.5px 0.5px 2px black",
+                    boxShadow: "0.5px 0.5px 2px black",
+                  }}
+                >
                   {" "}
                   {/* Submit the answer */}
                   Submit
@@ -670,57 +825,3 @@ function ItemPage(props) {
 }
 
 export default ItemPage;
-
-{
-  /* Activation Confirmation Modal */
-}
-{
-  /* <Modal
-                      show={ActivationRequest}
-                      onHide={handleCloseActivation}
-                    >
-                      <Modal.Body>
-                        Are you sure you want to activate this item?
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button
-                          variant="primary"
-                          onClick={handleCloseActivation}
-                        >
-                          No
-                        </Button>
-                        <Button
-                          variant="danger"
-                          onClick={() => submitActivate(item_id)}
-                        >
-                          Yes
-                        </Button>
-                      </Modal.Footer>
-                    </Modal>
-
-                    {/* Deactivation Confirmation Modal */
-}
-{
-  /* <Modal
-                      show={showConfirmation}
-                      onHide={() => setShowConfirmation(false)}
-                    >
-                      <Modal.Body>
-                        Are you sure you want to deactivate this item?
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button
-                          variant="primary"
-                          onClick={() => setShowConfirmation(false)}
-                        >
-                          No
-                        </Button>
-                        <Button
-                          variant="danger"
-                          onClick={() => submitDeactivate(item_id)}
-                        >
-                          Yes
-                        </Button>
-                      </Modal.Footer>
-                    </Modal> */
-}
