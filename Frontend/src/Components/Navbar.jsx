@@ -3,6 +3,8 @@ import axios from "axios";
 import logo from "../img/logo.jpg";
 import LostItem from "./Lost_Item";
 import "../css/Navbar.css";
+import {Link} from "react-router-dom";
+
 
 function Navbar() {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -61,30 +63,30 @@ function Navbar() {
         {!isSignedIn ? (
           <div id="login" className="signin">
             <ul>
-              <a
+              <Link
                 id="a"
                 style={{ textDecoration: "none", color: "white" }}
-                href="/"
+                to="/"
               >
                 <span>HOME</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 id="a"
                 style={{ textDecoration: "none", color: "white" }}
-                href="/sign-up"
+                to="/sign-up"
               >
                 <span>SIGN-UP</span>
-              </a>
+              </Link>
             </ul>
             <ul>
-              <a
+              <Link
                 id="a"
                 style={{ textDecoration: "none", color: "white" }}
-                href="/log-in"
+                to="/log-in"
                 className="loginLink"
               >
                 <span>LOG-IN</span>
-              </a>
+              </Link>
             </ul>
           </div>
         ) : (
@@ -95,22 +97,22 @@ function Navbar() {
                   <img src={logo} alt="Logo" />
                 </div>
                 <ul>
-                  <a style={{ textDecoration: "none" }} href="/feed">
+                  <Link style={{ textDecoration: "none" }} to="/feed">
                     Feed
-                  </a>
-                  <a style={{ textDecoration: "none" }} href="/responses">
+                  </Link>
+                  <Link style={{ textDecoration: "none" }} to="/responses">
                     Responses
-                  </a>
-                  <a style={{ textDecoration: "none" }} href="/mylistings">
+                  </Link>
+                  <Link style={{ textDecoration: "none" }} to="/mylistings">
                     My Listings
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     style={{ textDecoration: "none" }}
                     onClick={signout}
-                    href="/log-in"
+                    to="/log-in"
                   >
                     Sign-out
-                  </a>
+                  </Link>
                   <div className="lost-item">
                     <LostItem />
                   </div>

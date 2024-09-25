@@ -3,6 +3,8 @@ import "../css/itempage.css";
 import Axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
+import { Flip, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   Button,
@@ -20,7 +22,7 @@ function ItemPage(props) {
   const navigate = useNavigate();
 
   const [ItemData, setItemData] = useState([]);
-  const [Itemname, setItemname] = useState("");
+  // const [Itemname, setItemname] = useState("");
   const [ActivationRequest, setActivationRequest] = useState(false);
   const [Createdby, setCreatedby] = useState("");
   const [show, setShow] = useState(false);
@@ -67,23 +69,34 @@ function ItemPage(props) {
   const item_type = queryParams.get("type").split("/")[0]; // Extract the item type from the 'type' parameter and split it
   const current_user = queryParams.get("type").split("/")[1]; // Extract the current user info from the 'type' parameter
 
+  const [user_info, setUserInfo] = useState(() => {
+    return JSON.parse(localStorage.getItem("user")) || {};
+  });
+  const user_id = user_info._id;
+
   // Use the extracted values in your component logic
   // console.log(item_id, item_type, current_user);
-
+  const validation = [];
   // Fetching item data on component mount
   useEffect(() => {
+    // Axios.get(`http://localhost:5000/responseData/${item_id} & ${}`).then((response) =>{
+
+    // })
     Axios.get(`http://localhost:5000/item/${item_id}`)
       .then((response) => {
         const data = response.data.Item;
         const answers = response.data.Answers;
-        // console.log("Data is: ", data);
+        console.log("Data is: ", data);
 
         setItemData(data);
 
         // console.log("img id: ", ItemData);
-        if (JSON.parse(localStorage.getItem("user"))._id === data.givenBy) {
-          setAlreadyAnswered(true);
-        }
+        Axios.get(
+          `http://localhost:5000/responseData/${user_id}/${item_id}`
+        ).then((response) => {
+          const hasAnswered = response.data.answered;
+          setAlreadyAnswered(hasAnswered);
+        });
         setItemid(data._id);
         setItemnameState(data.name);
         setDescription(data.description);
@@ -92,7 +105,7 @@ function ItemPage(props) {
         setCreatedby(data.createdBy);
         setItemImage(data.itemPictures);
 
-        setItemname(
+        setItemnameState(
           <div
             className="itemDescription"
             style={{
@@ -199,6 +212,8 @@ function ItemPage(props) {
                     fontFamily: "DynaPuff",
                     fontWeight: "400",
                     fontSize: "1.05rem",
+                    textShadow:"0.5px 0.5px 2px black",
+
                   }}
                 >
                   Delete Item
@@ -210,9 +225,11 @@ function ItemPage(props) {
                     fontFamily: "DynaPuff",
                     fontWeight: "400",
                     fontSize: "1.05rem",
+                    textShadow:"0.5px 0.5px 2px black",
+
                   }}
                 >
-                  Edit item
+                  Edit Item
                 </Button>
                 {/* Activate/Deactivate Buttons */}
 
@@ -228,6 +245,8 @@ function ItemPage(props) {
                         fontFamily: "DynaPuff",
                         fontWeight: "400",
                         fontSize: "1.05rem",
+                        textShadow:"0.5px 0.5px 2px black",
+
                       }}
                     >
                       Deactivate Item
@@ -245,6 +264,8 @@ function ItemPage(props) {
                         fontFamily: "DynaPuff",
                         fontWeight: "400",
                         fontSize: "1.05rem",
+                        textShadow:"0.5px 0.5px 2px black",
+
                       }}
                     >
                       Reactivate Item
@@ -253,7 +274,7 @@ function ItemPage(props) {
                 )}
               </div>
             )}
-            : (
+
             <div>
               {alreadyAnswered ? (
                 <div className="ed-button">
@@ -267,18 +288,24 @@ function ItemPage(props) {
                 </div>
               ) : (
                 <div className="ed-button">
-                  <Button variant="primary" onClick={handleShowQuestion} 
-                  style={{
-                    fontFamily: "DynaPuff",
-                    fontWeight: "400",
-                    fontSize: "1.05rem",
-                  }}>
-                    {data.type === "Lost" ? "Found Item" : "Claim Item"}
-                  </Button>
+                  {current_user === "false" ? (
+                    <Button
+                      variant="primary"
+                      onClick={handleShowQuestion}
+                      style={{
+                        fontFamily: "DynaPuff",
+                        fontWeight: "400",
+                        fontSize: "1.05rem",
+                      }}
+                    >
+                      {data.type === "Lost" ? "Found Item" : "Claim Item"}
+                    </Button>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               )}
             </div>
-            )
           </div>
         );
       })
@@ -289,8 +316,25 @@ function ItemPage(props) {
   const submitActivate = (item_id) => {
     Axios.post(`http://localhost:5000/activateItem/${item_id}`)
       .then(() => {
-        alert("Item Activated 👍");
-        setTimeout(() => window.location.reload(), 1000);
+        toast.success("Item Activated 👍", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Flip,
+          style: {
+            fontSize: "1.05rem",
+            textTransform: "uppercase",
+            textShadow:"0.5px 0.5px 2px black",
+            color:"#ff8b4d",
+            backgroundColor:"#0c151d"
+          },
+        });
+        setTimeout(() => window.location.reload(), 2000);
       })
       .catch((err) => console.log(err));
     setActivationRequest(false);
@@ -300,8 +344,25 @@ function ItemPage(props) {
   const submitDeactivate = (item_id) => {
     Axios.post(`http://localhost:5000/deactivateItem/${item_id}`)
       .then(() => {
-        alert("Item Deactivated 👍");
-        setTimeout(() => window.location.reload(), 1000);
+        toast.success("Item Deactivated 👍", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Flip,
+          style: {
+            fontSize: "1.05rem",
+            textTransform: "uppercase",
+            textShadow:"0.5px 0.5px 2px black",
+            color:"#ff8b4d",
+            backgroundColor:"#0c151d"
+          },
+        });
+        setTimeout(() => window.location.reload(), 2000);
       })
       .catch((err) => console.log(err));
     setShowConfirmation(false);
@@ -311,7 +372,24 @@ function ItemPage(props) {
     Axios.post("http://localhost:5000/deleteitem", { item_id })
       .then(() => {
         handleCloseDelete();
-        alert("Item deleted successfully!");
+        toast.success("Item deleted successfully!", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Flip,
+          style: {
+            fontSize: "1.05rem",
+            textTransform: "uppercase",
+            textShadow:"0.5px 0.5px 2px black",
+            color:"#ff8b4d",
+            backgroundColor:"#0c151d"
+          },
+        });
         setTimeout(() => navigate("/feed"), 1500);
       })
       .catch((err) => console.log(err));
@@ -340,8 +418,25 @@ function ItemPage(props) {
 
     Axios.post("http://localhost:5000/edititem", formData)
       .then(() => {
-        alert("Item edited successfully!");
-        setTimeout(() => window.location.reload(), 1000);
+        toast.success("Item edited successfully!", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Flip,
+          style: {
+            fontSize: "1.05rem",
+            textTransform: "uppercase",
+            textShadow:"0.5px 0.5px 2px black",
+            color:"#ff8b4d",
+            backgroundColor:"#0c151d"
+          },
+        });
+        setTimeout(() => window.location.reload(), 2000);
       })
       .catch((err) => console.log(err));
     setShow(false);
@@ -361,8 +456,25 @@ function ItemPage(props) {
     })
       .then(() => {
         handleCloseQuestion();
-        alert("Response saved ✔️");
-        setTimeout(() => window.location.reload(), 1000);
+        toast.success("Response saved ✔️", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Flip,
+          style: {
+            fontSize: "1.05rem",
+            textTransform: "uppercase",
+            textShadow:"0.5px 0.5px 2px black",
+            color:"#ff8b4d",
+            backgroundColor:"#0c151d"
+          },
+        });
+        setTimeout(() => window.location.reload(), 2000);
       })
       .catch((err) => console.log(err));
     setAnswer("");
@@ -408,7 +520,7 @@ function ItemPage(props) {
             )}
           </div>
           <div className="itempage">
-            <div>{Itemname}</div>
+            <div>{itemname}</div>
           </div>
         </div>
         {/* Modals */}
@@ -540,6 +652,19 @@ function ItemPage(props) {
           )}
         </Modal>
       </Container>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition:Flip
+      />
     </>
   );
 }

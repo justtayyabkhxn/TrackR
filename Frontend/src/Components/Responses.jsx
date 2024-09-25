@@ -244,11 +244,10 @@ function Response() {
             textTransform: "uppercase",
             textAlign: "center",
             fontFamily: "Concert One, sans-serif",
-            textTransform: "uppercase",
             fontWeight: "600",
           }}
         >
-          Your responses
+          YOUR RESPONSES
         </h2>
         <div className="title-border"></div>
       </div>

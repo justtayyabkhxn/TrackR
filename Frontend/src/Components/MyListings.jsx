@@ -19,7 +19,13 @@ const Feed = () => {
     return (
       <span
         className="text"
-        style={{ color: "rgb(149, 149, 149)", letterSpacing: "0.1px" }}
+        style={{
+          color: "rgb(149, 149, 149)",
+          letterSpacing: "0.1px",
+          fontFamily: "DynaPuff",
+          fontWeight: "400",
+          textTransform:"capitalize"
+        }}
       >
         {isReadMore ? text.slice(0, 15) : text}
         <span onClick={toggleReadMore} className="read-or-hide">
@@ -72,7 +78,19 @@ const Feed = () => {
                   src={`http://localhost:5000/${item.itemPictures[0].img}`}
                 />
                 <Card.Body bsPrefix="card-body">
-                  <Badge pill variant={item.status ? "success" : "secondary"}>
+                  <Badge
+                    pill
+                    variant={item.status ? "success" : "secondary"}
+                    style={{
+                      marginTop: "15px",
+                      marginBottom: "15px",
+                      letterSpacing: "1px",
+                      fontSize: "0.95rem",
+                      textShadow: "0.5px 0.5px 2px black",
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
+                    }}
+                  >
                     {item.status ? "Active" : "Inactive"}
                   </Badge>
                   <Card.Title
@@ -83,6 +101,7 @@ const Feed = () => {
                       textTransform: "uppercase",
                       textDecoration: "underline",
                       textShadow: "1px 1px 2px black",
+                      marginBottom: "15px",
                     }}
                   >
                     Item : {item.name}
@@ -90,25 +109,26 @@ const Feed = () => {
                   {item.description && (
                     <Card.Text
                       style={{
-                        fontFamily: "Concert One, sans-serif",
-                        fontSize: "1.15rem",
+                        fontFamily: "DynaPuff",
+                        fontWeight: "400",
                         textShadow: "1px 1px 2px black",
                         color: "rgb(149, 149, 149)",
                         letterSpacing: "0.75px",
-                        fontWeight: "500",
-                        marginBottom: "5px",
+                        marginBottom: "15px",
+                        fontSize: "0.95rem",
                       }}
                     >
                       Description:{" "}
                       <ReadMore
                         style={{
-                          fontFamily: "Concert One, sans-serif",
-                          fontWeight: "500",
-                          fontSize: "1.05rem",
+                          fontFamily: "DynaPuff",
+                          fontWeight: "400",
                           textShadow: "1px 1px 2px black",
                           color: "rgb(149, 149, 149)",
-                          letterSpacing: "0.85px",
-                          marginBottom: "10px",
+                          letterSpacing: "0.75px",
+                          marginBottom: "15px",
+                          fontSize: "0.95rem",
+                          textTransform: "uppercase",
                         }}
                       >
                         {item.description}
@@ -117,26 +137,26 @@ const Feed = () => {
                   )}
                   <Card.Text
                     style={{
-                      fontFamily: "Concert One, sans-serif",
-                      fontWeight: "500",
-                      fontSize: "1.05rem",
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
                       textShadow: "1px 1px 2px black",
                       color: "rgb(149, 149, 149)",
-                      letterSpacing: "0.85px",
-                      marginBottom: "10px",
+                      letterSpacing: "0.75px",
+                      marginBottom: "15px",
+                      fontSize: "0.95rem",
                     }}
                   >
                     Type : {item.type}
                   </Card.Text>
                   <Card.Text
                     style={{
-                      fontFamily: "Concert One, sans-serif",
-                      fontWeight: "500",
-                      fontSize: "1.05rem",
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
                       textShadow: "1px 1px 2px black",
                       color: "rgb(149, 149, 149)",
-                      letterSpacing: "0.85px",
-                      marginBottom: "10px",
+                      letterSpacing: "0.75px",
+                      marginBottom: "15px",
+                      fontSize: "0.95rem",
                     }}
                   >
                     Created at : {createdAt}
@@ -167,7 +187,6 @@ const Feed = () => {
             textTransform: "uppercase",
             textAlign: "center",
             fontFamily: "Concert One, sans-serif",
-            textTransform: "uppercase",
             fontWeight: "600",
           }}
         >

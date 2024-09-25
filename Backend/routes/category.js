@@ -41,7 +41,7 @@ router.post("/postitem", requireSignin, userMiddleware, upload.array("itemPictur
       createdBy: req.user.id,
       itemPictures,
     });
-    console.log("New post: ",newPost);
+    console.log("New post: ", newPost);
 
     res.status(201).json({ item: newPost });
   } catch (err) {
@@ -52,8 +52,8 @@ router.post("/postitem", requireSignin, userMiddleware, upload.array("itemPictur
 router.get("/getitem", async (req, res) => {
   try {
     const postitems = await PostItem.find({});
-    if(postitems)
-        res.status(200).json({ postitems });
+    if (postitems)
+      res.status(200).json({ postitems });
     // console.log("Here");
   } catch (err) {
     // console.log("Here in the error")
@@ -74,12 +74,38 @@ router.get("/item/:id", async (req, res) => {
     res.status(400).json({ Error: err });
   }
 });
+// GET /:user_id/:item_id Check if User has answered
+router.get("/responseData/:user_id/:item_id", async (req, res) => {
+  try {
+    const user_id = req.params.user_id;
+    const item_id = req.params.item_id;
+
+    console.log("user id: ", user_id);
+    console.log("item id: ", item_id);
+
+    // Find all answers where itemId matches and the givenBy field matches the user_id
+    const answers = await messageschema.find({ itemId: item_id, givenBy: user_id });
+
+    // Check if there are any answers
+    if (answers.length === 0) {
+      return res.status(200).json({ answered: false });
+    }
+
+    // Check if the answers contain empty or non-empty responses
+    const answered = answers.some(answer => answer.answer !== "");
+
+    res.status(200).json({ answered });
+  } catch (err) {
+    res.status(400).json({ Error: err.message });
+  }
+});
+
 
 // POST /edititem
 router.post("/edititem", upload.array("itemPictures"), async (req, res) => {
   try {
     const { id, name, description, question, type, createdBy, olditemPictures } = req.body;
-    
+
     let itemPictures = [];
 
     // Check if new files are provided
@@ -88,8 +114,8 @@ router.post("/edititem", upload.array("itemPictures"), async (req, res) => {
     }
 
     // Check if old pictures are provided
-    const oldPicturesArray = olditemPictures 
-      ? Array.isArray(olditemPictures) 
+    const oldPicturesArray = olditemPictures
+      ? Array.isArray(olditemPictures)
         ? olditemPictures.map(pic => ({ img: pic }))
         : [{ img: olditemPictures }] // Handling the case where only one old image is passed
       : [];
