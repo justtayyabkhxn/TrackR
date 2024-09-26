@@ -23,7 +23,7 @@ function ItemPage(props) {
 
   const [ItemData, setItemData] = useState([]);
   // console.log("Item Data", ItemData);
-  // const [Itemname, setItemname] = useState("");
+  const [Itemname, setItemname] = useState("");
   const [ActivationRequest, setActivationRequest] = useState(false);
   const [Createdby, setCreatedby] = useState("");
   const [show, setShow] = useState(false);
@@ -39,9 +39,12 @@ function ItemPage(props) {
   const [description, setDescription] = useState("");
   const [itemquestion, setItemQuestion] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [itemAnswers, setItemAnswers] = useState([]);
   const [itemImage, setItemImage] = useState([]);
   const [newitemimage, setNewItemImage] = useState([]);
   const [type, setType] = useState("");
+  const [authenticationPage, setauthenication] = useState("");
+
   const [messageId, setMessageId] = useState("");
   const [response, setResponse] = useState("");
 
@@ -80,14 +83,15 @@ function ItemPage(props) {
   const user_id = user_info._id;
   // console.log("User: ", user_id);
   // console.log("Post owner: ", item_owner);
-
+  const temp = [];
   const validation = [];
   // Fetching item data on component mount
   useEffect(() => {
     Axios.get(`http://localhost:5000/item/${item_id}`)
       .then((response) => {
         const data = response.data.Item;
-        const answers = response.data.Answers;
+        const answersData = response.data.Answers;
+        setItemAnswers(answersData);
         // console.log("Data is: ", data);
 
         setItemData(data);
@@ -108,7 +112,7 @@ function ItemPage(props) {
         setCreatedby(data.createdBy);
         setItemImage(data.itemPictures);
 
-        setItemnameState(
+        temp.push(
           <div
             className="itemDescription"
             style={{
@@ -316,8 +320,210 @@ function ItemPage(props) {
             </div>
           </div>
         );
+        setItemname(temp);
       })
       .catch((err) => console.log(err));
+    validation.push(
+      <div key="validation-wrapper">
+        {" "}
+        {/* Wrap with a unique key for the outer div */}
+        {isOwner ? (
+          <div
+            key="owner-section"
+            style={{
+              boxShadow: "1px 1px 5px black",
+              padding: "10px",
+              marginLeft: "30px",
+              marginBottom: "30px",
+              borderBottom: "5px solid #ff8b4d",
+              borderRadius: "10px",
+              marginTop: "10px",
+            }}
+          >
+            {" "}
+            {/* Add key for the owner section */}
+            <div
+              style={{
+                marginBottom: "10px",
+              }}
+            >
+              <span
+                className="attributes"
+                style={{
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "400",
+                  textShadow: "1px 1px 2px black",
+                  color: "#0c151d",
+                  letterSpacing: "0.75px",
+                  marginBottom: "15px",
+                  textTransform: "capitalize",
+                  fontSize: "1.5rem",
+                  textDecoration: "underline",
+                }}
+              >
+                Your Question :
+              </span>
+              <span
+                style={{
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "400",
+                  textShadow: "1px 1px 2px black",
+                  color: "#0c151d",
+                  letterSpacing: "0.75px",
+                  marginBottom: "15px",
+                  textTransform: "capitalize",
+                  fontSize: "1.5rem",
+                  textDecoration: "underline",
+                }}
+              >
+                {" "}
+                {ItemData.question}
+              </span>
+            </div>
+            <div>
+              <h2
+                className="attributes"
+                style={{
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "400",
+                  textShadow: "1px 1px 2px black",
+                  color: "#0c151d",
+                  letterSpacing: "0.75px",
+                  marginBottom: "15px",
+                  textTransform: "capitalize",
+                  fontSize: "1.5rem",
+                  textDecoration: "underline",
+                }}
+              >
+                Answers Submitted :
+              </h2>
+              {itemAnswers.length === 0 ? (
+                <h3
+                  style={{
+                    fontFamily: "DynaPuff, system-ui",
+                    fontWeight: "400",
+                    textShadow: "1px 1px 2px black",
+                    color: "#ff8b4d",
+                    letterSpacing: "0.75px",
+                    marginBottom: "0.5px",
+                    marginLeft: "5px",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  No Answers Yet.
+                </h3>
+              ) : (
+                <div style={{ display: "flex", flexWrap: "wrap" }}>
+                  {itemAnswers.map((answer) => (
+                    <div className="responses" key={answer._id}>
+                      {" "}
+                      {/* Add key here */}
+                      <Card
+                        style={{
+                          width: "18rem",
+                          // border: "solid 0.22px #0c151d",
+                          boxShadow: "0.1px 0.1px 5px black",
+                          borderBottom: "5px solid #ff8b4d",
+                        }}
+                      >
+                        <Card.Body>
+                          <Card.Title
+                            style={{
+                              fontFamily: "DynaPuff, system-ui",
+                              fontWeight: "400",
+                              textShadow: "0.2px 0.2px 1px black",
+                              color: "#ff8b4d",
+                              letterSpacing: "0.75px",
+                              marginBottom: "0.5px",
+                              marginLeft: "5px",
+                              textTransform: "capitalize",
+                            }}
+                          >
+                            Answer: {answer.answer}
+                          </Card.Title>
+                        </Card.Body>
+                        <ListGroup className="list-group-flush">
+                          <ListGroupItem
+                            style={{
+                              fontFamily: "DynaPuff, system-ui",
+                              fontWeight: "400",
+                              textShadow: "0.1px 0.1px 1px black",
+                              letterSpacing: "0.75px",
+                              marginBottom: "0.5px",
+                              marginLeft: "5px",
+                              textTransform: "capitalize",
+                            }}
+                          >
+                            Date:{" "}
+                            {new Date(answer.createdAt).toLocaleDateString()}
+                          </ListGroupItem>{" "}
+                          {/* Format Date */}
+                          <ListGroupItem
+                            style={{
+                              fontFamily: "DynaPuff, system-ui",
+                              fontWeight: "400",
+                              textShadow: "0.1px 0.1px 1px black",
+                              letterSpacing: "0.75px",
+                              marginBottom: "0.5px",
+                              marginLeft: "5px",
+                              textTransform: "capitalize",
+                            }}
+                          >
+                            Validate:
+                            {answer.response === "Moderation" ? (
+                              <div
+                                className="ed-button"
+                                style={{ marginLeft: "-7px" }}
+                              >
+                                <Button
+                                  variant="danger"
+                                  onClick={() =>
+                                    handleShowprompt(answer._id, "No")
+                                  }
+                                  style={{
+                                    fontFamily: "DynaPuff, system-ui",
+                                    fontWeight: "400",
+                                    textShadow: "0.1px 0.1px 1px black",
+                                    boxShadow: "0.5px 0.5px 2px black",
+                                  }}
+                                >
+                                  No
+                                </Button>
+                                <Button
+                                  variant="primary"
+                                  onClick={() =>
+                                    handleShowprompt(answer._id, "Yes")
+                                  }
+                                  style={{
+                                    backgroundColor: "#52a302",
+                                    border: "none",
+                                    boxShadow: "0.5px 0.5px 2px black",
+                                    fontFamily: "DynaPuff, system-ui",
+                                    fontWeight: "400",
+                                    textShadow: "0.1px 0.1px 1px black",
+                                  }}
+                                >
+                                  Yes
+                                </Button>
+                              </div>
+                            ) : (
+                              <p>Already Submitted as "{answer.response}"</p>
+                            )}
+                          </ListGroupItem>
+                        </ListGroup>
+                      </Card>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div key="non-owner-section"></div>
+        )}
+      </div>
+    );
+    setauthenication(validation);
   }, [alreadyAnswered, item_id, isOwner]);
 
   // Submit Functions
@@ -528,9 +734,10 @@ function ItemPage(props) {
             )}
           </div>
           <div className="itempage">
-            <div>{itemname}</div>
+            <div>{Itemname}</div>
           </div>
         </div>
+        <div>{authenticationPage}</div>
         {/* Modals */}
         <Modal show={ActivationRequest} onHide={handleCloseActivation}>
           <Modal.Body>Are you sure?</Modal.Body>
@@ -640,7 +847,7 @@ function ItemPage(props) {
                 <Form.Control
                   type="text"
                   placeholder="Enter item"
-                  value={ItemData.name}
+                  value={itemname}
                   onChange={(e) => setItemnameState(e.target.value)}
                 />
               </Form.Group>

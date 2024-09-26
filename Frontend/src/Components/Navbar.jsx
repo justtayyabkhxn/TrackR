@@ -20,7 +20,7 @@ function Navbar() {
         },
       })
         .then((res) => {
-          console.log("Token verified:", res);
+          // console.log("Token verified:", res);
           setIsSignedIn(true); // Set signed-in status
         })
         .catch((err) => {
