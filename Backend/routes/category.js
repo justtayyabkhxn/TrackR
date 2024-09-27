@@ -272,7 +272,7 @@ router.post("/confirmResponse/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { response } = req.body;
-
+    console.log(id,response);
     await messageschema.updateOne({ _id: id }, { $set: { response } });
     res.status(200).json({ msg: "Updated" });
   } catch (err) {

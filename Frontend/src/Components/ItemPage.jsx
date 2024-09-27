@@ -44,7 +44,7 @@ function ItemPage(props) {
   const [newitemimage, setNewItemImage] = useState([]);
   const [type, setType] = useState("");
   const [authenticationPage, setauthenication] = useState("");
-
+  const [validateUser, setvalidateUser] = useState(false);
   const [messageId, setMessageId] = useState("");
   const [response, setResponse] = useState("");
 
@@ -62,6 +62,17 @@ function ItemPage(props) {
 
   const handleCloseQuestion = () => setshowQuestion(false);
   const handleShowDelete = () => setShowDelete(true);
+  const handleCloseprompt = () => setvalidateUser(false);
+
+  const handleShowprompt = (id, answer) => {
+    console.log("Selected message ID is :", id);
+    console.log("Answer is :", answer);
+    setMessageId(id);
+    setResponse(answer);
+    setvalidateUser(true);
+  };
+
+
   // const handleShowQuestion = () => setQuestion(true);
   // const handleShowQuestion = () => setShowQuestion(true);
 
@@ -478,7 +489,7 @@ function ItemPage(props) {
                                 <Button
                                   variant="danger"
                                   onClick={() =>
-                                    handleShowprompt(answer._id, "No")
+                                    validate_answer(answer._id, "No")
                                   }
                                   style={{
                                     fontFamily: "DynaPuff, system-ui",
@@ -492,7 +503,7 @@ function ItemPage(props) {
                                 <Button
                                   variant="primary"
                                   onClick={() =>
-                                    handleShowprompt(answer._id, "Yes")
+                                    validate_answer(answer._id, "Yes")
                                   }
                                   style={{
                                     backgroundColor: "#52a302",
@@ -507,7 +518,15 @@ function ItemPage(props) {
                                 </Button>
                               </div>
                             ) : (
-                              <p>Already Submitted as "{answer.response}"</p>
+                              <p>Already Submitted as <span
+                              style={{
+                                fontFamily: "DynaPuff, system-ui",
+                                fontWeight: "400",
+                                textShadow: "0.2px 0.2px 1px black",
+                                color: "#ff8b4d",
+                                textTransform: "uppercase",
+                              }}>
+                                 "{answer.response}" </span></p>
                             )}
                           </ListGroupItem>
                         </ListGroup>
@@ -581,7 +600,7 @@ function ItemPage(props) {
       .catch((err) => console.log(err));
     setShowConfirmation(false);
   };
-
+  //DELETE ITEM
   const delete_item = () => {
     Axios.post("http://localhost:5000/deleteitem", { item_id })
       .then(() => {
@@ -608,7 +627,7 @@ function ItemPage(props) {
       })
       .catch((err) => console.log(err));
   };
-
+  //HANDLE EDIT
   const handleEdit = () => {
     const formData = new FormData();
     formData.append("name", itemname);
@@ -659,7 +678,7 @@ function ItemPage(props) {
   const show_question = () => {
     setshowQuestion(true);
   };
-
+  //SUBMIT  ANSWER
   const submitAnswer = () => {
     Axios.post("http://localhost:5000/submitAnswer", {
       itemId: item_id,
@@ -693,6 +712,35 @@ function ItemPage(props) {
       .catch((err) => console.log(err));
     setAnswer("");
   };
+  //VALIDATE ANSWER
+  const validate_answer = (id, answer) => {
+    Axios.post(`http://localhost:5000/confirmResponse/${id}`, { response: answer }) // Fix URL and key
+      .then(() => {
+        handleShowprompt();
+        toast.success("Validation saved successfully!", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Flip,
+          style: {
+            fontSize: "1.05rem",
+            textTransform: "uppercase",
+            textShadow: "0.5px 0.5px 2px black",
+            color: "#ff8b4d",
+            backgroundColor: "#0c151d",
+          },
+        });
+        setTimeout(() => window.location.reload(), 2000);
+      })
+      .catch((err) => console.log(err));
+  };
+  
+
 
   return (
     <>
