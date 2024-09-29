@@ -34,6 +34,24 @@ const Signup = () => {
       withCredentials: true, // Include this if dealing with cookies or authentication
     })
       .then((response) => {
+        toast.success("Login Successfull !", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Flip,
+          style: {
+            fontSize: "1.05rem",
+            textTransform: "uppercase",
+            textShadow: "0.5px 0.5px 2px black",
+            color: "#ff8b4d",
+            backgroundColor: "#0c151d",
+          },
+        });
         setInfo("Sign up successful!"); // Update info with a string message
         if (response.data && response.data.token) {
           navigate("/log-in"); // Navigate using the useNavigate hook

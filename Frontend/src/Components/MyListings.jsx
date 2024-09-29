@@ -4,6 +4,7 @@ import "../css/item_card.css";
 import "../css/mylisting.css";
 import Axios from "axios";
 import { Card, Col, Container, Row, Badge } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Feed = () => {
   const [items, setItems] = useState([]);
@@ -24,7 +25,7 @@ const Feed = () => {
           letterSpacing: "0.1px",
           fontFamily: "DynaPuff",
           fontWeight: "400",
-          textTransform:"capitalize"
+          textTransform: "capitalize",
         }}
       >
         {isReadMore ? text.slice(0, 15) : text}
@@ -53,7 +54,7 @@ const Feed = () => {
 
         return (
           <Col key={item._id} style={{ marginTop: "2%" }} md={3}>
-            <a href={`/${item.name}?cid=${item._id}&type=${item.type}`}>
+            <Link to={`/${item.name}?cid=${item._id}&type=${item.type}`}>
               <Card
                 bsPrefix="item-card"
                 style={{
@@ -78,7 +79,7 @@ const Feed = () => {
                   src={`http://localhost:5000/${item.itemPictures[0].img}`}
                 />
                 <Card.Body bsPrefix="card-body">
-                  <Badge
+                  <span
                     pill
                     variant={item.status ? "success" : "secondary"}
                     style={{
@@ -86,13 +87,18 @@ const Feed = () => {
                       marginBottom: "15px",
                       letterSpacing: "1px",
                       fontSize: "0.95rem",
-                      textShadow: "0.5px 0.5px 2px black",
+                      backgroundColor:"#ff8b4d",
+                      textShadow: "0px 0px 0.5px black",
                       fontFamily: "DynaPuff",
                       fontWeight: "400",
+                      borderRadius:"15px",
+                      color:"#0c151d",
+                      boxShadow:"2px 2px 2px black"
                     }}
+                    className="badge"
                   >
                     {item.status ? "Active" : "Inactive"}
-                  </Badge>
+                  </span>
                   <Card.Title
                     style={{
                       fontFamily: "Concert One, sans-serif",
@@ -163,7 +169,7 @@ const Feed = () => {
                   </Card.Text>
                 </Card.Body>
               </Card>
-            </a>
+            </Link>
           </Col>
         );
       });

@@ -182,31 +182,68 @@ function Response() {
                 </span>
               </h5>
               {response.response === "Moderation" ? (
-                <Badge
-                  pill
-                  bg="primary"
+                <span
                   style={{
                     marginTop: "15px",
+                    marginBottom: "15px",
                     letterSpacing: "1px",
                     fontSize: "0.95rem",
-                    textShadow: "0.5px 0.5px 2px black",
+                    backgroundColor: "#ff8b4d",
+                    textShadow: "0px 0px 0.5px black",
                     fontFamily: "DynaPuff",
                     fontWeight: "400",
+                    borderRadius: "15px",
+                    color: "#0c151d",
+                    boxShadow: "2px 2px 2px black",
                   }}
+                  className="badge"
                 >
                   Moderation
-                </Badge>
+                </span>
               ) : response.response === "Yes" ? (
                 <>
-                  <Badge pill bg="success">
-                    Approved
-                  </Badge>
-                  <Button
-                    className="btn-primary"
-                    onClick={() => handleShowNumber(response)}
+                  <span
+                    style={{
+                      marginTop: "15px",
+                      marginBottom: "15px",
+                      letterSpacing: "1px",
+                      fontSize: "0.95rem",
+                      backgroundColor: "#ff8b4d",
+                      textShadow: "0px 0px 0.5px black",
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
+                      borderRadius: "15px",
+                      color: "#0c151d",
+                      boxShadow: "2px 2px 2px black",
+                    }}
+                    className="badge"
                   >
-                    Show Number
-                  </Button>
+                    Approved
+                  </span>
+                  <span>
+                    <Button
+                      className="btn-primary"
+                      onClick={() => handleShowNumber(response)}
+                      style={{
+                        marginTop: "15px",
+                        marginBottom: "15px",
+                        letterSpacing: "1px",
+                        fontSize: "0.95rem",
+                        backgroundColor: "#0ac600",
+                        textShadow: "0px 0px 0.5px black",
+                        fontFamily: "DynaPuff",
+                        fontWeight: "400",
+                        borderRadius: "15px",
+                        color: "#0c151d",
+                        boxShadow: "2px 2px 2px black",
+                        padding: "10px",
+                        border: "none",
+                        marginLeft: "100px",
+                      }}
+                    >
+                      Show Number
+                    </Button>
+                  </span>
                 </>
               ) : (
                 <Badge pill bg="danger">
@@ -228,11 +265,56 @@ function Response() {
     <>
       <Navbar />
       <Modal show={showNumber} onHide={handleCloseNumber} backdrop="static">
-        <Modal.Body>
-          <p>Here is the number: {PhoneNumber}</p>
+        <Modal.Body
+          style={{
+            backgroundColor: "#0c151d",
+            border: "none",
+            height: "53px",
+            fontSize: "20px",
+            marginRight: "0px",
+          }}
+        >
+          <p
+            style={{
+              color: "#ff8b4d",
+              textShadow: "2px 2px 1px black",
+            }}
+          >
+            Here is the number : {"   "}
+            <span
+              style={{
+                fontFamily: "DynaPuff",
+                fontWeight: "400",
+                color: "white",
+                textShadow: "2px 2px 1px black",
+              }}
+            >
+              {PhoneNumber}
+            </span>
+          </p>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleCloseNumber}>
+        <Modal.Footer
+          style={{
+            backgroundColor: "#0c151d",
+            borderTop: "2px solid #ff8b4d",
+            border: "none",
+            fontSize: "20px",
+            marginRight: "0px",
+          }}
+        >
+          <Button
+            variant="primary"
+            onClick={handleCloseNumber}
+            style={{
+              fontFamily: "DynaPuff",
+              fontWeight: "400",
+              color: "white",
+              textShadow: "2px 2px 1px black",
+              backgroundColor:"#0ac600",
+              border:"none",
+              boxShadow:"1px 1px 2px black"
+            }}
+          >
             Close
           </Button>
         </Modal.Footer>

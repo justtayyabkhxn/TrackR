@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory for React Router v6
 import Navbar from "../Components/Navbar";
 import { Spinner } from "react-bootstrap";
+import { ToastContainer,toast,Flip } from "react-toastify";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -22,6 +23,24 @@ function Login() {
 
       if (response.data.user) {
         // Authentication successful
+        toast.success("Login Successfull !", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Flip,
+          style: {
+            fontSize: "1.05rem",
+            textTransform: "uppercase",
+            textShadow: "0.5px 0.5px 2px black",
+            color: "#ff8b4d",
+            backgroundColor: "#0c151d",
+          },
+        });
         localStorage.setItem("token", response.data.jwtToken);
         localStorage.setItem("user", JSON.stringify(response.data.user));
         navigate("/feed", { state: { user: response.data.user } });
