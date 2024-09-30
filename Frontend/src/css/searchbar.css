@@ -1,0 +1,20 @@
+.searchButton  {
+  padding: 10px 10px 10px 10px;
+  margin: 20px;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0.1px 0.1px 2.5px black;
+  /* margin-bottom: 0px; */
+  transition: all 0.5s;
+  background-color: white;
+}
+.searchButton:hover{
+    background-color:rgb(234, 233, 233);
+    transform: scale(1.1);
+}
+.search{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}

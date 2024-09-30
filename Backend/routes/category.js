@@ -272,12 +272,35 @@ router.post("/confirmResponse/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { response } = req.body;
-    console.log(id,response);
+    console.log(id, response);
     await messageschema.updateOne({ _id: id }, { $set: { response } });
     res.status(200).json({ msg: "Updated" });
   } catch (err) {
     res.status(400).json({ msg: err.message });
   }
 });
+
+//GET /search/:query
+router.get("/searchItem/:query", async (req, res) => {
+  try {
+    const { query } = req.params;
+
+    // Use a case-insensitive regex to search for items whose 'name' field contains the query string
+    const filteredPosts = await PostItem.find({
+      name: { $regex: query, $options: "i" }  // 'i' makes the search case-insensitive
+    });
+
+    // If you want to log the found items:
+
+    res.status(200).json({
+      msg: "Items retrieved successfully",
+      data: filteredPosts,
+      query:query // Send the filtered items back in the response
+    });
+  } catch (err) {
+    res.status(400).json({ msg: err.message });
+  }
+});
+
 
 module.exports = router;

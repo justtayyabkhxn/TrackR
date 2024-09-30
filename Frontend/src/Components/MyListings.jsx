@@ -80,7 +80,6 @@ const Feed = () => {
                 />
                 <Card.Body bsPrefix="card-body">
                   <span
-                    pill
                     variant={item.status ? "success" : "secondary"}
                     style={{
                       marginTop: "15px",

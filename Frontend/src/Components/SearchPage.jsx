@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { setConstraint } from "../constraints";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
+import { useLocation } from "react-router-dom";
 import "../css/feed.css";
 import "../css/item_card.css";
 import Axios from "axios";
 import { Card, Col, Container, Row } from "react-bootstrap";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import SearchBar from "./SearchBar";
+import { Link } from "react-router-dom";
+import { setConstraint } from "../constraints";
 
-export default function Feed() {
-  // Fetch user information from localStorage
+const SearchPage = () => {
+  const [query, setQuery] = useState("");
+  const location = useLocation(); // Get the current URL
+  const params = new URLSearchParams(location.search);
+  const queryValue = params.get("query"); // Extract the value of the 'query' parameter
+
   const [user_info, setUserInfo] = useState(() => {
     return JSON.parse(localStorage.getItem("user")) || {};
   });
@@ -41,15 +45,25 @@ export default function Feed() {
   // Fetch lost and found items
   useEffect(() => {
     setConstraint(true);
-
+    if (queryValue) {
+      // If queryValue exists, set the query state
+      setQuery(queryValue);
+    } else {
+      console.error("Query is missing or undefined");
+    }
     const fetchItems = async () => {
       try {
-        const response = await Axios.get("http://localhost:5000/getitem");
-        if (!response.data || !response.data.postitems) {
+        const response = await Axios.get(
+          `http://localhost:5000/searchItem/${queryValue}`
+        );
+        if (!response.data || !response.data.data) {
           throw new Error("Invalid response structure");
         }
-
-        const data = response.data.postitems.reverse(); // Reverse data to show latest items first
+        const data = response.data.data.reverse();
+        // Reverse data to show latest items first
+        if (!data.length) {
+          setError("NO ITEMS FOUND");
+        }
 
         const lostItems = [];
         const foundItemsList = [];
@@ -163,7 +177,7 @@ export default function Feed() {
     };
 
     fetchItems();
-  }, [user_info._id]);
+  }, [user_info._id, queryValue]);
 
   return (
     <div>
@@ -178,15 +192,23 @@ export default function Feed() {
           borderBottom: "5px solid #ff8b4d",
         }}
       >
-        Welcome {user_info.firstname} {user_info.lastname}!
+        You Searched for "{query}" !
       </span>
 
-      {error && (
-        <div style={{ color: "red", textAlign: "center" }}>{error}</div>
+      {error &&  (
+        <div
+          style={{
+            color: "red",
+            textAlign: "center",
+            fontSize: "2rem",
+            fontFamily: "DynaPuff",
+            fontWeight: "400",
+            textShadow: "1px 1px 2px black",
+          }}
+        >
+          {error}
+        </div>
       )}
-      <center>
-        <SearchBar />
-      </center>
       <Container fluid>
         <h2
           style={{
@@ -224,4 +246,6 @@ export default function Feed() {
       )}
     </div>
   );
-}
+};
+
+export default SearchPage;

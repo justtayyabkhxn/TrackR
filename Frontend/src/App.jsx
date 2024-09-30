@@ -9,6 +9,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 import Home from "./Components/Home";
 import ItemPage from "./Components/ItemPage";
 import MyListings from "./Components/MyListings";
+import SearchResults from "./Components/SearchPage"
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="/:item" element={<ItemPage />} />
 
               <Route path="/responses" element={<Response />} />
+              <Route path="/searchItem/" element={<SearchResults />} />
             </>
           }
           /*
