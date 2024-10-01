@@ -36,8 +36,8 @@ body {
   box-shadow: 2px 2px 5px black;
   border-radius: 0px 0px 30px 30px;
   width: 100%;
-  max-width: 100vw; 
-  margin-bottom: 20px;/* Prevent horizontal overflow */
+  max-width: 100vw;
+  margin-bottom: 20px; /* Prevent horizontal overflow */
 }
 
 .logo {
@@ -92,7 +92,7 @@ body {
 .signin > ul:hover {
   color: var(--hover-color);
 }
-.lost-item{
+.lost-item {
   margin-right: 500px;
 }
 /* Post-sign-in styles */
@@ -102,7 +102,6 @@ body {
   align-items: center;
   width: 100%;
 }
-
 
 .logo2 img {
   height: 80px;
@@ -114,7 +113,7 @@ body {
 .otherRoutes {
   display: flex;
   flex-direction: row-reverse;
-  justify-content:end;
+  justify-content: end;
   width: 100%;
   align-items: center;
 }
@@ -138,7 +137,25 @@ body {
   box-shadow: 2px 2px 2px black;
   text-shadow: 2px 2px 2px black;
 }
-
+.profile {
+  padding: 0px;
+  width: fit-content;
+  margin: 0px;
+  margin-left: 50px;
+}
+.profile img {
+  border-right: none;
+  border-bottom: none;
+  height: 70px;
+  box-shadow: 0px 0px 8px black;
+  border-radius: 50px;
+  padding: 0px;
+  transition: all 0.25s ease-out;
+}
+.profile img:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 0px 5px #ff8b4d;
+}
 .otherRoutes a:hover {
   color: var(--hover-color);
   text-decoration: underline;
@@ -147,7 +164,19 @@ body {
 .loginLink {
   margin-left: -50px;
 }
-
+.name {
+  margin-left: 0px;
+  margin-top: 0px;
+}
+.name span {
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  color: var(--footer-bg-color);
+  text-shadow: 2px 2px 2px black;
+}
 /* Footer styles */
 .footer {
   margin-top: 5%;
@@ -157,7 +186,7 @@ body {
   align-items: center;
   padding: 20px;
   width: 100%;
-  height:100%; /* Ensure the footer takes up full width */
+  height: 100%; /* Ensure the footer takes up full width */
 }
 
 .social-icon {
@@ -217,9 +246,9 @@ body {
   .otherRoutes {
     width: 100%;
   }
-  .otherRoutes a{
+  .otherRoutes a {
     font-size: 15px;
-    border:none
+    border: none;
   }
 }
 @media (max-width: 768px) {

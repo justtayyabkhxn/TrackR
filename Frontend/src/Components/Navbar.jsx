@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import logo from "../img/logo.jpg";
+import profile from "../img/profile.png";
 import LostItem from "./Lost_Item";
 import "../css/Navbar.css";
-import {Link} from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const token = window.localStorage.getItem("token");
 
+  const [user_info, setUserInfo] = useState(() => {
+    return JSON.parse(localStorage.getItem("user")) || {};
+  });
   useEffect(() => {
     if (token) {
       axios({
@@ -90,9 +93,27 @@ function Navbar() {
             </ul>
           </div>
         ) : (
+          //POST SIGN IN
           <div className="postsignin">
             <div className="childrens">
               <div className="otherRoutes">
+                <div className="profile">
+                  <Link
+                    to={"/profile"}
+                    style={{
+                      borderRight: "none",
+                      borderBottom: "none",
+                      boxShadow: "none",
+                    }}
+                  >
+                    <img src={profile} alt="Profile" />
+                  </Link>
+                  <div className="name">
+                    <span>
+                      {user_info.firstname} {user_info.lastname}
+                    </span>
+                  </div>
+                </div>
                 <div className="logo2">
                   <img src={logo} alt="Logo" />
                 </div>

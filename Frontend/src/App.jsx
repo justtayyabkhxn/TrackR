@@ -10,6 +10,7 @@ import Home from "./Components/Home";
 import ItemPage from "./Components/ItemPage";
 import MyListings from "./Components/MyListings";
 import SearchResults from "./Components/SearchPage"
+import ProfilePage from "./Components/ProfilePage"
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
 
               <Route path="/responses" element={<Response />} />
               <Route path="/searchItem/" element={<SearchResults />} />
+              <Route path="/profile/" element={<ProfilePage />} />
             </>
           }
           /*
