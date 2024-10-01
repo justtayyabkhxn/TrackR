@@ -15,7 +15,7 @@ body {
 
 .Box-1 {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     padding: 45px;
     position: absolute;
     top: 50%;
@@ -28,7 +28,30 @@ body {
     margin-top: 70px;
 }
 
+.Box-1-login {
+    width: 100%;
+    max-width: 500px;
+    padding: 45px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg-color);
+    text-align: center;
+    border-radius: 3%;
+    box-shadow: 0px 0px 8px black;
+    margin-top: 70px;
+}
 .Box-1 h1 {
+    color: var(--text-color);
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 10px;
+    border-bottom: solid 5px var(--text-color);
+    text-shadow: 1px 1px 2px black;
+    font-size: 40px;
+}
+.Box-1-login h1 {
     color: var(--text-color);
     text-transform: uppercase;
     font-weight: 500;
@@ -42,6 +65,27 @@ body {
 .Box-1 input[type="password"],
 .Box-1 input[type="number"],
 .Box-1 input[type="text"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #03a9f4;
+    padding: 14px 10px;
+    width: 100%;
+    max-width: 280px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: width 0.25s, border-color 0.25s;
+    font-family: "DynaPuff", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 200;
+}
+.Box-1-login input[type="email"],
+.Box-1-login input[type="password"],
+.Box-1-login input[type="number"],
+.Box-1-login input[type="text"] {
     border: 0;
     background: none;
     display: block;
@@ -74,6 +118,13 @@ a:hover{
 .Box-1 input[type="password"]:focus,
 .Box-1 input[type="text"]:focus,
 .Box-1 input[type="number"]:focus {
+    border-color: var(--text-color);
+    
+}
+.Box-1-login input[type="email"]:focus,
+.Box-1-login input[type="password"]:focus,
+.Box-1-login input[type="text"]:focus,
+.Box-1-login input[type="number"]:focus {
     border-color: var(--text-color);
     
 }

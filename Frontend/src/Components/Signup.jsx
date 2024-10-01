@@ -15,6 +15,8 @@ const Signup = () => {
     password: "",
     cpassword: "",
   });
+  const [showPassword, setShowPassword] = useState(false); // Toggle for password visibility
+  const [showCPassword, setShowCPassword] = useState(false); // Toggle for confirm password visibility
   const navigate = useNavigate(); // Use the useNavigate hook
 
   const handleChange = (e) => {
@@ -89,22 +91,62 @@ const Signup = () => {
             />
           </div>
           <div className="row1">
-            <input
-              type="password"
-              placeholder="Password"
-              id="password"
-              required
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              id="cpassword"
-              required
-              value={formData.cpassword}
-              onChange={handleChange}
-            />
+            <div style={{ position: "relative", width: "100%" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                id="password"
+                required
+                value={formData.password}
+                onChange={handleChange}
+                style={{ width: "100%" }}
+              />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "600",
+                  right: "-20px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  fontSize: "1.05rem",
+                  color: "#ff8b4d",
+                  marginLeft:"10px"
+                }}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </span>
+            </div>
+
+            <div style={{ position: "relative", width: "100%" }}>
+              <input
+                type={showCPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                id="cpassword"
+                required
+                value={formData.cpassword}
+                onChange={handleChange}
+                style={{ width: "150%" }}
+              />
+              <span
+                onClick={() => setShowCPassword(!showCPassword)}
+                style={{
+                  position: "absolute",
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "600",
+                  right: "-20px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  fontSize: "1.05rem",
+                  color: "#ff8b4d",
+                }}
+              >
+                {showCPassword ? "Hide" : "Show"}
+              </span>
+            </div>
           </div>
           <button type="button" className="submit" onClick={submit}>
             Submit

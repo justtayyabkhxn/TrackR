@@ -14,6 +14,7 @@ const SearchBar = () => {
             type="text"
             className="w-full placeholder-gray-400 text-gray-900 p-4"
             placeholder="Search"
+            required
             value={query} // bind input value to query state
             onChange={(e) => setQuery(e.target.value)} // update query as user types
             style={{

@@ -549,7 +549,7 @@ function ItemPage(props) {
   const submitActivate = (item_id) => {
     Axios.post(`http://localhost:5000/activateItem/${item_id}`)
       .then(() => {
-        toast.success("Item Activated 👍", {
+        toast.success("Item Activated!", {
           position: "bottom-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -577,7 +577,7 @@ function ItemPage(props) {
   const submitDeactivate = (item_id) => {
     Axios.post(`http://localhost:5000/deactivateItem/${item_id}`)
       .then(() => {
-        toast.success("Item Deactivated 👍", {
+        toast.success("Item Deactivated!", {
           position: "bottom-right",
           autoClose: 2000,
           hideProgressBar: false,

@@ -108,11 +108,14 @@ function Navbar() {
                   >
                     <img src={profile} alt="Profile" />
                   </Link>
+                    <center>
                   <div className="name">
+
                     <span>
                       {user_info.firstname} {user_info.lastname}
                     </span>
                   </div>
+                    </center>
                 </div>
                 <div className="logo2">
                   <img src={logo} alt="Logo" />

@@ -4,13 +4,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory for React Router v6
 import Navbar from "../Components/Navbar";
 import { Spinner } from "react-bootstrap";
-import { ToastContainer,toast,Flip } from "react-toastify";
+import { ToastContainer, toast, Flip } from "react-toastify";
 
 function Login() {
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -23,7 +24,7 @@ function Login() {
 
       if (response.data.user) {
         // Authentication successful
-        toast.success("Login Successfull !", {
+        toast.success("Login Successful!", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -59,7 +60,7 @@ function Login() {
     <>
       <Navbar />
       <div style={{ display: "flex" }}>
-        <form className="Box-1 login">
+        <form className="Box-1-login">
           <h1>Log in</h1>
           <p style={{ color: "white" }}>{info}</p>
           <input
@@ -70,14 +71,33 @@ function Login() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div style={{ position: "relative" }}>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={{ width: "100%" }}
+            />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: "absolute",
+                fontFamily: "DynaPuff, system-ui",
+                fontWeight: "600",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                fontSize: "1.05rem",
+                color: "#ff8b4d",
+              }}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </span>
+          </div>
           <button
             type="button"
             className="submit"
@@ -100,8 +120,7 @@ function Login() {
             )}
           </button>
           <p style={{ color: "white" }}>
-            Don't have an account?{" "}
-            <a href="/sign-up">Click here</a>
+            Don't have an account? <a href="/sign-up">Click here</a>
           </p>
         </form>
       </div>

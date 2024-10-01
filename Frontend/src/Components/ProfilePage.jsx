@@ -13,9 +13,10 @@ const ProfilePage = () => {
     return JSON.parse(localStorage.getItem("user")) || {};
   });
 
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+
   useEffect(() => {
     setConstraint(true);
-    
   }, [user_info]);
 
   return (
@@ -24,7 +25,7 @@ const ProfilePage = () => {
       <div>
         <form className="Box-1">
           <h1 className="name">Account Info</h1>
-          <p style={{ color: "white" }}>{}</p>
+          <p style={{ color: "white" }}></p>
           <div className="row1">
             <input
               type="text"
@@ -57,18 +58,35 @@ const ProfilePage = () => {
               placeholder="Phone Number"
               required
               defaultValue={user_info.number}
+              readOnly
             />
           </div>
-          <div className="row1">
+          <div className="row1" style={{ position: "relative", width: "100%" }}>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               id="password"
               required
               defaultValue={user_info.password}
             />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: "absolute",
+                fontFamily: "DynaPuff, system-ui",
+                fontWeight: "600",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                fontSize: "1.05rem",
+                color: "#ff8b4d",
+              }}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </span>
           </div>
-          <button type="button" className="submit" >
+          <button type="button" className="submit">
             Submit
           </button>
         </form>
