@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../css/newSignup.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory for React Router v6
+import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory for React Router v6
 import Navbar from "../Components/Navbar";
 import { Spinner } from "react-bootstrap";
 import { ToastContainer, toast, Flip } from "react-toastify";
@@ -11,7 +11,8 @@ function Login() {
   const [info, setInfo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [message,setMessage]=useState(""); // State to toggle password visibility
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -21,7 +22,6 @@ function Login() {
       const payload = { email, password };
 
       const response = await axios.post("http://localhost:5000/login", payload);
-
       if (response.data.user) {
         // Authentication successful
         toast.success("Login Successful!", {
@@ -62,7 +62,7 @@ function Login() {
       <div style={{ display: "flex" }}>
         <form className="Box-1-login">
           <h1>Log in</h1>
-          <p style={{ color: "white" }}>{info}</p>
+          <p style={{ color: "red" }}>{info}</p>
           <input
             type="email"
             name="email"
@@ -120,7 +120,7 @@ function Login() {
             )}
           </button>
           <p style={{ color: "white" }}>
-            Don't have an account? <a href="/sign-up">Click here</a>
+            Don't have an account? <Link to="/sign-up">Click here</Link>
           </p>
         </form>
       </div>

@@ -13,6 +13,7 @@ import github from "../img/github.svg";
 import linkedin from "../img/linkedin.svg";
 import mail from "../img/mail.svg";
 import { Container, Row, Button, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   //   const [name, setName] = useState("");
@@ -147,7 +148,7 @@ export default function Home() {
                   <span>CREATE AN ACCOUNT</span>
                 </h4>
                 <p>Initially, you have to create an account to get started.</p>
-                <a href="/sign-up">
+                <Link to="/sign-up">
                   <Button
                     variant="custom"
                     size="lg"
@@ -161,7 +162,7 @@ export default function Home() {
                   >
                     Sign Up
                   </Button>
-                </a>
+                </Link>
               </div>
               <div className="info">
                 <img

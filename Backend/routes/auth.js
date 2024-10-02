@@ -76,7 +76,7 @@ const secure = async (req, res, next) => {
 const checkField = (req, res, next) => {
     const { firstname, email, password, cpassword } = req.body;
     if (!firstname || !email || !password || !cpassword) {
-        return res.status(400).json({ message: 'Please enter all the fields' });
+        return res.status(200).json({ message: 'Please enter all the fields' });
     }
     next();
 };
@@ -84,7 +84,7 @@ const checkField = (req, res, next) => {
 const checkFieldLogin = (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        return res.status(400).json({ message: 'Please enter all the fields' });
+        return res.status(200).json({ message: 'Please enter all the fields' });
     }
     next();
 };
@@ -93,8 +93,10 @@ const checkUsername = async (req, res, next) => {
     const { email } = req.body;
     try {
         const existingUser = await Signup.findOne({ email });
+        console.log("user is: ,",existingUser)
+
         if (existingUser) {
-            return res.status(400).json({ message: 'Email already exists' });
+            return res.status(200).json({ message: "User email already exists" });
         }
         next();
     } catch (err) {
@@ -105,7 +107,7 @@ const checkUsername = async (req, res, next) => {
 const checkPassword = (req, res, next) => {
     const { password, cpassword } = req.body;
     if (password !== cpassword) {
-        return res.status(400).json({ message: 'Passwords do not match' });
+        return res.status(200).json({ message: 'Passwords do not match' });
     }
     next();
 };
@@ -128,14 +130,14 @@ router.post('/login', checkFieldLogin, async (req, res) => {
     try {
         const user = await Signup.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: 'Email does not exist' });
+            return res.status(200).json({ message: 'Email does not exist' });
         }
         if (user.password === password) { // Use bcryptjs for password comparison in production
             const jwtToken = signJwt(user._id);
             res.cookie('jwt', jwtToken, { expiresIn: '1hr' });
             res.status(200).json({ jwtToken, user });
         } else {
-            res.status(400).json({ message: 'Password incorrect' });
+            res.status(200).json({ message: 'Password incorrect' });
         }
     } catch (err) {
         res.status(500).json({ message: 'Server error' });

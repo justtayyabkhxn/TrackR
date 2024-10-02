@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../css/newSignup.css";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer, Flip } from "react-toastify";
 
 const Signup = () => {
@@ -28,24 +28,26 @@ const Signup = () => {
   };
 
   const submit = () => {
-    setInfo("");
-
-    axios({
-      url: "http://localhost:5000/signup",
-      method: "POST",
-      data: formData,
-      withCredentials: true, // Include this if dealing with cookies or authentication
-    })
-      .then((response) => {
-        setInfo("Sign up successful!"); // Update info with a string message
-        if (response.data && response.data.token) {
-          navigate("/log-in"); // Navigate using the useNavigate hook
+    setInfo(""); // Clear the info state
+  
+    axios.post(
+      "http://localhost:5000/signup",
+      formData,
+      { withCredentials: true } // Include this option if dealing with cookies or authentication
+    )
+      .then((response) => { // Set the success message
+  
+        if (response.data.token) {
+          navigate("/log-in"); // Redirect to login on success
+        } else if (response.data.message) {
+          setInfo(response.data.message);
         }
       })
       .catch((error) => {
-        console.log("Error occurred:", error);
+        console.log("Error occurred:", error.response?.data?.message || error.message); // Log error
       });
   };
+  
 
   return (
     <>
@@ -53,7 +55,7 @@ const Signup = () => {
       <div>
         <form className="Box-1">
           <h1 className="name">Sign up</h1>
-          <p style={{ color: "white" }}>{info}</p>
+          <p style={{ color: "red" }}>{info}</p>
           <div className="row1">
             <input
               type="text"
@@ -152,7 +154,7 @@ const Signup = () => {
             Submit
           </button>
           <p style={{ color: "white", fontSize: "21px" }}>
-            Have an account? <a href="/log-in">Click here</a>
+            Have an account? <Link to="/log-in">Click here</Link>
           </p>
         </form>
         <ToastContainer />

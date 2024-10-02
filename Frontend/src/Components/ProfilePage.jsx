@@ -51,6 +51,7 @@ const ProfilePage = () => {
               placeholder="Email"
               required
               defaultValue={user_info.email}
+              readOnly
             />
             <input
               type="number"

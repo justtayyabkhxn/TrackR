@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import "../css/myresponses.css";
 import Axios from "axios";
 import { Button, Modal, Badge } from "react-bootstrap";
+import axios from "axios";
 
 function Response() {
   const [responses, setResponses] = useState([]);
@@ -32,7 +33,6 @@ function Response() {
           const formattedDate = `${createdDate.getDate()}/${
             createdDate.getMonth() + 1
           }/${createdDate.getFullYear()} ${createdDate.getHours()}:${createdDate.getMinutes()}`;
-
           return (
             <div
               key={response.itemId}
@@ -208,7 +208,7 @@ function Response() {
                       marginBottom: "15px",
                       letterSpacing: "1px",
                       fontSize: "0.95rem",
-                      backgroundColor: "#ff8b4d",
+                      backgroundColor: "green",
                       textShadow: "0px 0px 0.5px black",
                       fontFamily: "DynaPuff",
                       fontWeight: "400",
@@ -246,9 +246,23 @@ function Response() {
                   </span>
                 </>
               ) : (
-                <Badge pill bg="danger">
-                  Opps!!
-                </Badge>
+                  <span style={{
+                      marginTop: "15px",
+                      marginBottom: "15px",
+                      letterSpacing: "1px",
+                      fontSize: "0.95rem",
+                      backgroundColor: "red",
+                      textShadow: "0px 0px 0.5px black",
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
+                      borderRadius: "15px",
+                      color: "#0c151d",
+                      padding:"5px",
+                      boxShadow: "2px 2px 2px black",
+                    }}>
+                  Rejected!
+
+                  </span>
               )}
             </div>
           );
