@@ -93,8 +93,6 @@ const checkUsername = async (req, res, next) => {
     const { email } = req.body;
     try {
         const existingUser = await Signup.findOne({ email });
-        console.log("user is: ,",existingUser)
-
         if (existingUser) {
             return res.status(200).json({ message: "User email already exists" });
         }
@@ -154,29 +152,5 @@ router.post('/signout', requireSignin, signout);
 router.post('/feed', requireSignin, (req, res) => {
     res.status(200).json({ message: 'Working fine' });
 });
-
-// router.post('/sendmessage', (req, res) => {
-//     const { name, email, message } = req.body;
-//     const auth = {
-//         auth: {
-//             api_key: process.env.MAIL_GUN_API_KEY,
-//             domain: process.env.MAIL_GUN_DOMAIN,
-//         },
-//     };
-
-//     const transporter = nodemailer.createTransport(mailgun(auth));
-
-//     const mailOption = {
-//         from: email,
-//         to: 'eswarupkumar1111@gmail.com',
-//         subject: `Review from ${name}`,
-//         text: message,
-//     };
-
-//     transporter.sendMail(mailOption, (err, data) => {
-//         if (err) return res.status(500).json(err);
-//         res.status(200).json(data);
-//     });
-// });
 
 module.exports = router;
