@@ -3,13 +3,16 @@ const express = require('express');
 // const mailgun = require('nodemailer-mailgun-transport');
 const jwt = require('jsonwebtoken');
 const ms = require('ms');
+const nodemailer = require("nodemailer");
+
 const { promisify } = require('util');
 const { requireSignin } = require('../middleware');
 const Signup = require('../models/signup');
 require('dotenv').config({ path: "../.env" });
+const randomstring = require('randomstring');
 
 const router = express.Router();
-
+var generatedOTP = 0;
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES = process.env.JWT_EXPIRES;
 const NODE_ENV = process.env.NODE_ENV;
@@ -109,12 +112,25 @@ const checkPassword = (req, res, next) => {
     }
     next();
 };
+const verifyOTP = (userOTP, OTP) => {
+    if (userOTP == OTP)
+        return true;
+    return false;
+};
+
+const sendOTP = (email) => {
+    const OTP = randomstring.generate({ length: 6, charset: 'numeric' })
+    generatedOTP = OTP;
+    console.log("GeneratedOTP: ", OTP);
+    return OTP;
+}
 
 router.get('/', (req, res) => res.send('This is Home page!!'));
 
 router.post('/signup', checkField, checkUsername, checkPassword, async (req, res) => {
-    const { firstname, lastname, email, number, password } = req.body;
+    const { firstname, lastname, email, number, password, verified } = req.body;
     try {
+        console.log("Hello: ", req.body);
         const newSignup = await Signup.create({ firstname, lastname, email, number, password });
         sendToken(newSignup, 201, res);
         console.log(newSignup)
@@ -122,6 +138,48 @@ router.post('/signup', checkField, checkUsername, checkPassword, async (req, res
         res.status(401).json({ message: err.message });
     }
 });
+
+router.get('/sendOTP', async (req, res) => {
+    try {
+        const OTP = sendOTP("email@gmail.com");  // Assuming sendOTP function returns OTP
+        res.status(200).json({  // Corrected: Use res.status(200) and then .json()
+            OTP: OTP
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "An error occurred" });
+    }
+});
+
+router.get('/verifyOTP', async (req, res) => {
+    try {
+        const { email, userOTP } = req.query;
+        if (!email) {
+            return res.status(400).json({ message: "Email is required" });
+        }
+        const isVerified = verifyOTP(userOTP, generatedOTP);
+        if (isVerified) {
+            const result = await Signup.updateOne({ email: email }, { $set: { verified: true } });
+
+            if (result.modifiedCount === 0) {
+                return res.status(404).json({ message: "User not found or already verified" });
+            }
+            return res.status(200).json({
+                message: "OTP verified successfully, account updated",
+                verified: true
+            });
+        } else {
+            return res.status(400).json({
+                message: "Invalid OTP",
+                verified: false
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "An error occurred" });
+    }
+});
+
 
 router.post('/login', checkFieldLogin, async (req, res) => {
     const { email, password } = req.body;

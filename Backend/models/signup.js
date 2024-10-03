@@ -26,6 +26,11 @@ const signUpSchema = new Schema({
     date: {
         type: Date,
         default: Date.now,
+    },
+    verified:{
+        type: Boolean,
+        required:true,
+        default:false
     }
 }, {
     timestamps: true, // Automatically adds createdAt and updatedAt fields

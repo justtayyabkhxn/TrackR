@@ -4,8 +4,11 @@ import axios from "axios";
 import Navbar from "../Components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer, Flip } from "react-toastify";
+import { ReactSession }  from 'react-client-session';
+
 
 const Signup = () => {
+  ReactSession.setStoreType("localStorage");
   const [info, setInfo] = useState("");
   const [formData, setFormData] = useState({
     firstname: "",
@@ -14,6 +17,7 @@ const Signup = () => {
     number: "",
     password: "",
     cpassword: "",
+    verified:false
   });
   const [showPassword, setShowPassword] = useState(false); // Toggle for password visibility
   const [showCPassword, setShowCPassword] = useState(false); // Toggle for confirm password visibility
@@ -29,7 +33,9 @@ const Signup = () => {
 
   const submit = () => {
     setInfo(""); // Clear the info state
-  
+    formData.verified=false;
+    ReactSession.set("email",formData.email);
+
     axios.post(
       "http://localhost:5000/signup",
       formData,
@@ -38,7 +44,7 @@ const Signup = () => {
       .then((response) => { // Set the success message
   
         if (response.data.token) {
-          navigate("/log-in"); // Redirect to login on success
+          navigate("/verify"); // Redirect to login on success
         } else if (response.data.message) {
           setInfo(response.data.message);
         }
@@ -46,6 +52,7 @@ const Signup = () => {
       .catch((error) => {
         console.log("Error occurred:", error.response?.data?.message || error.message); // Log error
       });
+      
   };
   
 

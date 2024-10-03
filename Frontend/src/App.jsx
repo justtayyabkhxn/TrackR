@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Signup from "./Components/SignUp";
+import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import Feed from "./Components/Feed";
 import Response from "./Components/Responses";
@@ -11,6 +11,7 @@ import ItemPage from "./Components/ItemPage";
 import MyListings from "./Components/MyListings";
 import SearchResults from "./Components/SearchPage"
 import ProfilePage from "./Components/ProfilePage"
+import OTPVerification from "./Components/OTPVerification";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               <Route path="/responses" element={<Response />} />
               <Route path="/searchItem/" element={<SearchResults />} />
               <Route path="/profile/" element={<ProfilePage />} />
+              <Route path="/verify" element={<OTPVerification />} />
             </>
           }
           /*

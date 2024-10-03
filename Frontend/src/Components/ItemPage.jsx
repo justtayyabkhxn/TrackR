@@ -776,7 +776,7 @@ function ItemPage(props) {
                   style={{ fontSize: "1.2rem", color: "#0c151d" }}
                 >
                   {" "}
-                  Loading...
+                  No Image...
                 </span>
               </div>
             )}
