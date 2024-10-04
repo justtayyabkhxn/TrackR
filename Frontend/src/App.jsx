@@ -12,6 +12,7 @@ import MyListings from "./Components/MyListings";
 import SearchResults from "./Components/SearchPage"
 import ProfilePage from "./Components/ProfilePage"
 import OTPVerification from "./Components/OTPVerification";
+import NotFound from "./Components/NotFound";
 
 function App() {
   return (
@@ -29,16 +30,16 @@ function App() {
               </Route>
 
               <Route path="/mylistings" element={<MyListings />} />
-              <Route path="/:item" element={<ItemPage />} />
+              <Route path="/item/:item" element={<ItemPage />} />
 
               <Route path="/responses" element={<Response />} />
               <Route path="/searchItem/" element={<SearchResults />} />
               <Route path="/profile/" element={<ProfilePage />} />
               <Route path="/verify" element={<OTPVerification />} />
+              <Route path="*" element={<NotFound />} />
             </>
           }
           /*
-          {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Router>
     </>

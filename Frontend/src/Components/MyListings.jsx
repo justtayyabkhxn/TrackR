@@ -54,7 +54,7 @@ const Feed = () => {
 
         return (
           <Col key={item._id} style={{ marginTop: "2%" }} md={3}>
-            <Link to={`/${item.name}?cid=${item._id}&type=${item.type}`}>
+            <Link to={`/item/${item.name}?cid=${item._id}&type=${item.type}`}>
               <Card
                 bsPrefix="item-card"
                 style={{

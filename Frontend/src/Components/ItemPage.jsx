@@ -82,7 +82,7 @@ function ItemPage(props) {
   const queryParams = new URLSearchParams(location.search); // Create a URLSearchParams object from the query string
 
   const item_id = queryParams.get("cid"); // Extract the item ID from the 'cid' parameter
-  const item_type = queryParams.get("type").split("/")[0]; // Extract the item type from the 'type' parameter and split it
+  // const item_type = queryParams.get("type").split("/")[0]; // Extract the item type from the 'type' parameter and split it
   const item_owner = ItemData.createdBy;
   // console.log("Item Data: ",ItemData)
 

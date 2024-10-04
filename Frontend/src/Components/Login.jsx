@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead
 import Navbar from "../Components/Navbar";
 import { Spinner } from "react-bootstrap";
 import { ToastContainer, toast, Flip } from "react-toastify";
-import { ReactSession }  from 'react-client-session';
+import { ReactSession } from "react-client-session";
 
 function Login() {
   ReactSession.setStoreType("localStorage");
@@ -18,7 +18,7 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState(""); // State to toggle password visibility
   const navigate = useNavigate();
-  ReactSession.set("email",email);
+  ReactSession.set("email", email);
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -70,13 +70,13 @@ function Login() {
         <form className="Box-1-login">
           <h1>Log in</h1>
           <p style={{ color: "red" }}>
-            {info} 
+            {info}
             {!verified && (
               <Link
                 to="/verify"
                 style={{ color: "white", textDecoration: "none" }}
               >
-                 Verify Now.
+                Verify Now.
               </Link>
             )}
           </p>
@@ -138,7 +138,10 @@ function Login() {
             )}
           </button>
           <p style={{ color: "white" }}>
-            Don't have an account? <Link to="/sign-up">Click here</Link>
+            Don't have an account?{" "}
+            <Link to="/sign-up" style={{ textDecoration: "none" }}>
+              Click Here
+            </Link>
           </p>
         </form>
       </div>
