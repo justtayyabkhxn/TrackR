@@ -137,12 +137,45 @@ const sendOTPEmail = async (recipientEmail, OTP) => {
         from: process.env.EMAIL_USER,
         to: recipientEmail,
         subject: 'Your OTP Code',
-        text: `Hey User,
+        text:
+            `Hey User,
         We are happy to see you signing up.
-        Your OTP is: <b>${OTP}<b>`,
+        Your OTP is: ${OTP}`,
     };
 
     await transporter.sendMail(mailOptions);
+};
+
+const verifyUser = async (req, res, next) => {
+    try {
+        const { email } = req.body; // Assuming the email is sent in the request body
+
+        // Check if email is provided
+        if (!email) {
+            return res.status(200).json({ message: 'Email is required' });
+        }
+
+        // Find the user in the Signup collection by email
+        const user = await Signup.findOne({ email });
+
+        // If the user is not found
+        if (!user) {
+            return res.status(200).json({ message: 'User not found' });
+        }
+
+        // Check if the user is verified
+        if (user.verified) {
+            // If verified, move to the next middleware or route handler
+            return next();
+        } else {
+            // If not verified, redirect to the verification page
+            return res.status(200).json({ message: 'User not verified ! ',status:false });  // Adjust the path to your verification page as needed
+        }
+    } catch (error) {
+        console.error(error);
+        // Handle any errors
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
 };
 
 router.get('/', (req, res) => res.send('This is Home page!!'));
@@ -163,7 +196,7 @@ router.get('/sendOTP', async (req, res) => {
     try {
         const { email } = req.query;
         if (email) {
-            console.log("Emaiil recieved: ", email)
+            console.log("Email recieved: ", email)
             const OTP = sendOTP("email@gmail.com");  // Assuming sendOTP function returns OTP
             await sendOTPEmail(email, OTP);
             console.log("Generated OTP: ", OTP);
@@ -216,7 +249,7 @@ router.get('/verifyOTP', async (req, res) => {
 });
 
 
-router.post('/login', checkFieldLogin, async (req, res) => {
+router.post('/login', checkFieldLogin, verifyUser, async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await Signup.findOne({ email });

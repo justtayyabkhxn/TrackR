@@ -5,15 +5,20 @@ import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead
 import Navbar from "../Components/Navbar";
 import { Spinner } from "react-bootstrap";
 import { ToastContainer, toast, Flip } from "react-toastify";
+import { ReactSession }  from 'react-client-session';
 
 function Login() {
+  ReactSession.setStoreType("localStorage");
+
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState("");
+  const [verified, setVerified] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [message,setMessage]=useState(""); // State to toggle password visibility
+  const [message, setMessage] = useState(""); // State to toggle password visibility
   const navigate = useNavigate();
+  ReactSession.set("email",email);
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -47,6 +52,8 @@ function Login() {
         navigate("/feed", { state: { user: response.data.user } });
       } else {
         setInfo(response.data.message || "An error occurred");
+        setVerified(response.data.status);
+        // alert(verified);
       }
     } catch (error) {
       console.log("Error occurred:", error);
@@ -62,7 +69,18 @@ function Login() {
       <div style={{ display: "flex" }}>
         <form className="Box-1-login">
           <h1>Log in</h1>
-          <p style={{ color: "red" }}>{info}</p>
+          <p style={{ color: "red" }}>
+            {info} 
+            {!verified && (
+              <Link
+                to="/verify"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                 Verify Now.
+              </Link>
+            )}
+          </p>
+
           <input
             type="email"
             name="email"
