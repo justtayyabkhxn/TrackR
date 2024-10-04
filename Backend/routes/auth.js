@@ -113,17 +113,37 @@ const checkPassword = (req, res, next) => {
     next();
 };
 const verifyOTP = (userOTP, OTP) => {
-    if (userOTP == OTP)
-        return true;
-    return false;
+    return (userOTP == OTP)
 };
 
 const sendOTP = (email) => {
     const OTP = randomstring.generate({ length: 6, charset: 'numeric' })
     generatedOTP = OTP;
-    console.log("GeneratedOTP: ", OTP);
     return OTP;
 }
+
+const sendOTPEmail = async (recipientEmail, OTP) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        secure: true,
+        port: 465,
+        auth: {
+            user: process.env.EMAIL_USER, // Your Gmail
+            pass: process.env.EMAIL_PASS, // Your Gmail password or App password
+        },
+    });
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: recipientEmail,
+        subject: 'Your OTP Code',
+        text: `Hey User,
+        We are happy to see you signing up.
+        Your OTP is: <b>${OTP}<b>`,
+    };
+
+    await transporter.sendMail(mailOptions);
+};
 
 router.get('/', (req, res) => res.send('This is Home page!!'));
 
@@ -131,7 +151,7 @@ router.post('/signup', checkField, checkUsername, checkPassword, async (req, res
     const { firstname, lastname, email, number, password, verified } = req.body;
     try {
         console.log("Hello: ", req.body);
-        const newSignup = await Signup.create({ firstname, lastname, email, number, password });
+        const newSignup = await Signup.create({ firstname, lastname, email, number, password, verified });
         sendToken(newSignup, 201, res);
         console.log(newSignup)
     } catch (err) {
@@ -141,10 +161,25 @@ router.post('/signup', checkField, checkUsername, checkPassword, async (req, res
 
 router.get('/sendOTP', async (req, res) => {
     try {
-        const OTP = sendOTP("email@gmail.com");  // Assuming sendOTP function returns OTP
-        res.status(200).json({  // Corrected: Use res.status(200) and then .json()
-            OTP: OTP
-        });
+        const { email } = req.query;
+        if (email) {
+            console.log("Emaiil recieved: ", email)
+            const OTP = sendOTP("email@gmail.com");  // Assuming sendOTP function returns OTP
+            await sendOTPEmail(email, OTP);
+            console.log("Generated OTP: ", OTP);
+            res.status(200).json({
+                message: "OTP sent successfully",
+                success: true,
+            });
+        }
+        else if (!email) {
+            console.log("No email recieved")
+            res.status(200).json({
+                success: false,
+                message: "Email not recieved"
+
+            })
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "An error occurred" });
@@ -155,21 +190,21 @@ router.get('/verifyOTP', async (req, res) => {
     try {
         const { email, userOTP } = req.query;
         if (!email) {
-            return res.status(400).json({ message: "Email is required" });
+            return res.status(200).json({ message: "Email is required" });
         }
         const isVerified = verifyOTP(userOTP, generatedOTP);
         if (isVerified) {
             const result = await Signup.updateOne({ email: email }, { $set: { verified: true } });
 
             if (result.modifiedCount === 0) {
-                return res.status(404).json({ message: "User not found or already verified" });
+                return res.status(200).json({ message: "User not found or already verified" });
             }
             return res.status(200).json({
                 message: "OTP verified successfully, account updated",
                 verified: true
             });
         } else {
-            return res.status(400).json({
+            return res.status(200).json({
                 message: "Invalid OTP",
                 verified: false
             });

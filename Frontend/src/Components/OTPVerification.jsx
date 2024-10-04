@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead
 import Navbar from "../Components/Navbar";
 import { Spinner } from "react-bootstrap";
 import { ReactSession } from "react-client-session";
+import { ToastContainer, toast, Flip } from "react-toastify";
+
 const OTPVerification = () => {
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState("");
@@ -13,23 +15,62 @@ const OTPVerification = () => {
   const [OTP, setOTP] = useState("");
   const [message, setMessage] = useState(""); // State to toggle password visibility
   const navigate = useNavigate();
-  useEffect(() => {
+
+  // Function to send OTP
+  const sendOTP = async () => {
     const userEmail = ReactSession.get("email");
-    axios.get('http://localhost:5000/sendOTP')
-    setEmailID(userEmail);
-  }, []);
-  const handleChange = (e) => {
-    if (e.target.value.length > 6) {
-      setInfo("Username shouldn't exceed 6 characters");
-      e.target.value = e.target.value.trim().substring(0, 6);
+    setEmailID(userEmail); // set email
+    try {
+      const response = await axios.get("http://localhost:5000/sendOTP", {
+        params: { email: userEmail },
+      });
+
+      if (response.data.message) {
+        toast.success("OTP sent successfully!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Flip,
+          style: {
+            fontSize: "1.05rem",
+            textTransform: "uppercase",
+            textShadow: "0.5px 0.5px 2px black",
+            color: "#ff8b4d",
+            backgroundColor: "#0c151d",
+          },
+        });
+      } else {
+        setInfo(response.data.message);
+      }
+    } catch (error) {
+      setInfo("Failed to send OTP. Please try again.");
+      console.error("Error sending OTP:", error);
     }
-    setPassword(e.target.value);
-    setOTP(e.target.value);
   };
+
+  // useEffect to send OTP on component mount
+  useEffect(() => {
+    sendOTP(); // Send OTP on initial load
+  }, []);
+
+  // Handle input change for OTP
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (value.length > 6) {
+      setInfo("OTP shouldn't exceed 6 characters");
+      e.target.value = value.substring(0, 6);
+    }
+    setOTP(e.target.value); // Set OTP directly
+  };
+
+  // Handle form submit
   const handleSubmit = async () => {
     setLoading(true);
-    setEmailID(ReactSession.get("email"));
-    // console.log(emailID);
     try {
       const payload = { email: emailID, userOTP: OTP };
 
@@ -37,26 +78,41 @@ const OTPVerification = () => {
         params: payload,
       });
 
-
-      console.log(OTP);
+      // Check if OTP is verified
+      if (response.data.verified) {
+        toast.success("OTP Verified!", {
+          position: "top-right",
+          autoClose: 2000,
+          theme: "dark",
+        });
+      
+        // Delay navigation by 2 seconds
+        setTimeout(() => {
+          navigate("/log-in"); // Navigate to login page after 2 seconds
+        }, 2000);
+      } else {
+        setInfo(response.data.message || "Invalid OTP.");
+      }
+      
     } catch (error) {
-      console.log("Error occurred:", error);
-      setInfo("An error occurred during login");
+      console.error("Error occurred:", error);
+      setInfo("An error occurred during verification");
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <>
       <Navbar />
       <div style={{ display: "flex" }}>
         <form className="Box-1-login">
           <h1>Verify Email</h1>
-          {/* <p style={{ color: "red" }}>{info}</p> */}
+          <p style={{ color: "red" }}>{info}</p>
           <input
             type="email"
             name="email"
-            placeholder="Email id"
+            placeholder="Email ID"
             value={emailID}
             required
             readOnly
@@ -67,7 +123,7 @@ const OTPVerification = () => {
               placeholder="6 Digit OTP"
               maxLength="6"
               name="text"
-              value={password}
+              value={OTP}
               onChange={handleChange}
               required
               style={{ width: "60%" }}
@@ -84,6 +140,7 @@ const OTPVerification = () => {
                 fontSize: "1.05rem",
                 color: "#ff8b4d",
               }}
+              onClick={sendOTP} // Trigger OTP resend
             >
               Resend OTP
             </span>
@@ -109,25 +166,11 @@ const OTPVerification = () => {
               <>Submit</>
             )}
           </button>
-          <p style={{ color: "white" }}>
-            Did not recieve OTP ?{" "}
-            <button
-              to="/sign-up"
-              style={{
-                border: "none",
-                borderRadius: "10px",
-                padding: "3px",
-                background: "#ff8b4d",
-                color: "#0c151d",
-                fontWeight: "500",
-              }}
-            >
-              Resend
-            </button>
-          </p>
         </form>
+        <ToastContainer />
       </div>
     </>
   );
 };
+
 export default OTPVerification;
