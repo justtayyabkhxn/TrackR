@@ -13,6 +13,7 @@ import SearchResults from "./Components/SearchPage"
 import ProfilePage from "./Components/ProfilePage"
 import OTPVerification from "./Components/OTPVerification";
 import NotFound from "./Components/NotFound";
+import ForgotPassword from "./Components/ForgotPassword";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Route path="/searchItem/" element={<SearchResults />} />
               <Route path="/profile/" element={<ProfilePage />} />
               <Route path="/verify" element={<OTPVerification />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="*" element={<NotFound />} />
             </>
           }

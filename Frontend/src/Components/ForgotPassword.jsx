@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/newSignup.css";
+import "../css/forgotpassword.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory for React Router v6
 import Navbar from "../Components/Navbar";
@@ -7,29 +7,40 @@ import { Spinner } from "react-bootstrap";
 import { ToastContainer, toast, Flip } from "react-toastify";
 import { ReactSession } from "react-client-session";
 
-function Login() {
+function ForgotPassword() {
   ReactSession.setStoreType("localStorage");
 
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState("");
   const [verified, setVerified] = useState(true);
+  const [OTP, setOTP] = useState("");
   const [email, setEmail] = useState("");
+  const [emailID, setEmailID] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState(""); // State to toggle password visibility
   const navigate = useNavigate();
-  ReactSession.set("email", email);
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (value.length > 6) {
+      setInfo("OTP shouldn't exceed 6 characters");
+      e.target.value = value.substring(0, 6);
+    }
+    setOTP(e.target.value); // Set OTP directly
+  };
 
-  const handleSubmit = async () => {
-    setLoading(true);
-
+  const sendOTP = async () => {
     try {
-      const payload = { email, password };
+      const response = await axios.get("http://localhost:5000/resetPassword", {
+        params: { email: emailID },
+      });
+      console.log(response);
 
-      const response = await axios.post("http://localhost:5000/login", payload);
-      if (response.data.user) {
-        // Authentication successful
-        toast.success("Login Successful!", {
+      if (response.data.success) {
+        console.log(emailID)
+        ReactSession.set("email",emailID);
+
+        toast.success("OTP sent successfully!", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -47,17 +58,44 @@ function Login() {
             backgroundColor: "#0c151d",
           },
         });
-        localStorage.setItem("token", response.data.jwtToken);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        navigate("/feed", { state: { user: response.data.user } });
       } else {
-        setInfo(response.data.message || "An error occurred");
-        setVerified(response.data.status);
-        // alert(verified);
+        setInfo(response.data.message);
       }
     } catch (error) {
-      console.log("Error occurred:", error);
-      setInfo("An error occurred during login");
+      setInfo("Failed to send OTP. Please try again.");
+      console.error("Error sending OTP:", error);
+    }
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+
+    try {
+      const payload = { email: emailID, userOTP: OTP };
+
+      const response = await axios.get("http://localhost:5000/verifyOTP", {
+        params: payload,
+      });
+
+      // Check if OTP is verified
+      if (response.data.verified) {
+        toast.success("OTP Verified!", {
+          position: "top-right",
+          autoClose: 2000,
+          theme: "dark",
+        });
+
+
+        // Delay navigation by 2 seconds
+        setTimeout(() => {
+          navigate("/change-password"); // Navigate to change-passowrd page after 2 seconds
+        }, 500);
+      } else {
+        setInfo(response.data.message || "Invalid OTP.");
+      }
+    } catch (error) {
+      console.error("Error occurred:", error);
+      setInfo("An error occurred during verification");
     } finally {
       setLoading(false);
     }
@@ -68,52 +106,43 @@ function Login() {
       <Navbar />
       <div style={{ display: "flex" }}>
         <form className="Box-1-login">
-          <h1>Log in</h1>
-          <p style={{ color: "red" }}>
-            {info}
-            {!verified && (
-              <Link
-                to="/verify"
-                style={{ color: "white", textDecoration: "none" }}
-              >
-                Verify Now.
-              </Link>
-            )}
-          </p>
+          <h1>Reset Password</h1>
+          <p style={{ color: "red" }}>{info}</p>
 
           <input
             type="email"
             name="email"
             placeholder="Email id"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={emailID}
+            onChange={(e) => setEmailID(e.target.value)}
             required
           />
           <div style={{ position: "relative" }}>
             <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="number"
+              placeholder="6 Digit OTP"
+              maxLength="6"
+              name="text"
+              value={OTP}
+              onChange={handleChange}
               required
-              style={{ width: "100%" }}
+              style={{ width: "60%" }}
             />
             <span
-              onClick={() => setShowPassword(!showPassword)}
               style={{
                 position: "absolute",
                 fontFamily: "DynaPuff, system-ui",
                 fontWeight: "600",
-                right: "10px",
+                right: "-20px",
                 top: "50%",
                 transform: "translateY(-50%)",
                 cursor: "pointer",
                 fontSize: "1.05rem",
                 color: "#ff8b4d",
               }}
+              onClick={sendOTP} // Trigger OTP resend
             >
-              {showPassword ? "Hide" : "Show"}
+              Send OTP
             </span>
           </div>
           <button
@@ -134,34 +163,13 @@ function Login() {
                 <span className="sr-only">Loading...</span>
               </>
             ) : (
-              <>Submit</>
+              <>Reset</>
             )}
           </button>
-          <p style={{ color: "white" }}>
-            Don't have an account?{" "}
-            <Link to="/sign-up" style={{ textDecoration: "none" }}>
-              Click Here
-            </Link>
-          </p>
-          <Link
-            to="/forgot-password"
-            style={{
-              position: "absolute",
-              fontFamily: "DynaPuff, system-ui",
-              fontWeight: "600",
-              cursor: "pointer",
-              fontSize: "1.05rem",
-              transform: "translateX(-50%)",
-              color: "#ff8b4d",
-              textDecoration: "none",
-            }}
-          >
-            Reset Password
-          </Link>
         </form>
       </div>
     </>
   );
 }
 
-export default Login;
+export default ForgotPassword;

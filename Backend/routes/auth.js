@@ -116,7 +116,7 @@ const verifyOTP = (userOTP, OTP) => {
     return (userOTP == OTP)
 };
 
-const sendOTP = (email) => {
+const generateOTP = () => {
     const OTP = randomstring.generate({ length: 6, charset: 'numeric' })
     generatedOTP = OTP;
     return OTP;
@@ -197,7 +197,7 @@ router.get('/sendOTP', async (req, res) => {
         const { email } = req.query;
         if (email) {
             console.log("Email recieved: ", email)
-            const OTP = sendOTP("email@gmail.com");  // Assuming sendOTP function returns OTP
+            const OTP = generateOTP();  // Assuming sendOTP function returns OTP
             await sendOTPEmail(email, OTP);
             console.log("Generated OTP: ", OTP);
             res.status(200).json({
@@ -213,6 +213,44 @@ router.get('/sendOTP', async (req, res) => {
 
             })
         }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "An error occurred" });
+    }
+});
+
+router.get('/resetPassword', async (req, res) => {
+    try {
+        const { email } = req.query;
+
+        if (!email) {
+            console.log("No email received");
+            return res.status(200).json({
+                success: false,
+                message: "Email not received"
+            });
+        }
+
+        // Check if the email exists in the Signup collection
+        const user = await Signup.findOne({ email });
+        if (!user) {
+            console.log("Email does not exist in the database");
+            return res.status(200).json({
+                success: false,
+                message: "Email does not exist"
+            });
+        }
+
+        console.log("Email received: ", email);
+        const OTP = generateOTP();  // Assuming sendOTP function returns OTP
+        await sendOTPEmail(email, OTP);
+        console.log("Generated OTP: ", OTP);
+
+        res.status(200).json({
+            message: "OTP sent successfully",
+            success: true
+        });
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "An error occurred" });
