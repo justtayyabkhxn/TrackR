@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "../css/forgotpassword.css";
+import React, { useEffect, useState } from "react";
+import "../css/changepassword.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory for React Router v6
 import Navbar from "../Components/Navbar";
@@ -7,9 +7,7 @@ import { Spinner } from "react-bootstrap";
 import { ToastContainer, toast, Flip } from "react-toastify";
 import { ReactSession } from "react-client-session";
 
-function ForgotPassword() {
-  ReactSession.setStoreType("sessionStorage");
-
+function ChangePassword() {
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState("");
   const [verified, setVerified] = useState(true);
@@ -17,9 +15,22 @@ function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [emailID, setEmailID] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // Toggle for password visibility
+  const [showCPassword, setShowCPassword] = useState(false); // Toggle for confirm password visibility
   const [message, setMessage] = useState(""); // State to toggle password visibility
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    cpassword: "",
+  });
   const navigate = useNavigate();
+
+  // Use useEffect to set emailID once when component mounts
+  useEffect(() => {
+    setEmailID(ReactSession.get("email"));
+    sessionStorage.removeItem("email");
+  }, []); // Empty dependency array ensures this runs only once
+
   const handleChange = (e) => {
     const value = e.target.value;
     if (value.length > 6) {
@@ -29,69 +40,43 @@ function ForgotPassword() {
     setOTP(e.target.value); // Set OTP directly
   };
 
-  const sendOTP = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/resetPassword", {
-        params: { email: emailID },
-      });
-      console.log(response);
-
-      if (response.data.success) {
-        console.log(emailID)
-        ReactSession.set("email",emailID);
-
-        toast.success("OTP sent successfully!", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Flip,
-          style: {
-            fontSize: "1.05rem",
-            textTransform: "uppercase",
-            textShadow: "0.5px 0.5px 2px black",
-            color: "#ff8b4d",
-            backgroundColor: "#0c151d",
-          },
-        });
-      } else {
-        setInfo(response.data.message);
-      }
-    } catch (error) {
-      setInfo("Failed to send OTP. Please try again.");
-      console.error("Error sending OTP:", error);
-    }
+  const handleFormChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({
+      ...formData,
+      [id]: value,
+    });
   };
 
   const handleSubmit = async () => {
     setLoading(true);
 
     try {
-      const payload = { email: emailID, userOTP: OTP };
+      const payload = {
+        email: emailID,
+        password: formData.password,
+        cpassword: formData.cpassword
+      };
 
-      const response = await axios.get("http://localhost:5000/verifyOTP", {
-        params: payload,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/changePassword",
+       payload,
+      );
 
-      // Check if OTP is verified
-      if (response.data.verified) {
-        toast.success("OTP Verified!", {
+      // Check if Pasword is changed
+      if (response.data.success) {
+        toast.success("Password Changed !", {
           position: "top-right",
           autoClose: 2000,
           theme: "dark",
         });
 
-
         // Delay navigation by 2 seconds
         setTimeout(() => {
-          navigate("/change-password"); // Navigate to change-passowrd page after 2 seconds
-        }, 500);
+          navigate("/log-in"); // Navigate to change-passowrd page after 2 seconds
+        }, 1500);
       } else {
-        setInfo(response.data.message || "Invalid OTP.");
+        setInfo(response.data.message || "Invalid request.");
       }
     } catch (error) {
       console.error("Error occurred:", error);
@@ -106,7 +91,7 @@ function ForgotPassword() {
       <Navbar />
       <div style={{ display: "flex" }}>
         <form className="Box-1-login">
-          <h1>Reset Password</h1>
+          <h1>Change Password</h1>
           <p style={{ color: "red" }}>{info}</p>
 
           <input
@@ -116,19 +101,49 @@ function ForgotPassword() {
             value={emailID}
             onChange={(e) => setEmailID(e.target.value)}
             required
+            readOnly
           />
-          <div style={{ position: "relative" }}>
+          <div style={{ position: "relative", width: "100%" }}>
             <input
-              type="number"
-              placeholder="6 Digit OTP"
-              maxLength="6"
-              name="text"
-              value={OTP}
-              onChange={handleChange}
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              id="password"
               required
-              style={{ width: "60%" }}
+              value={formData.password}
+              onChange={handleFormChange}
+              style={{ width: "100%" }}
             />
             <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: "absolute",
+                fontFamily: "DynaPuff, system-ui",
+                fontWeight: "600",
+                right: "-20px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                fontSize: "1.05rem",
+                color: "#ff8b4d",
+                marginLeft: "10px",
+              }}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </span>
+          </div>
+
+          <div style={{ position: "relative", width: "100%" }}>
+            <input
+              type={showCPassword ? "text" : "password"}
+              placeholder="Confirm Password"
+              id="cpassword"
+              required
+              value={formData.cpassword}
+              onChange={handleFormChange}
+              style={{ width: "150%" }}
+            />
+            <span
+              onClick={() => setShowCPassword(!showCPassword)}
               style={{
                 position: "absolute",
                 fontFamily: "DynaPuff, system-ui",
@@ -140,9 +155,8 @@ function ForgotPassword() {
                 fontSize: "1.05rem",
                 color: "#ff8b4d",
               }}
-              onClick={sendOTP} // Trigger OTP resend
             >
-              Send OTP
+              {showCPassword ? "Hide" : "Show"}
             </span>
           </div>
           <button
@@ -163,15 +177,14 @@ function ForgotPassword() {
                 <span className="sr-only">Loading...</span>
               </>
             ) : (
-              <>Reset</>
+              <>Change Password</>
             )}
           </button>
         </form>
         <ToastContainer/>
-
       </div>
     </>
   );
 }
 
-export default ForgotPassword;
+export default ChangePassword;

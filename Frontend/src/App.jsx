@@ -14,6 +14,7 @@ import ProfilePage from "./Components/ProfilePage"
 import OTPVerification from "./Components/OTPVerification";
 import NotFound from "./Components/NotFound";
 import ForgotPassword from "./Components/ForgotPassword";
+import ChangePassword from "./Components/ChangePassword";
 
 function App() {
   return (
@@ -29,15 +30,14 @@ function App() {
               <Route path="/feed" element={<PrivateRoute />}>
                 <Route path="" element={<Feed />} />
               </Route>
-
               <Route path="/mylistings" element={<MyListings />} />
               <Route path="/item/:item" element={<ItemPage />} />
-
               <Route path="/responses" element={<Response />} />
               <Route path="/searchItem/" element={<SearchResults />} />
               <Route path="/profile/" element={<ProfilePage />} />
               <Route path="/verify" element={<OTPVerification />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/change-password" element={<ChangePassword />} />
               <Route path="*" element={<NotFound />} />
             </>
           }

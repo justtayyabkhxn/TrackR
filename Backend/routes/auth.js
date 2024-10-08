@@ -84,6 +84,14 @@ const checkField = (req, res, next) => {
     next();
 };
 
+const checkFieldChangePassword = (req, res, next) => {
+    const { password, cpassword } = req.body;
+    if (!password || !cpassword) {
+        return res.status(200).json({ message: 'Please enter all the fields' });
+    }
+    next();
+};
+
 const checkFieldLogin = (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -112,6 +120,8 @@ const checkPassword = (req, res, next) => {
     }
     next();
 };
+
+
 const verifyOTP = (userOTP, OTP) => {
     return (userOTP == OTP)
 };
@@ -169,7 +179,7 @@ const verifyUser = async (req, res, next) => {
             return next();
         } else {
             // If not verified, redirect to the verification page
-            return res.status(200).json({ message: 'User not verified ! ',status:false });  // Adjust the path to your verification page as needed
+            return res.status(200).json({ message: 'User not verified ! ', status: false });  // Adjust the path to your verification page as needed
         }
     } catch (error) {
         console.error(error);
@@ -254,6 +264,46 @@ router.get('/resetPassword', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "An error occurred" });
+    }
+});
+
+router.post('/changePassword', checkPassword, async (req, res) => {
+    try {
+        const { email, password, cpassword } = req.body; // Assuming payload has 'email' and 'newPassword'
+        console.log(email, password, cpassword)
+
+        const user = await Signup.findOne({ email });
+        if (!user) {
+            console.log("Email does not exist in the database");
+            return res.status(200).json({
+                success: false,
+                message: "Email does not exist"
+            });
+        }
+        // Update the user's password in the database
+        const updatedUser = await Signup.findOneAndUpdate(
+            { email },                   // Find the user by email
+            { password: password }, // Update password
+            { new: true }                 // Return the updated document
+        );
+
+        if (updatedUser) {
+            return res.status(200).json({
+                success: true,
+                message: "Password changed successfully"
+            });
+        } else {
+            return res.status(200).json({
+                success: false,
+                message: "Error updating password"
+            });
+        }
+    } catch (error) {
+        console.error("Error changing password:", error);
+        return res.status(500).json({
+            success: false,
+            message: "An error occurred while changing the password"
+        });
     }
 });
 
