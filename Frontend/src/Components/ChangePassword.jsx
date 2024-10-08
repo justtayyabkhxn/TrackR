@@ -27,10 +27,16 @@ function ChangePassword() {
 
   // Use useEffect to set emailID once when component mounts
   useEffect(() => {
-    setEmailID(ReactSession.get("email"));
-    sessionStorage.removeItem("email");
-  }, []); // Empty dependency array ensures this runs only once
-
+    const email = ReactSession.get("email");
+  
+    if (email) {
+      setEmailID(email);  // Set emailID in state
+      sessionStorage.removeItem("email"); 
+      sessionStorage.clear(); 
+       // Remove email from sessionStorage
+    }
+  }, []);  // Empty dependency array ensures this runs only once
+  
   const handleChange = (e) => {
     const value = e.target.value;
     if (value.length > 6) {
@@ -106,7 +112,7 @@ function ChangePassword() {
           <div style={{ position: "relative", width: "100%" }}>
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder="New Password"
               id="password"
               required
               value={formData.password}

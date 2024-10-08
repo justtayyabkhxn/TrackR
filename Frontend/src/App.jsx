@@ -38,6 +38,9 @@ function App() {
               <Route path="/verify" element={<OTPVerification />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/change-password" element={<ChangePassword />} />
+              <Route path="/feed" element={<PrivateRoute />}>
+                <Route path="" element={<Feed />} />
+              </Route>
               <Route path="*" element={<NotFound />} />
             </>
           }
