@@ -337,14 +337,22 @@ router.get('/verifyOTP', async (req, res) => {
 });
 
 
-router.post('/login', checkFieldLogin, verifyUser, async (req, res) => {
+router.post('/login', checkFieldLogin, async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await Signup.findOne({ email });
         if (!user) {
             return res.status(200).json({ message: 'Email does not exist' });
         }
+
+        // Check if the password matches
         if (user.password === password) { // Use bcryptjs for password comparison in production
+            
+            // Check if the user is verified only after password is correct
+            if (!user.verified) {
+                return res.status(200).json({ message: 'User not verified', status: false });
+            }
+            
             const jwtToken = signJwt(user._id);
             res.cookie('jwt', jwtToken, { expiresIn: '1hr' });
             res.status(200).json({ jwtToken, user });
@@ -356,6 +364,7 @@ router.post('/login', checkFieldLogin, verifyUser, async (req, res) => {
     }
     console.log("New Login: ", { email, password });
 });
+
 
 router.post('/checktoken', requireSignin, (req, res) => {
     res.status(200).json({});

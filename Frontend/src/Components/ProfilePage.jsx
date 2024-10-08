@@ -87,9 +87,23 @@ const ProfilePage = () => {
               {showPassword ? "Hide" : "Show"}
             </span>
           </div>
-          <button type="button" className="submit">
-            Submit
-          </button>
+
+          <Link
+            to="/change-password"
+            style={{
+              position: "absolute",
+              fontFamily: "DynaPuff, system-ui",
+              fontWeight: "600",
+              cursor: "pointer",
+              fontSize: "1.05rem",
+              transform: "translateX(-50%)",
+              color: "#ff8b4d",
+              textDecoration: "none",
+              borderBottom:"2px solid"
+            }}
+          >
+            Change Password
+          </Link>
         </form>
       </div>
     </div>

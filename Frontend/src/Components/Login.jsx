@@ -22,11 +22,12 @@ function Login() {
 
   const handleSubmit = async () => {
     setLoading(true);
-
+  
     try {
       const payload = { email, password };
-
+  
       const response = await axios.post("http://localhost:5000/login", payload);
+      
       if (response.data.user) {
         // Authentication successful
         toast.success("Login Successful!", {
@@ -51,9 +52,9 @@ function Login() {
         localStorage.setItem("user", JSON.stringify(response.data.user));
         navigate("/feed", { state: { user: response.data.user } });
       } else {
+        // Handle the error messages
         setInfo(response.data.message || "An error occurred");
-        setVerified(response.data.status);
-        // alert(verified);
+        setVerified(response.data.status !== undefined ? response.data.status : true);
       }
     } catch (error) {
       console.log("Error occurred:", error);
@@ -62,6 +63,7 @@ function Login() {
       setLoading(false);
     }
   };
+  
 
   return (
     <>

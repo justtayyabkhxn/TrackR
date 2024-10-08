@@ -28,15 +28,15 @@ function ChangePassword() {
   // Use useEffect to set emailID once when component mounts
   useEffect(() => {
     const email = ReactSession.get("email");
-  
+
     if (email) {
-      setEmailID(email);  // Set emailID in state
-      sessionStorage.removeItem("email"); 
-      sessionStorage.clear(); 
-       // Remove email from sessionStorage
+      setEmailID(email); // Set emailID in state
+      sessionStorage.removeItem("email");
+      sessionStorage.clear();
+      // Remove email from sessionStorage
     }
-  }, []);  // Empty dependency array ensures this runs only once
-  
+  }, []); // Empty dependency array ensures this runs only once
+
   const handleChange = (e) => {
     const value = e.target.value;
     if (value.length > 6) {
@@ -61,12 +61,12 @@ function ChangePassword() {
       const payload = {
         email: emailID,
         password: formData.password,
-        cpassword: formData.cpassword
+        cpassword: formData.cpassword,
       };
 
       const response = await axios.post(
         "http://localhost:5000/changePassword",
-       payload,
+        payload
       );
 
       // Check if Pasword is changed
@@ -79,6 +79,7 @@ function ChangePassword() {
 
         // Delay navigation by 2 seconds
         setTimeout(() => {
+          localStorage.clear()
           navigate("/log-in"); // Navigate to change-passowrd page after 2 seconds
         }, 1500);
       } else {
@@ -187,7 +188,7 @@ function ChangePassword() {
             )}
           </button>
         </form>
-        <ToastContainer/>
+        <ToastContainer />
       </div>
     </>
   );
