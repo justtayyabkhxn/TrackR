@@ -15,6 +15,7 @@ import OTPVerification from "./Components/OTPVerification";
 import NotFound from "./Components/NotFound";
 import ForgotPassword from "./Components/ForgotPassword";
 import ChangePassword from "./Components/ChangePassword";
+import AdminLogin from "./Components/AdminLogin";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               <Route path="/feed" element={<PrivateRoute />}>
                 <Route path="" element={<Feed />} />
               </Route>
+              <Route path="/admin" element={<AdminLogin />} />
               <Route path="*" element={<NotFound />} />
             </>
           }
