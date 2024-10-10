@@ -16,6 +16,8 @@ var generatedOTP = 0;
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES = process.env.JWT_EXPIRES;
 const NODE_ENV = process.env.NODE_ENV;
+const admin=process.env.ADMIN;
+// console.log(admin);
 const signJwt = (id) => {
     return jwt.sign({ id }, JWT_SECRET, {
         expiresIn: JWT_EXPIRES,
@@ -95,6 +97,13 @@ const checkFieldChangePassword = (req, res, next) => {
 const checkFieldLogin = (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
+        return res.status(200).json({ message: 'Please enter all the fields' });
+    }
+    next();
+};
+const checkAdminFieldLogin = (req, res, next) => {
+    const {password } = req.body;
+    if (!password) {
         return res.status(200).json({ message: 'Please enter all the fields' });
     }
     next();
@@ -337,9 +346,45 @@ router.get('/verifyOTP', async (req, res) => {
 });
 
 
-router.post('/login', checkFieldLogin, async (req, res) => {
+router.post('/adminLogin', checkAdminFieldLogin, async (req, res) => {
     const { email, password } = req.body;
     try {
+        console.log(email);        
+        const user = await Signup.findOne({ email });
+        if (!user) {
+            return res.status(200).json({ message: 'Email does not exist' });
+        }
+
+        // Check if the password matches
+        if (user.password === password) { // Use bcryptjs for password comparison in production
+            
+            // Check if the user is verified only after password is correct
+            if (!user.verified) {
+                return res.status(200).json({ message: 'User not verified', status: false });
+            }
+            
+            const jwtToken = signJwt(user._id);
+            res.cookie('jwt', jwtToken, { expiresIn: '1hr' });
+            res.status(200).json({ jwtToken, user });
+        } else {
+            res.status(200).json({ message: 'Password incorrect' });
+        }
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+    console.log("New Login: ", { email, password });
+});
+
+
+router.post('/login', checkFieldLogin, async (req, res) => {
+    const { email, password } = req.body;
+    if(email==admin){
+        return res.status(200).json({
+            message:"Please visit admin page"
+        })
+    }
+    try {
+
         const user = await Signup.findOne({ email });
         if (!user) {
             return res.status(200).json({ message: 'Email does not exist' });

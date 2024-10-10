@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/newSignup.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory for React Router v6
@@ -19,15 +19,21 @@ function AdminLogin() {
   const [message, setMessage] = useState(""); // State to toggle password visibility
   const navigate = useNavigate();
   ReactSession.set("email", email);
+  useEffect(() => {
+    setEmail("admin@trackit.com");
+  }, []);
 
   const handleSubmit = async () => {
     setLoading(true);
-  
+
     try {
       const payload = { email, password };
-  
-      const response = await axios.post("http://localhost:5000/login", payload);
-      
+
+      const response = await axios.post(
+        "http://localhost:5000/adminLogin",
+        payload
+      );
+
       if (response.data.user) {
         // Authentication successful
         toast.success("Login Successful!", {
@@ -54,7 +60,9 @@ function AdminLogin() {
       } else {
         // Handle the error messages
         setInfo(response.data.message || "An error occurred");
-        setVerified(response.data.status !== undefined ? response.data.status : true);
+        setVerified(
+          response.data.status !== undefined ? response.data.status : true
+        );
       }
     } catch (error) {
       console.log("Error occurred:", error);
@@ -63,7 +71,6 @@ function AdminLogin() {
       setLoading(false);
     }
   };
-  
 
   return (
     <>
@@ -71,27 +78,18 @@ function AdminLogin() {
       <div style={{ display: "flex" }}>
         <form className="Box-1-login">
           <h1>Admin Log in</h1>
-          <p style={{ color: "red" }}>
-            {info}
-            {!verified && (
-              <Link
-                to="/verify"
-                style={{ color: "white", textDecoration: "none" }}
-              >
-                Verify Now.
-              </Link>
-            )}
-          </p>
+          <p style={{ color: "red" }}>{info}</p>
 
           <input
             type="email"
             name="email"
             placeholder="Email id"
             style={{
-                color:"#ff8b4d"
+              color: "#ff8b4d",
+              borderColor: "#ff8b4d",
+              textShadow: "1px 1px 1px black",
             }}
             value={"admin@trackit.com"}
-            onChange={(e) => setEmail(e.target.value)}
             required
             readOnly
           />

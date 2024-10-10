@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const shortid = require("shortid");
 const path = require("path");
+const nodemailer = require("nodemailer");
 const log = console.log;
 
 const SignUp = require("../models/signup");
@@ -21,6 +22,31 @@ const storage = multer.diskStorage({
     cb(null, `${shortid.generate()}-${file.originalname}-${Date.now()}`);
   },
 });
+
+const sendEmail = async (recipientEmail, message, subject) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    secure: true,
+    port: 465,
+    auth: {
+      user: process.env.EMAIL_USER, // Your Gmail
+      pass: process.env.EMAIL_PASS, // Your Gmail password or App password
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: recipientEmail,
+    subject: `${subject}`,
+    text:
+      `${message}`,
+  };
+
+  await transporter.sendMail(mailOptions);
+  console.log("Email sent to: ",recipientEmail)
+  console.log("Email Subject: ",subject)
+  console.log("Email Body: ",message)
+};
 
 const upload = multer({ storage });
 
@@ -295,12 +321,27 @@ router.get("/searchItem/:query", async (req, res) => {
     res.status(200).json({
       msg: "Items retrieved successfully",
       data: filteredPosts,
-      query:query // Send the filtered items back in the response
+      query: query // Send the filtered items back in the response
     });
   } catch (err) {
     res.status(400).json({ msg: err.message });
   }
 });
+
+router.post("/sendMail", async (req, res) => {
+  try {
+    const { subject, emailBody,postID } = req.body;
+    res.status(200).json({
+      message: emailBody,
+      subject: subject
+    })
+    const recievedEmail="tayyabk2002@gmail.com";
+    sendEmail(recievedEmail, emailBody, subject);
+  }
+  catch (err) {
+    res.status(400).json({ Error: err.message });
+  }
+})
 
 
 module.exports = router;

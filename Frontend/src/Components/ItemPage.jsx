@@ -27,6 +27,7 @@ function ItemPage(props) {
   const [ActivationRequest, setActivationRequest] = useState(false);
   const [Createdby, setCreatedby] = useState("");
   const [show, setShow] = useState(false);
+  const [showEmailModel, setShowEmailModel] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [alreadyAnswered, setAlreadyAnswered] = useState(false);
   const [showQuestion, setshowQuestion] = useState(false);
@@ -34,11 +35,13 @@ function ItemPage(props) {
   const [itemid, setItemid] = useState("");
   const [Question, setQuestion] = useState(false);
   const [isOwner, setIsOwner] = useState();
+  const [emailMessage,setEmailMessage]=useState("");
 
   const [itemname, setItemnameState] = useState("");
   const [description, setDescription] = useState("");
+  const [emailSubject,setemailSubject]=useState("");
   const [itemquestion, setItemQuestion] = useState("");
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(true);
   const [itemAnswers, setItemAnswers] = useState([]);
   const [itemImage, setItemImage] = useState([]);
   const [newitemimage, setNewItemImage] = useState([]);
@@ -72,7 +75,6 @@ function ItemPage(props) {
     setvalidateUser(true);
   };
 
-
   // const handleShowQuestion = () => setQuestion(true);
   // const handleShowQuestion = () => setShowQuestion(true);
 
@@ -96,6 +98,7 @@ function ItemPage(props) {
   // console.log("Post owner: ", item_owner);
   const temp = [];
   const validation = [];
+  const admin = "67075569252b464e56db8e31";
   // Fetching item data on component mount
   useEffect(() => {
     Axios.get(`http://localhost:5000/item/${item_id}`)
@@ -107,7 +110,7 @@ function ItemPage(props) {
 
         setItemData(data);
         // const current_user = ;
-        setIsOwner(user_id == item_owner ? true : false);
+        setIsOwner(user_id == item_owner || user_id == admin ? true : false);
         // console.log("img id: ", ItemData);
         Axios.get(
           `http://localhost:5000/responseData/${user_id}/${item_id}`
@@ -286,6 +289,25 @@ function ItemPage(props) {
                     </Button>
                   </>
                 )}
+                {user_id == admin ? (
+                  <Button
+                    variant="primary"
+                    onClick={() => setShowEmailModel(true)}
+                    style={{
+                      marginTop: "0px",
+                      backgroundColor: "#ffa200",
+                      border: "none",
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
+                      fontSize: "1.05rem",
+                      textShadow: "0.5px 0.5px 2px black",
+                    }}
+                  >
+                    Send Mail to Owner
+                  </Button>
+                ) : (
+                  <></>
+                )}
               </div>
             )}
 
@@ -335,7 +357,7 @@ function ItemPage(props) {
       })
       .catch((err) => console.log(err));
     validation.push(
-      <div key="validation-wrapper">
+      <span key="validation-wrapper">
         {" "}
         {/* Wrap with a unique key for the outer div */}
         {isOwner ? (
@@ -431,7 +453,7 @@ function ItemPage(props) {
                       {/* Add key here */}
                       <Card
                         style={{
-                          width: "18rem",
+                          width:"100%",
                           // border: "solid 0.22px #0c151d",
                           boxShadow: "0.1px 0.1px 5px black",
                           borderBottom: "5px solid #ff8b4d",
@@ -448,6 +470,7 @@ function ItemPage(props) {
                               marginBottom: "0.5px",
                               marginLeft: "5px",
                               textTransform: "capitalize",
+                              
                             }}
                           >
                             Answer: {answer.answer}
@@ -518,15 +541,20 @@ function ItemPage(props) {
                                 </Button>
                               </div>
                             ) : (
-                              <p>Already Submitted as <span
-                              style={{
-                                fontFamily: "DynaPuff, system-ui",
-                                fontWeight: "400",
-                                textShadow: "0.2px 0.2px 1px black",
-                                color: "#ff8b4d",
-                                textTransform: "uppercase",
-                              }}>
-                                 "{answer.response}" </span></p>
+                              <p>
+                                Already Submitted as{" "}
+                                <span
+                                  style={{
+                                    fontFamily: "DynaPuff, system-ui",
+                                    fontWeight: "400",
+                                    textShadow: "0.2px 0.2px 1px black",
+                                    color: "#ff8b4d",
+                                    textTransform: "uppercase",
+                                  }}
+                                >
+                                  "{answer.response}"{" "}
+                                </span>
+                              </p>
                             )}
                           </ListGroupItem>
                         </ListGroup>
@@ -540,12 +568,13 @@ function ItemPage(props) {
         ) : (
           <div key="non-owner-section"></div>
         )}
-      </div>
+      </span>
     );
     setauthenication(validation);
   }, [alreadyAnswered, item_id, isOwner]);
 
   // Submit Functions
+
   const submitActivate = (item_id) => {
     Axios.post(`http://localhost:5000/activateItem/${item_id}`)
       .then(() => {
@@ -623,11 +652,40 @@ function ItemPage(props) {
             backgroundColor: "#0c151d",
           },
         });
-        setTimeout(() => navigate("/feed"), 1500);
+        setTimeout(() => navigate("/mylistings"), 1500);
       })
       .catch((err) => console.log(err));
   };
   //HANDLE EDIT
+  const sendMail=()=>{
+    const formData = new FormData();
+    formData.append("Subject",emailSubject)
+    formData.append("Email",emailMessage)
+
+    Axios.post("http://localhost:5000/sendMail", formData)
+      .then(() => {
+        toast.success("Mail Sent successfully!", {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Flip,
+          style: {
+            fontSize: "1.05rem",
+            textTransform: "uppercase",
+            textShadow: "0.5px 0.5px 2px black",
+            color: "#ff8b4d",
+            backgroundColor: "#0c151d",
+          },
+        });
+      })
+      .catch((err) => console.log(err));
+    setShowEmailModel(false);
+  };
   const handleEdit = () => {
     const formData = new FormData();
     formData.append("name", itemname);
@@ -714,7 +772,9 @@ function ItemPage(props) {
   };
   //VALIDATE ANSWER
   const validate_answer = (id, answer) => {
-    Axios.post(`http://localhost:5000/confirmResponse/${id}`, { response: answer }) // Fix URL and key
+    Axios.post(`http://localhost:5000/confirmResponse/${id}`, {
+      response: answer,
+    }) // Fix URL and key
       .then(() => {
         handleShowprompt();
         toast.success("Validation saved successfully!", {
@@ -739,8 +799,6 @@ function ItemPage(props) {
       })
       .catch((err) => console.log(err));
   };
-  
-
 
   return (
     <>
@@ -952,6 +1010,91 @@ function ItemPage(props) {
           </Modal.Body>
         </Modal>
 
+        <Modal show={showEmailModel} onHide={() => setShowEmailModel(false)}>
+          <Modal.Header
+            closeButton
+            closeVariant="white"
+            style={{
+              fontFamily: "DynaPuff",
+              fontWeight: "400",
+              fontSize: "1.35rem",
+              backgroundColor: "#0c151d",
+              border: "none",
+              color: "#ff8b4d",
+              textShadow: "0.5px 0.5px 0.2px black",
+            }}
+          >
+            <Modal.Title style={{ fontFamily: "DynaPuff", fontWeight: "400" }}>
+              Send Mail
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body
+            style={{
+              fontSize: "1.05rem",
+              backgroundColor: "#0c151d",
+              border: "none",
+              color: "#ff8b4d",
+              textShadow: "0.5px 0.5px 0.2px black",
+              marginTop: "0px",
+            }}
+          >
+            <Form>
+              <Form.Group>
+                <Form.Label
+                  style={{
+                    fontFamily: "DynaPuff",
+                    fontWeight: "400",
+                    marginBottom: "1px",
+                    marginTop: "8px",
+                  }}
+                >
+                  Subject
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter subject"
+                  value={""}
+                  onChange={(e) => setemailSubject(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label
+                  style={{
+                    fontFamily: "DynaPuff",
+                    fontWeight: "400",
+                    marginBottom: "1px",
+                    marginTop: "8px",
+                  }}
+                >
+                  Email
+                </Form.Label>
+                <Form.Control
+                  as="textarea"
+                  placeholder="Enter Email"
+                  value={""}
+                  onChange={(e) => setDescription(e.target.value)}
+                  style={{
+                    height:"250px",
+                  }}
+                />
+              </Form.Group>
+              <Button
+                variant="primary"
+                onClick={sendMail}
+                style={{
+                  backgroundColor: "#52a302",
+                  border: "none",
+                  marginTop: "15px",
+                  textShadow: "0.5px 0.5px 2px black",
+                  boxShadow: "0.5px 0.5px 2px black",
+                }}
+              >
+                Submit
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
+
         <Modal
           show={showQuestion}
           onHide={handleCloseQuestion}
@@ -1037,9 +1180,6 @@ function ItemPage(props) {
                 onHide={() => setShowConfirmation(false)}
                 backdrop="static"
               >
-                <Modal.Body>
-                  <p>Are you sure you found the item?</p>
-                </Modal.Body>
                 <Modal.Footer>
                   <Button
                     variant="primary"
