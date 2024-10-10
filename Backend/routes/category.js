@@ -26,10 +26,8 @@ const storage = multer.diskStorage({
 const sendEmail = async (recipientEmail, message, subject) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
-    secure: true,
-    port: 465,
     auth: {
-      user: process.env.EMAIL_USER, // Your Gmail
+      user: process.env.EMAIL_USER, // Your Gmail email
       pass: process.env.EMAIL_PASS, // Your Gmail password or App password
     },
   });
@@ -37,16 +35,18 @@ const sendEmail = async (recipientEmail, message, subject) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: recipientEmail,
-    subject: `${subject}`,
-    text:
-      `${message}`,
+    subject: subject,
+    text: message,
   };
 
-  await transporter.sendMail(mailOptions);
-  console.log("Email sent to: ",recipientEmail)
-  console.log("Email Subject: ",subject)
-  console.log("Email Body: ",message)
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully!");
+  } catch (error) {
+    console.log("Error sending email:", error);
+  }
 };
+
 
 const upload = multer({ storage });
 
@@ -328,20 +328,37 @@ router.get("/searchItem/:query", async (req, res) => {
   }
 });
 
+
 router.post("/sendMail", async (req, res) => {
   try {
-    const { subject, emailBody,postID } = req.body;
+    const { subject, emailBody, userId } = req.body;
+    console.log("Recieeved: ", subject, emailBody, userId)
+    if (!subject || !emailBody || !userId) {
+      return res.status(400).json({ message: "Subject, email body, and userId are required." });
+    }
+
+    // Search for the user in the Signup schema by userId
+    const user = await SignUp.findById(userId);
+    console.log("User: ", user)
+    if (!user) {
+      return res.status(404).json({ message: "User not found for the given userId." });
+    }
+
+    const recievedEmail = user.email; // Get the email from the user object
+
+    // Send email
+    await sendEmail(recievedEmail, emailBody, subject);
+
     res.status(200).json({
-      message: emailBody,
-      subject: subject
-    })
-    const recievedEmail="tayyabk2002@gmail.com";
-    sendEmail(recievedEmail, emailBody, subject);
-  }
-  catch (err) {
+      message: "Email sent successfully!",
+    });
+
+  } catch (err) {
     res.status(400).json({ Error: err.message });
   }
-})
+});
+
+
 
 
 module.exports = router;

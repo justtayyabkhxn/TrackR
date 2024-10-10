@@ -35,11 +35,11 @@ function ItemPage(props) {
   const [itemid, setItemid] = useState("");
   const [Question, setQuestion] = useState(false);
   const [isOwner, setIsOwner] = useState();
-  const [emailMessage,setEmailMessage]=useState("");
+  const [emailMessage, setEmailMessage] = useState("");
 
   const [itemname, setItemnameState] = useState("");
   const [description, setDescription] = useState("");
-  const [emailSubject,setemailSubject]=useState("");
+  const [emailSubject, setemailSubject] = useState("");
   const [itemquestion, setItemQuestion] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(true);
   const [itemAnswers, setItemAnswers] = useState([]);
@@ -453,7 +453,7 @@ function ItemPage(props) {
                       {/* Add key here */}
                       <Card
                         style={{
-                          width:"100%",
+                          width: "100%",
                           // border: "solid 0.22px #0c151d",
                           boxShadow: "0.1px 0.1px 5px black",
                           borderBottom: "5px solid #ff8b4d",
@@ -470,7 +470,6 @@ function ItemPage(props) {
                               marginBottom: "0.5px",
                               marginLeft: "5px",
                               textTransform: "capitalize",
-                              
                             }}
                           >
                             Answer: {answer.answer}
@@ -657,12 +656,14 @@ function ItemPage(props) {
       .catch((err) => console.log(err));
   };
   //HANDLE EDIT
-  const sendMail=()=>{
-    const formData = new FormData();
-    formData.append("Subject",emailSubject)
-    formData.append("Email",emailMessage)
+  const sendMail = () => {
+    const mailData = {
+      subject: emailSubject,
+      emailBody: emailMessage,
+      userId: item_owner,
+    };
 
-    Axios.post("http://localhost:5000/sendMail", formData)
+    Axios.post("http://localhost:5000/sendMail", mailData)
       .then(() => {
         toast.success("Mail Sent successfully!", {
           position: "bottom-right",
@@ -685,7 +686,11 @@ function ItemPage(props) {
       })
       .catch((err) => console.log(err));
     setShowEmailModel(false);
+    setEmailMessage("");
+    setemailSubject("");
   };
+
+
   const handleEdit = () => {
     const formData = new FormData();
     formData.append("name", itemname);
@@ -1053,7 +1058,7 @@ function ItemPage(props) {
                 <Form.Control
                   type="text"
                   placeholder="Enter subject"
-                  value={""}
+                  value={emailSubject}
                   onChange={(e) => setemailSubject(e.target.value)}
                 />
               </Form.Group>
@@ -1071,10 +1076,10 @@ function ItemPage(props) {
                 <Form.Control
                   as="textarea"
                   placeholder="Enter Email"
-                  value={""}
-                  onChange={(e) => setDescription(e.target.value)}
+                  value={emailMessage}
+                  onChange={(e) => setEmailMessage(e.target.value)}
                   style={{
-                    height:"250px",
+                    height: "250px",
                   }}
                 />
               </Form.Group>
