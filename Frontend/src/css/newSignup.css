@@ -171,7 +171,7 @@ a {
   margin: 10px auto;
   text-align: center;
   border: 2px solid #8bc34a;
-  padding: 14px 30px;
+  padding: 10px 20px;
   outline: none;
   color: white;
   border-radius: 24px;
@@ -180,9 +180,56 @@ a {
   font-family: "DynaPuff", system-ui;
   font-optical-sizing: auto;
   font-weight: 200;
-  font-size: 15px;
+  font-size: 1.25rem;
   text-shadow: 1px 1px 2px black;
   transition: all 0.3s;
+}
+.submitLogin {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  border: 2px solid #8bc34a;
+  padding: 10px 20px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: background 0.25s, border-color 0.25s;
+  cursor: pointer;
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-size: 1.15rem;
+  text-shadow: 1px 1px 2px black;
+  transition: all 0.3s;
+}
+.submitButton {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  border: 2px solid #8bc34a;
+  padding: 10px 20px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: background 0.25s, border-color 0.25s;
+  cursor: pointer;
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-size: 1.25rem;
+  text-shadow: 1px 1px 2px black;
+  transition: all 0.3s;
+}
+
+.submitButton:hover {
+  background: var(--text-color);
+}
+.submitLogin:hover {
+  background: var(--text-color);
 }
 
 .submit:hover {

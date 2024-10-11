@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Signup from "./Components/Signup";
+import Signup from "./Components/Auth/Signup";
 import Login from "./Components/Auth/Login";
 import Feed from "./Components/Feed";
 import Response from "./Components/Responses";

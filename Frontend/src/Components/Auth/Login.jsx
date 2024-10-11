@@ -111,7 +111,7 @@ function Login() {
           </div>
           <button
             type="button"
-            className="submit"
+            className="submitLogin"
             onClick={handleSubmit}
             disabled={loading}
           >
@@ -127,7 +127,7 @@ function Login() {
                 <span className="sr-only">Loading...</span>
               </>
             ) : (
-              <>Submit</>
+              <>Log In</>
             )}
           </button>
           <p style={{ color: "white" }}>

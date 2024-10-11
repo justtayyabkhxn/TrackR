@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import "../css/newSignup.css";
+import "../../css/newSignup.css";
 import axios from "axios";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer, Flip } from "react-toastify";
-import { ReactSession }  from 'react-client-session';
-
+import { ReactSession } from "react-client-session";
 
 const Signup = () => {
   ReactSession.setStoreType("localStorage");
@@ -17,7 +16,7 @@ const Signup = () => {
     number: "",
     password: "",
     cpassword: "",
-    verified:false
+    verified: false,
   });
   const [showPassword, setShowPassword] = useState(false); // Toggle for password visibility
   const [showCPassword, setShowCPassword] = useState(false); // Toggle for confirm password visibility
@@ -33,16 +32,18 @@ const Signup = () => {
 
   const submit = () => {
     setInfo(""); // Clear the info state
-    formData.verified=false;
-    ReactSession.set("email",formData.email);
+    formData.verified = false;
+    ReactSession.set("email", formData.email);
 
-    axios.post(
-      "http://localhost:5000/signup",
-      formData,
-      { withCredentials: true } // Include this option if dealing with cookies or authentication
-    )
-      .then((response) => { // Set the success message
-  
+    axios
+      .post(
+        "http://localhost:5000/signup",
+        formData,
+        { withCredentials: true } // Include this option if dealing with cookies or authentication
+      )
+      .then((response) => {
+        // Set the success message
+
         if (response.data.token) {
           navigate("/verify"); // Redirect to login on success
         } else if (response.data.message) {
@@ -50,9 +51,11 @@ const Signup = () => {
         }
       })
       .catch((error) => {
-        console.log("Error occurred:", error.response?.data?.message || error.message); // Log error
+        console.log(
+          "Error occurred:",
+          error.response?.data?.message || error.message
+        ); // Log error
       });
-      
   };
   return (
     <>
@@ -109,7 +112,7 @@ const Signup = () => {
                 style={{ width: "100%" }}
               />
               <span
-              className="showPassword"
+                className="showPassword"
                 onClick={() => setShowPassword(!showPassword)}
                 style={{
                   position: "absolute",
@@ -121,7 +124,7 @@ const Signup = () => {
                   cursor: "pointer",
                   fontSize: "1.05rem",
                   color: "#ff8b4d",
-                  marginLeft:"10px"
+                  marginLeft: "10px",
                 }}
               >
                 {showPassword ? "Hide" : "Show"}
@@ -156,11 +159,22 @@ const Signup = () => {
               </span>
             </div>
           </div>
-          <button type="button" className="submit" onClick={submit}>
-            Submit
+          <button type="button" className="submitButton" onClick={submit}>
+            Sign Up
           </button>
-          <p style={{ color: "white", fontSize: "21px" }}>
-            Have an account? <Link to="/log-in">Click here</Link>
+          <p style={{ color: "white", fontSize: "1.2rem" }}>
+            Have an account?{" "}
+            <Link
+              to="/log-in"
+              style={{
+                fontSize: "1.2rem",
+                fontFamily: "DynaPuff, system-ui",
+                fontWeight: "500",
+
+              }}
+            >
+              Click here
+            </Link>
           </p>
         </form>
         <ToastContainer />
