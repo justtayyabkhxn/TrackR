@@ -54,8 +54,6 @@ const Signup = () => {
       });
       
   };
-  
-
   return (
     <>
       <Navbar />
@@ -111,6 +109,7 @@ const Signup = () => {
                 style={{ width: "100%" }}
               />
               <span
+              className="showPassword"
                 onClick={() => setShowPassword(!showPassword)}
                 style={{
                   position: "absolute",

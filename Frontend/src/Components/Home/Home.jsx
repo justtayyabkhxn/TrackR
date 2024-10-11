@@ -1,24 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
-import Navbar from "./Navbar";
-import "../css/landing.css";
+import Navbar from "../Navbar";
+import "../../css/landing.css";
 import Axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import image from "../img/lost-2.jpg";
-import developer from "../img/developer.jpg";
-import list_item from "../img/list-item.jpg";
-import list_item2 from "../img/list-item2.jpg";
-import notification from "../img/notification.jpg";
-import github from "../img/github.svg";
-import linkedin from "../img/linkedin.svg";
-import mail from "../img/mail.svg";
+import image from "../../img/lost-2.jpg";
+import developer from "../../img/developer.jpg";
+import list_item from "../../img/list-item.jpg";
+import list_item2 from "../../img/list-item2.jpg";
+import notification from "../../img/notification.jpg";
+import github from "../../img/github.svg";
+// import linkedin from "../img/linkedin.svg";
+import mail from "../../img/mail.svg";
 import { Container, Row, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-  //   const [name, setName] = useState("");
-  //   const [email, setEmail] = useState("");
-  //   const [message, setMessage] = useState("");
   const ref = useRef();
 
   useEffect(() => {
@@ -32,7 +29,6 @@ export default function Home() {
       disableMutationObserver: false, // disables automatic mutations' detections (advanced)
       debounceDelay: 50, // delay on debounce used while resizing window (advanced)
       throttleDelay: 99, // delay on throttle used while scrolling the page (advanced)
-
       // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
       offset: 120, // offset (in px) from the original trigger point
       delay: 0, // values from 0 to 3000, with step 50ms
@@ -43,21 +39,6 @@ export default function Home() {
       anchorPlacement: "top-bottom", // defines which position of the element regarding window should trigger the animation
     });
   }, []);
-
-  //   const sendMessage = () => {
-  //     const data = { name, email, message };
-  //     Axios.post("https://lfs-backend.herokuapp.com/sendmessage", data)
-  //       .then((res) => {
-  //         // handle success
-  //       })
-  //       .catch((err) => {
-  //         console.error(err);
-  //       });
-  //     setName("");
-  //     setEmail("");
-  //     setMessage("");
-  //   };
-
   return (
     <>
       <Navbar />
@@ -82,35 +63,16 @@ export default function Home() {
 
           <div className="part-2">
             <div className="image">
-              <img
-                src={image}
-                style={{ width: "500px", height: "500px", marginTop: "20px" }}
-                alt=""
-              />
+              <img src={image} alt="" />
             </div>
           </div>
         </div>
-        {/* <div className="demo_video">
-          <h6 className="section-heading">Working Demo 🚀</h6>
-          <iframe
-            className="yt_video"
-            width="600"
-            height="400"
-            src="https://www.youtube.com/embed/7pioxo5yjGI?controls=0"
-            title="YouTube demo"
-          ></iframe>
-        </div> */}
       </div>
 
       <div data-aos="fade-right">
         <Container fluid className="total-inspiration">
           <div>
-            <img
-              className="developer-img"
-              src={developer}
-              style={{ width: "500px", height: "550px", marginTop: "50px" }}
-              alt=""
-            />
+            <img className="developer-img" src={developer} alt="" />
           </div>
           <Row className="inspiration">
             <h6 className="section-heading">
@@ -139,11 +101,7 @@ export default function Home() {
             </div>
             <div className="about-card">
               <div className="info">
-                <img
-                  src={list_item}
-                  style={{ width: "200px", height: "200px" }}
-                  alt=""
-                />
+                <img src={list_item} alt="" />
                 <h4>
                   <span>CREATE AN ACCOUNT</span>
                 </h4>
@@ -153,12 +111,6 @@ export default function Home() {
                     variant="custom"
                     size="lg"
                     className="signupCircle"
-                    style={{
-                      textShadow: "0.5px 0.5px 1px black",
-                      fontFamily: "DynaPuff, system-ui",
-                      fontWeight: "200",
-                      textTransform: "uppercase",
-                    }}
                   >
                     Sign Up
                   </Button>
@@ -167,7 +119,6 @@ export default function Home() {
               <div className="info">
                 <img
                   src={list_item2}
-                  style={{ width: "200px", height: "200px" }}
                   alt=""
                 />
                 <h4>
@@ -181,7 +132,6 @@ export default function Home() {
               <div className="info">
                 <img
                   src={notification}
-                  style={{ width: "200px", height: "200px" }}
                   alt=""
                 />
                 <h4>
@@ -197,55 +147,6 @@ export default function Home() {
         </Container>
       </div>
 
-      {/* <div data-aos="fade-right">
-        <Container fluid>
-          <div className="total-contact-form">
-            <div className="contact-title">
-              <h6 className="section-heading">Contact Form 📨📬</h6>
-              <p>
-                If there is something you want to suggest or may be just a hello,
-                do reach out.
-              </p>
-            </div>
-            <div className="contact-form">
-              <Form>
-                <Form.Label>Name:</Form.Label>
-                <Form.Control
-                  size="lg"
-                  type="text"
-                  placeholder="Enter name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <Form.Group controlId="exampleForm.ControlInput1">
-                  <Form.Label>Email address:</Form.Label>
-                  <Form.Control
-                    type="email"
-                    size="lg"
-                    placeholder="Enter email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="exampleForm.ControlTextarea1">
-                  <Form.Label>Message:</Form.Label>
-                  <Form.Control
-                    size="lg"
-                    as="textarea"
-                    rows={6}
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                  />
-                </Form.Group>
-                <Button variant="custom" onClick={sendMessage}>
-                  Submit
-                </Button>
-              </Form>
-            </div>
-          </div>
-        </Container>
-      </div> */}
-
       <div className="footer">
         <div className="social-icon">
           <a
@@ -255,13 +156,6 @@ export default function Home() {
           >
             <img src={github} className="icon github" alt="" />
           </a>
-          {/* <a
-            href="https://www.linkedin.com/in/justtayyabkhan/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src={linkedin} className="icon" alt="" />
-          </a> */}
           <a
             href="mailto:tayyabkhangk4734@gmail.com"
             target="_blank"
@@ -271,13 +165,7 @@ export default function Home() {
           </a>
         </div>
         <div className="personal-info">
-          <h5
-            style={{
-              textShadow: "0px 1px 1px black",
-              textTransform: "uppercase",
-              textDecoration:"underline"
-            }}
-          >
+          <h5>
             Track It By Tayyab Khan
           </h5>
         </div>

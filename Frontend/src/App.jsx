@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Signup from "./Components/Signup";
-import Login from "./Components/Login";
+import Login from "./Components/Auth/Login";
 import Feed from "./Components/Feed";
 import Response from "./Components/Responses";
 import PrivateRoute from "./Components/PrivateRoute";
-import Home from "./Components/Home";
+import Home from "./Components/Home/Home";
 import ItemPage from "./Components/ItemPage";
 import MyListings from "./Components/MyListings";
 import SearchResults from "./Components/SearchPage"

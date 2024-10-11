@@ -72,7 +72,7 @@ export default function Feed() {
                 : "/default-img.png"; // Provide a default image
 
             const card = (
-              <Col key={item._id} md={3} xs={12} style={{ marginTop: "2%" }}>
+              <Col key={item._id} md={3} xs={12} style={{ marginTop: "2%"}}>
                 <Link
                   to={`/item/${item.name}?cid=${item._id}&type=${item.type}`}
                   style={{ textDecoration: "none" }} // Remove default underline from links
@@ -83,8 +83,8 @@ export default function Feed() {
                       cursor: "pointer",
                       boxShadow: "1px 1px 5px black",
                       padding: "10px",
-                      marginLeft: "30px",
-                      marginBottom: "30px",
+                      marginLeft: "80px",
+                      // marginBottom: "30px",
                       backgroundColor: "#0c151d",
                       borderBottom: "5px solid #ff8b4d",
                     }}

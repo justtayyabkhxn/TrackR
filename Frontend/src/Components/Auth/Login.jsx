@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "../css/newSignup.css";
+import "../../css/newSignup.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory for React Router v6
-import Navbar from "../Components/Navbar";
+import Navbar from "../Navbar";
 import { Spinner } from "react-bootstrap";
 import { ToastContainer, toast, Flip } from "react-toastify";
 import { ReactSession } from "react-client-session";
@@ -22,12 +22,12 @@ function Login() {
 
   const handleSubmit = async () => {
     setLoading(true);
-  
+
     try {
       const payload = { email, password };
-  
+
       const response = await axios.post("http://localhost:5000/login", payload);
-      
+
       if (response.data.user) {
         // Authentication successful
         toast.success("Login Successful!", {
@@ -54,7 +54,9 @@ function Login() {
       } else {
         // Handle the error messages
         setInfo(response.data.message || "An error occurred");
-        setVerified(response.data.status !== undefined ? response.data.status : true);
+        setVerified(
+          response.data.status !== undefined ? response.data.status : true
+        );
       }
     } catch (error) {
       console.log("Error occurred:", error);
@@ -63,7 +65,6 @@ function Login() {
       setLoading(false);
     }
   };
-  
 
   return (
     <>
@@ -102,18 +103,8 @@ function Login() {
               style={{ width: "100%" }}
             />
             <span
+              className="showPassword"
               onClick={() => setShowPassword(!showPassword)}
-              style={{
-                position: "absolute",
-                fontFamily: "DynaPuff, system-ui",
-                fontWeight: "600",
-                right: "10px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                cursor: "pointer",
-                fontSize: "1.05rem",
-                color: "#ff8b4d",
-              }}
             >
               {showPassword ? "Hide" : "Show"}
             </span>
@@ -141,23 +132,11 @@ function Login() {
           </button>
           <p style={{ color: "white" }}>
             Don't have an account?{" "}
-            <Link to="/sign-up" style={{ textDecoration: "none" }}>
+            <Link className="clickHere" to="/sign-up">
               Click Here
             </Link>
           </p>
-          <Link
-            to="/forgot-password"
-            style={{
-              position: "absolute",
-              fontFamily: "DynaPuff, system-ui",
-              fontWeight: "600",
-              cursor: "pointer",
-              fontSize: "1.05rem",
-              transform: "translateX(-50%)",
-              color: "#ff8b4d",
-              textDecoration: "none",
-            }}
-          >
+          <Link to="/forgot-password" className="forgotPass">
             Reset Password
           </Link>
         </form>
