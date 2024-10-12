@@ -130,8 +130,23 @@ function Navbar() {
                   <Link style={{ textDecoration: "none" }} to="/mylistings">
                     My Listings
                   </Link>
+                  <Link style={{ textDecoration: "none" }} to="/saves">
+                    Saved Posts
+                  </Link>
                   <Link
-                    style={{ textDecoration: "none" }}
+                  className="signOut"
+                  style={{
+                    backgroundColor: "#ff8b4d",
+                    color: "#0c151d",
+                    border: "none",
+                    height: "53px",
+                    fontSize: "20px",
+                    boxShadow: "2px 2px 2px black",
+                    textShadow: "0.2px 0.25px .1px black",
+                    marginRight: "15px",
+                    borderRadius:"5px",
+                    textDecoration:"none"
+                  }}
                     onClick={signout}
                     to="/log-in"
                   >
