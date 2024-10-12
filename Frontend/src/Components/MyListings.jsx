@@ -65,6 +65,8 @@ const Feed = () => {
                   marginBottom: "30px",
                   backgroundColor: "#0c151d",
                   borderBottom: "5px solid #ff8b4d",
+                  height:"500px",
+                  width:"350px",
                   maxHeight: "650px",
                   maxWidth: "650px",
                 }}

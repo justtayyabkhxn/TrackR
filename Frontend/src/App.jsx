@@ -11,10 +11,10 @@ import ItemPage from "./Components/ItemPage";
 import MyListings from "./Components/MyListings";
 import SearchResults from "./Components/SearchPage"
 import ProfilePage from "./Components/ProfilePage"
-import OTPVerification from "./Components/OTPVerification";
+import OTPVerification from "./Components/Auth/OTPVerification";
 import NotFound from "./Components/NotFound";
 import ForgotPassword from "./Components/ForgotPassword";
-import ChangePassword from "./Components/ChangePassword";
+import ChangePassword from "./Components/Auth/ChangePassword";
 import AdminLogin from "./Components/AdminLogin";
 
 function App() {

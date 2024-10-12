@@ -18,25 +18,34 @@ export default function Feed() {
   const [foundItems, setFoundItems] = useState([]);
   const [error, setError] = useState(null); // Added error state
 
-  const ReadMore = ({ children }) => {
-    const text = children;
-    const [isReadMore, setIsReadMore] = useState(true);
-    const toggleReadMore = () => setIsReadMore(!isReadMore);
+const ReadMore = ({ children }) => {
+  const [isReadMore, setIsReadMore] = useState(true);
+  const toggleReadMore = () => setIsReadMore(!isReadMore);
 
-    return (
-      <span>
-        {isReadMore ? text.slice(0, 10) : text}{" "}
-        {/* Adjusted slicing for better readability */}
-        <span
-          onClick={toggleReadMore}
-          className="read-or-hide"
-          style={{ cursor: "pointer" }}
-        >
-          {isReadMore ? "...." : " show less"}
-        </span>
+  const text = children;
+
+  // Define the character limit (you can adjust this value)
+  const charLimit = 20;
+
+  // Only show the "read more" option if the text exceeds the character limit
+  if (text.length <= charLimit) {
+    return <span>{text}</span>; // No need to toggle if the text is short
+  }
+
+  return (
+    <span>
+      {isReadMore ? text.slice(0, text.slice(0, charLimit).lastIndexOf(" ")) : text}{" "}
+      {/* Ensures slicing at the nearest word boundary */}
+      <span
+        onClick={toggleReadMore}
+        className="read-or-hide"
+        style={{ cursor: "pointer", color: "grey" }}
+      >
+        {isReadMore ? "..." : ""}
       </span>
-    );
-  };
+    </span>
+  );
+};
 
   // Fetch lost and found items
   useEffect(() => {
@@ -64,7 +73,6 @@ export default function Feed() {
             }/${created_date.getFullYear()} ${created_date.getHours()}:${created_date.getMinutes()}`;
 
             const userIsOwner = item.createdBy === user_info._id;
-
             // Check if itemPictures array exists and has at least one item
             const imageSrc =
               item.itemPictures && item.itemPictures.length > 0
@@ -72,7 +80,7 @@ export default function Feed() {
                 : "/default-img.png"; // Provide a default image
 
             const card = (
-              <Col key={item._id} md={3} xs={12} style={{ marginTop: "2%"}}>
+              <Col key={item._id} md={3} xs={12} style={{ marginTop: "5%"}}>
                 <Link
                   to={`/item/${item.name}?cid=${item._id}&type=${item.type}`}
                   style={{ textDecoration: "none" }} // Remove default underline from links
@@ -80,10 +88,12 @@ export default function Feed() {
                   <Card
                     bsPrefix="item-card"
                     style={{
+                      height:"600px",
+                      width:"350px",
                       cursor: "pointer",
                       boxShadow: "1px 1px 5px black",
                       padding: "10px",
-                      marginLeft: "80px",
+                      marginLeft: "50px",
                       // marginBottom: "30px",
                       backgroundColor: "#0c151d",
                       borderBottom: "5px solid #ff8b4d",
@@ -210,6 +220,7 @@ export default function Feed() {
             style={{
               textAlign: "center",
               fontFamily: "Concert One, sans-serif",
+              marginTop:"25px",
               marginLeft: "5px",
               textTransform: "uppercase",
               fontSize: "35px",

@@ -210,6 +210,26 @@ router.get("/getquestion/:id", async (req, res) => {
   }
 });
 
+//getItemName
+router.get("/getItemName/:id", async (req, res) => {
+  try {
+    const { id } = req.params;  // Get the item ID from the request parameters
+
+    // Find the item in the PostItem schema using the item ID
+    const item = await PostItem.findById(id);
+    if (!item) return res.status(404).json({ message: "Item not found" });
+
+    // Assuming the field for the post name is 'name'
+    const postName = item.name;
+
+    // Respond with the post name
+    res.status(200).json({ postName });
+  } catch (err) {
+    // Send error if something goes wrong
+    res.status(400).json({ Error: err.message });
+  }
+});
+
 // POST /submitAnswer
 router.post("/submitAnswer", async (req, res) => {
   try {

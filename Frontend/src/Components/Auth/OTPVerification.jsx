@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../css/newSignup.css";
+import "../../css/newSignup.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory for React Router v6
-import Navbar from "../Components/Navbar";
+import Navbar from "../Navbar";
 import { Spinner } from "react-bootstrap";
 import { ReactSession } from "react-client-session";
 import { ToastContainer, toast, Flip } from "react-toastify";
