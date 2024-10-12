@@ -35,6 +35,7 @@ function ItemPage(props) {
   const [itemid, setItemid] = useState("");
   const [Question, setQuestion] = useState(false);
   const [isOwner, setIsOwner] = useState();
+  const [isSaved, setIsSaved] = useState(false);
   const [emailMessage, setEmailMessage] = useState("");
 
   const [itemname, setItemnameState] = useState("");
@@ -118,6 +119,29 @@ function ItemPage(props) {
           const hasAnswered = response.data.answered;
           setAlreadyAnswered(hasAnswered);
         });
+
+        const saveItem = () => {
+          Axios.post(`http://localhost:5000/savePost/${user_id}/${item_id}`)
+            .then((response) => {
+              const message = response.data.message;
+              setIsSaved(true); // Assume item saved successfully
+            })
+            .catch((error) => {
+              console.error("Error saving item:", error);
+              // Optional: Handle error, maybe show an alert or log it
+            });
+        };
+
+        Axios.get(`http://localhost:5000/isSaved/${user_id}/${item_id}`)
+          .then((response) => {
+            const isPostSaved = response.data.saved;
+            setIsSaved(isPostSaved);
+          })
+          .catch((error) => {
+            console.error("Error checking if item is saved:", error);
+            // Optional: Handle error, maybe set an error state
+          });
+
         setItemid(data._id);
         setItemnameState(data.name);
         setDescription(data.description);
@@ -225,7 +249,7 @@ function ItemPage(props) {
               </span>
             </h6>
             {isOwner && (
-              <div className="ed-button">
+              <span className="ed-button">
                 <Button
                   variant="danger"
                   onClick={handleShowDelete}
@@ -308,29 +332,15 @@ function ItemPage(props) {
                 ) : (
                   <></>
                 )}
-              </div>
+              </span>
             )}
-
-            <div>
-              {alreadyAnswered ? (
-                <div className="ed-button">
-                  <Button
-                    variant="secondary"
-                    disabled
-                    onClick={handleShowQuestion}
-                    style={{
-                      backgroundColor: "#ff8b4d",
-                      color: "#0c151d",
-                    }}
-                  >
-                    {data.type === "Lost" ? "Found Item" : "Claim Item"}
-                  </Button>
-                </div>
-              ) : (
-                <div className="ed-button">
-                  {!isOwner ? (
+            <span>
+              <span>
+                {alreadyAnswered ? (
+                  <span className="ed-button">
                     <Button
-                      variant="primary"
+                      variant="secondary"
+                      disabled
                       onClick={handleShowQuestion}
                       style={{
                         fontFamily: "DynaPuff",
@@ -345,12 +355,80 @@ function ItemPage(props) {
                     >
                       {data.type === "Lost" ? "Found Item" : "Claim Item"}
                     </Button>
+                  </span>
+                ) : (
+                  <span className="ed-button">
+                    {!isOwner ? (
+                      <Button
+                        variant="primary"
+                        onClick={handleShowQuestion}
+                        style={{
+                          fontFamily: "DynaPuff",
+                          fontWeight: "400",
+                          fontSize: "1.05rem",
+                          backgroundColor: "#ff8b4d",
+                          border: "none",
+                          color: "#0c151d",
+                          textShadow: "0.5px 0.5px 0.2px black",
+                          boxShadow: "2px 2px 2px black",
+                        }}
+                      >
+                        {data.type === "Lost" ? "Found Item" : "Claim Item"}
+                      </Button>
+                    ) : (
+                      <></>
+                    )}
+                  </span>
+                )}
+              </span>
+
+              {/* Only show the save button if the user is not the owner */}
+              {!isOwner && (
+                <span>
+                  {isSaved ? (
+                    <span className="ed-button">
+                      <Button
+                        variant="secondary"
+                        disabled
+                        style={{
+                          fontFamily: "DynaPuff",
+                          fontWeight: "400",
+                          fontSize: "1.05rem",
+                          backgroundColor: "#ff8b4d",
+                          border: "none",
+                          color: "#0c151d",
+                          textShadow: "0.5px 0.5px 0.2px black",
+                          boxShadow: "2px 2px 2px black",
+                          marginLeft: "80px",
+                        }}
+                      >
+                        Already Saved
+                      </Button>
+                    </span>
                   ) : (
-                    <></>
+                    <span className="ed-button">
+                      <Button
+                        variant="primary"
+                        onClick={saveItem}
+                        style={{
+                          fontFamily: "DynaPuff",
+                          fontWeight: "400",
+                          fontSize: "1.05rem",
+                          backgroundColor: "#ff8b4d",
+                          border: "none",
+                          color: "#0c151d",
+                          textShadow: "0.5px 0.5px 0.2px black",
+                          boxShadow: "2px 2px 2px black",
+                          marginLeft: "80px",
+                        }}
+                      >
+                        Save Item
+                      </Button>
+                    </span>
                   )}
-                </div>
+                </span>
               )}
-            </div>
+            </span>
           </div>
         );
         setItemname(temp);
@@ -570,7 +648,7 @@ function ItemPage(props) {
       </span>
     );
     setauthenication(validation);
-  }, [alreadyAnswered, item_id, isOwner]);
+  }, [alreadyAnswered, item_id, isOwner, isSaved]);
 
   // Submit Functions
 
@@ -689,7 +767,6 @@ function ItemPage(props) {
     setEmailMessage("");
     setemailSubject("");
   };
-
 
   const handleEdit = () => {
     const formData = new FormData();

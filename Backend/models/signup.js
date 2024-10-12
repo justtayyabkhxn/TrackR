@@ -23,6 +23,11 @@ const signUpSchema = new Schema({
         type: String,
         required: true,
     },
+    savedPosts:{
+        type:Array,
+        required:true,
+        default:[],
+    },
     date: {
         type: Date,
         default: Date.now,

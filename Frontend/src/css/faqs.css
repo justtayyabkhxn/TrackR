@@ -43,6 +43,16 @@ summary,.heading {
 .heading:hover{
   color:#00cf37;
 }
+.mainDiv img{
+  height: 350px;
+  border-bottom: 5px solid #fd6e00;
+  margin-bottom: 20px;
+}
+.mainDiv{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 /* Developer image */
 .personal-info h5 {
   font-family: "DynaPuff", system-ui;

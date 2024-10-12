@@ -127,6 +127,61 @@ router.get("/responseData/:user_id/:item_id", async (req, res) => {
 });
 
 
+// GET /isSaved
+router.get("/isSaved/:user_id/:item_id", async (req, res) => {
+  try {
+    const user_id = req.params.user_id;
+    const item_id = req.params.item_id;
+
+    // Find the user by user_id in the Signup schema
+    const user = await SignUp.findById(user_id);
+
+    // Check if the user exists
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if the item_id exists in the savedPosts array
+    const isSaved = user.savedPosts.includes(item_id);
+
+    // Return the result
+    res.status(200).json({ saved: isSaved });
+  } catch (err) {
+    res.status(400).json({ Error: err.message });
+  }
+});
+
+router.post("/savePost/:user_id/:item_id", async (req, res) => {
+  try {
+    const user_id = req.params.user_id;
+    const item_id = req.params.item_id;
+
+    // Find the user by user_id in the Signup schema
+    const user = await SignUp.findById(user_id);
+
+    // Check if the user exists
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if the item_id already exists in the savedPosts array
+    if (user.savedPosts.includes(item_id)) {
+      return res.status(400).json({ message: "Item is already saved" });
+    }
+
+    // Add the item_id to the savedPosts array
+    user.savedPosts.push(item_id);
+
+    // Save the updated user document
+    await user.save();
+
+    res.status(200).json({ message: "Item saved successfully" });
+  } catch (err) {
+    res.status(400).json({ Error: err.message });
+  }
+});
+
+
 // POST /edititem
 router.post("/edititem", upload.array("itemPictures"), async (req, res) => {
   try {
