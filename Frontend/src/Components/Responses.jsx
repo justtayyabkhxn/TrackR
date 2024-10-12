@@ -359,7 +359,7 @@ function Response() {
                   }}
                   className="badge"
                 >
-                  NO
+                  REJECTED
                 </span>
               ) : null}
             </div>

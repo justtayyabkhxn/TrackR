@@ -86,6 +86,16 @@ export default function Home() {
               relate to. Problems like these persist until someone comes up with
               a solution.
             </p>
+            <Button
+              variant="custom"
+              size="lg"
+              className="faqButton"
+              onClick={() => {
+                ref.current.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              <span>FREQUENCTLY ASKED QUESTIONS</span>
+            </Button>
           </Row>
         </Container>
       </div>
@@ -102,41 +112,36 @@ export default function Home() {
             <div className="about-card">
               <div className="info">
                 <img src={list_item} alt="" />
-                <h4>
+                <div className="circletext">
                   <span>CREATE AN ACCOUNT</span>
-                </h4>
+                </div>
                 <p>Initially, you have to create an account to get started.</p>
                 <Link to="/sign-up">
-                  <Button
-                    variant="custom"
-                    size="lg"
-                    className="signupCircle"
-                  >
+                  <Button variant="custom" size="lg" className="signupCircle">
                     Sign Up
                   </Button>
                 </Link>
               </div>
               <div className="info">
-                <img
-                  src={list_item2}
-                  alt=""
-                />
-                <h4>
+                <img src={list_item2} alt="" />
+                <div className="circletext">
                   <span>List Item</span>
-                </h4>
+                </div>
                 <p>
                   List your item on the wall by filling certain details and
                   image. That's it!
+                  <Link to="/faqs">
+                  <Button variant="custom" size="lg" className="faqCircle">
+                   FAQs
+                  </Button>
+                </Link>
                 </p>
               </div>
               <div className="info">
-                <img
-                  src={notification}
-                  alt=""
-                />
-                <h4>
+                <img src={notification} alt="" />
+                <div className="circletext">
                   <span>PRIVACY INTEGRATED</span>
-                </h4>
+                </div>
                 <p>
                   Your contact info is shared only with those who answer your
                   security question, ensuring your privacy.
@@ -165,9 +170,7 @@ export default function Home() {
           </a>
         </div>
         <div className="personal-info">
-          <h5>
-            Track It By Tayyab Khan
-          </h5>
+          <h5>Track It By Tayyab Khan</h5>
         </div>
       </div>
     </>

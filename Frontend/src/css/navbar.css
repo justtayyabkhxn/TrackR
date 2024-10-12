@@ -209,7 +209,7 @@ body {
 }
 
 .personal-info > h6,
-.personal-info > h4,
+.personal-info > span,
 .personal-info > a {
   margin: 0px 0px;
 }

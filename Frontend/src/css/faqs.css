@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap");
+
+/* Main container */
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+/* Introduction section */
+:root {
+  --text-color: #ff8b4d;
+}
+.faq{
+  text-transform: uppercase;
+  font-size: 3.5rem;
+  border-bottom: var(--text-color) 5px solid;
+  width:51%;
+  margin-bottom:50px;
+}
+.para,
+section,
+summary,.heading {
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  text-shadow: 0.5px 0.5px 0.5px black;
+  margin-bottom: 0.75rem;
+
+}
+.para{
+  font-size: 1.5rem;
+  color: #fd6e00;
+}
+.heading{
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.25s ease-in;
+}
+.heading:hover{
+  color:#00cf37;
+}
+/* Developer image */
+.personal-info h5 {
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  text-shadow: 0px 1px 1px black;
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+/* Responsive styles */
+@media (max-width: 1020px) {
+  .image {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .info {
+    margin: 10px 0px;
+  }
+}
+
+@media (max-width: 480px) {
+  .developer-img {
+    width: 350px;
+    height: 350px;
+  }
+}

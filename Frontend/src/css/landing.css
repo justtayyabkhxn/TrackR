@@ -17,6 +17,7 @@
   justify-content: space-between;
   flex-wrap: wrap-reverse;
 }
+
 :root {
   --text-color: #ff8b4d;
 }
@@ -146,7 +147,7 @@
 .section-heading span {
   border-bottom: 10px solid var(--text-color);
 }
-h4 {
+span {
   text-transform: uppercase;
   text-shadow: 0.5px 0.5px 1px black;
 }
@@ -199,7 +200,7 @@ h4 {
   font-weight: 200;
   padding: 20px;
 }
-.about-card h4 {
+.about-card span {
   margin-top: 5px;
 }
 .info {
@@ -220,10 +221,13 @@ h4 {
   margin-bottom: 10px;
   margin-top: -5px;
   box-shadow: 1px 1px 2px black;
-  text-shadow: 0.5px 0.5px 1px black;
+  text-shadow: 1px 1px 3px black;
   font-family: DynaPuff, system-ui;
   font-weight: 200;
-  text-transform: uppercase,
+  text-transform: uppercase;
+}
+.circletext{
+  font-size: 1.75rem;
 }
 p {
   color: rgb(52, 61, 72);
@@ -266,7 +270,27 @@ p {
   font-size: 18px;
   text-shadow: 1px 1px 3px black;
 }
-
+.faqButton {
+  box-shadow: 2px 1px 3px black;
+  width: fit-content;
+  transition: all 0.25s ease-in;
+}
+.faqButton span{
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-size: 18px;
+  text-shadow: 1px 1px 3px black;
+}
+.faqCircle{
+  margin-top: 1.55rem;
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-size: 19px;
+  text-shadow: 1px 1px 3px black;
+  padding: 10px;
+}
 /* Developer image */
 .personal-info h5 {
   font-family: "DynaPuff", system-ui;
