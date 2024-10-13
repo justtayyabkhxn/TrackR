@@ -44,6 +44,8 @@ const Feed = () => {
       );
 
       const data = response.data.item;
+      console.log(data);
+
       const itemList = data.reverse().map((item) => {
         const createdDate = new Date(item.createdAt);
         const createdAt =

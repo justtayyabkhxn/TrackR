@@ -182,6 +182,8 @@ router.post("/savePost/:user_id/:item_id", async (req, res) => {
 });
 
 
+
+
 // POST /edititem
 router.post("/edititem", upload.array("itemPictures"), async (req, res) => {
   try {
@@ -367,6 +369,70 @@ router.get("/mylistings/:id", async (req, res) => {
     res.status(400).json({ Error: err });
   }
 });
+
+// GET /mySaves/:id
+router.get("/mySaves/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    // Find the user by their ID
+    const user = await SignUp.findById(id);
+
+    // Check if the user exists and has saved posts
+    if (!user || !user.savedPosts || user.savedPosts.length === 0) {
+      return res.status(200).json({ message: "No saved posts found." });
+    }
+
+    // Fetch details of each post in the savedPosts array from the PostItem schema
+    const savedPostsData = await Promise.all(
+      user.savedPosts.map(async (postId) => {
+        // Find each post in the PostItem schema by ID
+        const post = await PostItem.findById(postId);
+        return post;
+      })
+    );
+
+    // Filter out any null values (in case some post IDs are not found)
+    const filteredPosts = savedPostsData.filter(post => post !== null);
+
+    // Send the response with the detailed post data
+    res.status(200).json({ items: filteredPosts });
+  } catch (err) {
+    res.status(400).json({ Error: err.message });
+  }
+});
+
+//POST /unsavePost/:user_id/:item_id
+
+router.post("/unsavePost/:user_id/:item_id", async (req, res) => {
+  try {
+    const { user_id, item_id } = req.params;
+
+    // Find the user by user_id
+    const user = await SignUp.findById(user_id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Check if the item is already saved
+    if (!user.savedPosts.includes(item_id)) {
+      return res.status(400).json({ message: "Post not saved." });
+    }
+
+    // Remove the item_id from the savedPosts array
+    user.savedPosts = user.savedPosts.filter((postId) => postId.toString() !== item_id);
+
+    // Save the updated user document
+    await user.save();
+
+    // Respond with success
+    res.status(200).json({ message: "Post unsaved successfully." });
+  } catch (err) {
+    res.status(500).json({ message: "Error unsaving post.", error: err.message });
+  }
+});
+
 
 // POST /confirmResponse/:id
 router.post("/confirmResponse/:id", async (req, res) => {

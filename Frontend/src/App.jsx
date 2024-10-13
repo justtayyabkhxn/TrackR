@@ -17,6 +17,7 @@ import NotFound from "./Components/NotFound";
 import ForgotPassword from "./Components/ForgotPassword";
 import ChangePassword from "./Components/Auth/ChangePassword";
 import AdminLogin from "./Components/AdminLogin";
+import SavedPosts from "./Components/SavedPosts";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
               <Route path="/searchItem/" element={<SearchResults />} />
               <Route path="/profile/" element={<ProfilePage />} />
               <Route path="/faqs/" element={<FAQs />} />
+              <Route path="/saves/" element={<SavedPosts />} />
               <Route path="/verify" element={<OTPVerification />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/change-password" element={<ChangePassword />} />

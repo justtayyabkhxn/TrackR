@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead
 import Navbar from "../Navbar";
 import { Spinner } from "react-bootstrap";
 import { ToastContainer, toast, Flip } from "react-toastify";
+
 import { ReactSession } from "react-client-session";
 
 function Login() {
@@ -83,7 +84,6 @@ function Login() {
               </Link>
             )}
           </p>
-
           <input
             type="email"
             name="email"

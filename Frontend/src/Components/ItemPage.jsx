@@ -131,6 +131,17 @@ function ItemPage(props) {
               // Optional: Handle error, maybe show an alert or log it
             });
         };
+        const unsaveItem = () => {
+          Axios.post(`http://localhost:5000/unsavePost/${user_id}/${item_id}`)
+            .then((response) => {
+              const message = response.data.message;
+              setIsSaved(false); // Assume item saved successfully
+            })
+            .catch((error) => {
+              console.error("Error unsaving item:", error);
+              // Optional: Handle error, maybe show an alert or log it
+            });
+        };
 
         Axios.get(`http://localhost:5000/isSaved/${user_id}/${item_id}`)
           .then((response) => {
@@ -389,12 +400,12 @@ function ItemPage(props) {
                     <span className="ed-button">
                       <Button
                         variant="secondary"
-                        disabled
+                        onClick={unsaveItem}
                         style={{
                           fontFamily: "DynaPuff",
                           fontWeight: "400",
                           fontSize: "1.05rem",
-                          backgroundColor: "#ff8b4d",
+                          backgroundColor: "#d19a02",
                           border: "none",
                           color: "#0c151d",
                           textShadow: "0.5px 0.5px 0.2px black",
@@ -402,7 +413,7 @@ function ItemPage(props) {
                           marginLeft: "80px",
                         }}
                       >
-                        Already Saved
+                       Unsave
                       </Button>
                     </span>
                   ) : (
@@ -414,7 +425,7 @@ function ItemPage(props) {
                           fontFamily: "DynaPuff",
                           fontWeight: "400",
                           fontSize: "1.05rem",
-                          backgroundColor: "#ff8b4d",
+                          backgroundColor: "#fcba03",
                           border: "none",
                           color: "#0c151d",
                           textShadow: "0.5px 0.5px 0.2px black",
