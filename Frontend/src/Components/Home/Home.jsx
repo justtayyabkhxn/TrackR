@@ -94,7 +94,7 @@ export default function Home() {
                 ref.current.scrollIntoView({ behavior: "smooth" });
               }}
             >
-              <span>FREQUENCTLY ASKED QUESTIONS</span>
+              <span>Questions?</span>
             </Button>
           </Row>
         </Container>

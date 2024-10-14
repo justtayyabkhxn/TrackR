@@ -3,7 +3,6 @@ const multer = require("multer");
 const shortid = require("shortid");
 const path = require("path");
 const nodemailer = require("nodemailer");
-const log = console.log;
 
 const SignUp = require("../models/signup");
 const { PostItem } = require("../models/category");
@@ -74,6 +73,7 @@ router.post("/postitem", requireSignin, userMiddleware, upload.array("itemPictur
     res.status(401).json({ message: err.message });
   }
 });
+
 // GET /getitem
 router.get("/getitem", async (req, res) => {
   try {
@@ -100,26 +100,20 @@ router.get("/item/:id", async (req, res) => {
     res.status(400).json({ Error: err });
   }
 });
+
 // GET /:user_id/:item_id Check if User has answered
 router.get("/responseData/:user_id/:item_id", async (req, res) => {
   try {
     const user_id = req.params.user_id;
     const item_id = req.params.item_id;
-
-    // console.log("user id: ", user_id);
-    // console.log("item id: ", item_id);
-
     // Find all answers where itemId matches and the givenBy field matches the user_id
     const answers = await messageschema.find({ itemId: item_id, givenBy: user_id });
-
     // Check if there are any answers
     if (answers.length === 0) {
       return res.status(200).json({ answered: false });
     }
-
     // Check if the answers contain empty or non-empty responses
     const answered = answers.some(answer => answer.answer !== "");
-
     res.status(200).json({ answered });
   } catch (err) {
     res.status(400).json({ Error: err.message });
@@ -181,9 +175,6 @@ router.post("/savePost/:user_id/:item_id", async (req, res) => {
   }
 });
 
-
-
-
 // POST /edititem
 router.post("/edititem", upload.array("itemPictures"), async (req, res) => {
   try {
@@ -223,7 +214,6 @@ router.post("/edititem", upload.array("itemPictures"), async (req, res) => {
     res.status(400).json({ Error: err.message });
   }
 });
-
 
 // POST /deleteitem
 router.post("/deleteitem", async (req, res) => {
@@ -338,7 +328,6 @@ router.post("/activateItem/:id", async (req, res) => {
 });
 
 // POST /deactivateItem/:id
-// Route to deactivate an item
 router.post("/deactivateItem/:id", async (req, res) => {
   try {
     const itemId = req.params.id;
@@ -374,7 +363,7 @@ router.get("/mylistings/:id", async (req, res) => {
 router.get("/mySaves/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    
+
     // Find the user by their ID
     const user = await SignUp.findById(id);
 
@@ -454,9 +443,8 @@ router.get("/searchItem/:query", async (req, res) => {
 
     // Use a case-insensitive regex to search for items whose 'name' field contains the query string
     const filteredPosts = await PostItem.find({
-      name: { $regex: query, $options: "i" }  // 'i' makes the search case-insensitive
+      name: { $regex: query, $options: "i" } // 'i' makes the search case-insensitive
     });
-
     // If you want to log the found items:
 
     res.status(200).json({
@@ -469,7 +457,7 @@ router.get("/searchItem/:query", async (req, res) => {
   }
 });
 
-
+// POST /sendMail
 router.post("/sendMail", async (req, res) => {
   try {
     const { subject, emailBody, userId } = req.body;
@@ -498,8 +486,4 @@ router.post("/sendMail", async (req, res) => {
     res.status(400).json({ Error: err.message });
   }
 });
-
-
-
-
 module.exports = router;
