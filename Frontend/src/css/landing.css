@@ -9,6 +9,9 @@
   flex-direction: column;
   flex-wrap: wrap;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 /* Introduction section */
 .intro {

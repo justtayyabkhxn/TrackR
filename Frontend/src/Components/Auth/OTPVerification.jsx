@@ -107,6 +107,16 @@ const OTPVerification = () => {
       <Navbar />
       <div style={{ display: "flex" }}>
         <form className="Box-1-login">
+        <div
+            style={{
+              color: "red",
+              fontFamily: "DynaPuff, system-ui",
+              fontWeight: "400",
+              fontSize: "1.2rem",
+            }}
+          >
+            DO NOT REFRESH THE PAGE
+          </div>
           <h1>Verify Email</h1>
           <p style={{ color: "red" }}>{info}</p>
           <input

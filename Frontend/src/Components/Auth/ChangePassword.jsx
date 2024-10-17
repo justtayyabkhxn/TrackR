@@ -79,7 +79,7 @@ function ChangePassword() {
 
         // Delay navigation by 2 seconds
         setTimeout(() => {
-          localStorage.clear()
+          localStorage.clear();
           navigate("/log-in"); // Navigate to change-passowrd page after 2 seconds
         }, 1500);
       } else {
@@ -98,6 +98,16 @@ function ChangePassword() {
       <Navbar />
       <div style={{ display: "flex" }}>
         <form className="Box-1-login">
+          <div
+            style={{
+              color: "red",
+              fontFamily: "DynaPuff, system-ui",
+              fontWeight: "400",
+              fontSize: "1.2rem",
+            }}
+          >
+            DO NOT REFRESH THE PAGE
+          </div>
           <h1>Change Password</h1>
           <p style={{ color: "red" }}>{info}</p>
 

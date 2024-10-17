@@ -20,24 +20,13 @@ export default function Home() {
 
   useEffect(() => {
     AOS.init({
-      // Global settings:
-      disable: false, // accepts values: 'phone', 'tablet', 'mobile', boolean, expression or function
-      startEvent: "DOMContentLoaded", // name of the event dispatched on the document, that AOS should initialize on
-      initClassName: "aos-init", // class applied after initialization
-      animatedClassName: "aos-animate", // class applied on animation
-      useClassNames: false, // if true, will add content of `data-aos` as classes on scroll
-      disableMutationObserver: false, // disables automatic mutations' detections (advanced)
-      debounceDelay: 50, // delay on debounce used while resizing window (advanced)
-      throttleDelay: 99, // delay on throttle used while scrolling the page (advanced)
-      // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
-      offset: 120, // offset (in px) from the original trigger point
-      delay: 0, // values from 0 to 3000, with step 50ms
-      duration: 700, // values from 0 to 3000, with step 50ms
-      easing: "ease", // default easing for AOS animations
-      once: false, // whether animation should happen only once - while scrolling down
-      mirror: false, // whether elements should animate out while scrolling past them
-      anchorPlacement: "top-bottom", // defines which position of the element regarding window should trigger the animation
+      offset: 100,
+      delay: 0,
+      duration: 600,
+      once: true, // triggers animation only once
+      mirror: false, // disables animation when scrolling up
     });
+    
   }, []);
   return (
     <>
@@ -53,7 +42,7 @@ export default function Home() {
                 size="lg"
                 className="getStartedButton"
                 onClick={() => {
-                  ref.current.scrollIntoView({ behavior: "smooth" });
+                  ref.current?.scrollIntoView({ behavior: "smooth" });
                 }}
               >
                 <span>DIVE IN</span>
@@ -100,7 +89,7 @@ export default function Home() {
         </Container>
       </div>
 
-      <div data-aos="fade-left">
+      <div data-aos="none">
         <Container fluid>
           <div className="total-about">
             <div ref={ref} className="about-heading">
@@ -131,10 +120,10 @@ export default function Home() {
                   List your item on the wall by filling certain details and
                   image. That's it!
                   <Link to="/faqs">
-                  <Button variant="custom" size="lg" className="faqCircle">
-                   FAQs
-                  </Button>
-                </Link>
+                    <Button variant="custom" size="lg" className="faqCircle">
+                      FAQs
+                    </Button>
+                  </Link>
                 </p>
               </div>
               <div className="info">
