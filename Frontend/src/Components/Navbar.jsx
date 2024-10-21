@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import logo from "../img/logo.jpg";
 import profile from "../img/profile.png";
-import LostItem from "./Lost_Item";
+import PostItem from "./Post_Item";
 import "../css/Navbar.css";
 import { Link } from "react-router-dom";
 
@@ -153,7 +153,7 @@ function Navbar() {
                     Sign-out
                   </Link>
                   <div className="lost-item">
-                    <LostItem />
+                    <PostItem />
                   </div>
                 </ul>
               </div>

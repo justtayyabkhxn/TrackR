@@ -6,7 +6,7 @@ import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/lost_item.css";
 
-function LostItem() {
+function PostItem() {
   const [show, setShow] = useState(false);
   const token = window.localStorage.getItem("token");
   const [loading, setLoading] = useState(false);
@@ -180,7 +180,6 @@ function LostItem() {
       });
     }
   };
-
   return (
     <div>
       <Button
@@ -199,7 +198,6 @@ function LostItem() {
       >
         POST ITEM
       </Button>
-
       <Modal
         show={show}
         onHide={handleClose}
@@ -281,7 +279,8 @@ function LostItem() {
                   textShadow: "0.5px 0.5px 1px black",
                 }}
               >
-                Enter a question based on the item<span style={{ color: "red" }}>*</span>
+                Enter a question based on the item
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Form.Control
                 type="text"
@@ -291,7 +290,6 @@ function LostItem() {
                 required
               />
             </Form.Group>
-
             <Form.Group>
               <Form.Label
                 style={{
@@ -317,7 +315,6 @@ function LostItem() {
                 <option value="Found">Found It</option>
               </Form.Control>
             </Form.Group>
-
             <Form.Group>
               <Form.Label
                 style={{
@@ -348,6 +345,7 @@ function LostItem() {
               marginBottom: "1px",
               fontFamily: "DynaPuff, system-ui",
               fontWeight: "400",
+              textShadow: "1px 1px 2px black",
             }}
           >
             Close
@@ -377,7 +375,17 @@ function LostItem() {
                 <span className="visually-hidden">Loading...</span>
               </>
             ) : (
-              <>Submit</>
+              <>
+                <span
+                  style={{
+                    textShadow: "1px 1px 2px black",
+                    fontFamily: "DynaPuff, system-ui",
+                    fontWeight: "400",
+                  }}
+                >
+                  Submit
+                </span>
+              </>
             )}
           </Button>
         </Modal.Footer>
@@ -398,5 +406,4 @@ function LostItem() {
     </div>
   );
 }
-
-export default LostItem;
+export default PostItem;
