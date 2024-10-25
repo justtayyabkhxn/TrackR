@@ -22,6 +22,7 @@ function ItemPage(props) {
   const navigate = useNavigate();
 
   const [ItemData, setItemData] = useState([]);
+  const [item, setItem] = useState([]);
   // console.log("Item Data", ItemData);
   const [Itemname, setItemname] = useState("");
   const [ActivationRequest, setActivationRequest] = useState(false);
@@ -30,7 +31,7 @@ function ItemPage(props) {
   const [showEmailModel, setShowEmailModel] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [alreadyAnswered, setAlreadyAnswered] = useState(false);
-  const [showQuestion, setshowQuestion] = useState(false);
+  const [showQuestion, setshowtenQuestion] = useState(false);
   const [answer, setAnswer] = useState("");
   const [itemid, setItemid] = useState("");
   const [Question, setQuestion] = useState(false);
@@ -106,6 +107,8 @@ function ItemPage(props) {
       .then((response) => {
         const data = response.data.Item;
         const answersData = response.data.Answers;
+        setItem(data);
+        console.log(item);
         setItemAnswers(answersData);
         // console.log("Data is: ", data);
 
@@ -176,18 +179,33 @@ function ItemPage(props) {
               maxWidth: "650px",
             }}
           >
-            <h3
-              className="attributes"
-              style={{
-                fontFamily: "Concert One, sans-serif",
-                fontWeight: "1.5rem",
-                fontSize: "1.55rem",
-                textTransform: "uppercase",
-                textDecoration: "underline",
-                textShadow: "1px 1px 2px black",
-              }}
-            >
-              Item name : <span className="details">{data.name}</span>
+            <h3 className="attributes">
+              <span
+                style={{
+                  fontFamily: "Concert One, sans-serif",
+                  fontWeight: "1.5rem",
+                  fontSize: "1.55rem",
+                  textTransform: "uppercase",
+                  textDecoration: "underline",
+                  textShadow: "1px 1px 2px black",
+                }}
+              >
+                Item name:
+              </span>
+              <span className="details"> {data.name} </span>
+              <button
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    `http://localhost:5173/item/${item.name}?cid=${item._id}&type=${item.type}`
+                  )
+                }
+                style={{
+                  border: "none",
+                  background: "none",
+                }}
+              >
+                <span style={{ fontSize: "1.5rem" }}>🔗</span>{" "}
+              </button>
             </h3>
             <hr />
             <h3
@@ -259,7 +277,7 @@ function ItemPage(props) {
                 {new Date(data.createdAt).toLocaleString()}
               </span>
             </h6>
-            {isOwner && (
+            {isOwner && user_id && (
               <span className="ed-button">
                 <Button
                   variant="danger"
@@ -369,7 +387,7 @@ function ItemPage(props) {
                   </span>
                 ) : (
                   <span className="ed-button">
-                    {!isOwner ? (
+                    {!isOwner && user_id ? (
                       <Button
                         variant="primary"
                         onClick={handleShowQuestion}
@@ -394,7 +412,7 @@ function ItemPage(props) {
               </span>
 
               {/* Only show the save button if the user is not the owner */}
-              {!isOwner && (
+              {!isOwner && user_id && (
                 <span>
                   {isSaved ? (
                     <span className="ed-button">
@@ -413,7 +431,7 @@ function ItemPage(props) {
                           marginLeft: "80px",
                         }}
                       >
-                       Unsave
+                        Unsave
                       </Button>
                     </span>
                   ) : (
@@ -449,7 +467,7 @@ function ItemPage(props) {
       <span key="validation-wrapper">
         {" "}
         {/* Wrap with a unique key for the outer div */}
-        {isOwner ? (
+        {isOwner && user_id ? (
           <div
             key="owner-section"
             style={{
