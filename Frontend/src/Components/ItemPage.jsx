@@ -945,7 +945,7 @@ function ItemPage(props) {
                   style={{ fontSize: "1.2rem", color: "#0c151d" }}
                 >
                   {" "}
-                  No Image...
+                  No Post...
                 </span>
               </div>
             )}
@@ -967,7 +967,6 @@ function ItemPage(props) {
             </Button>
           </Modal.Footer>
         </Modal>
-
         <Modal show={showDelete} onHide={handleCloseDelete}>
           <Modal.Body
             style={{
@@ -1329,5 +1328,4 @@ function ItemPage(props) {
     </>
   );
 }
-
 export default ItemPage;

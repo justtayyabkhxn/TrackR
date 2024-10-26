@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const token = window.localStorage.getItem("token");
-
+  const admin = "67075569252b464e56db8e31";
   const [user_info, setUserInfo] = useState(() => {
     return JSON.parse(localStorage.getItem("user")) || {};
   });
@@ -108,14 +108,13 @@ function Navbar() {
                   >
                     <img src={profile} alt="Profile" />
                   </Link>
-                    <center>
-                  <div className="name">
-
-                    <span>
-                      {user_info.firstname} {user_info.lastname}
-                    </span>
-                  </div>
-                    </center>
+                  <center>
+                    <div className="name">
+                      <span>
+                        {user_info.firstname} {user_info.lastname}
+                      </span>
+                    </div>
+                  </center>
                 </div>
                 <div className="logo2">
                   <img src={logo} alt="Logo" />
@@ -134,27 +133,52 @@ function Navbar() {
                     Saved Posts
                   </Link>
                   <Link
-                  className="signOut"
-                  style={{
-                    backgroundColor: "#ff8b4d",
-                    color: "#0c151d",
-                    border: "none",
-                    height: "53px",
-                    fontSize: "20px",
-                    boxShadow: "2px 2px 2px black",
-                    textShadow: "0.2px 0.25px .1px black",
-                    marginRight: "15px",
-                    borderRadius:"5px",
-                    textDecoration:"none"
-                  }}
+                    className="signOut"
+                    style={{
+                      backgroundColor: "#ff8b4d",
+                      color: "#0c151d",
+                      border: "none",
+                      height: "53px",
+                      fontSize: "20px",
+                      boxShadow: "2px 2px 2px black",
+                      textShadow: "0.2px 0.25px .1px black",
+                      marginRight: "15px",
+                      borderRadius: "5px",
+                      textDecoration: "none",
+                    }}
                     onClick={signout}
                     to="/log-in"
                   >
                     Sign-out
                   </Link>
+                  
                   <div className="lost-item">
                     <PostItem />
                   </div>
+                  {admin == user_info._id ? (
+                    <Link
+                      className="admin"
+                      style={{
+                        backgroundColor: "#e89805",
+                        color: "#0c151d",
+                        border: "none",
+                        height: "53px",
+                        width: "80px",
+                        fontSize: "20px",
+                        boxShadow: "2px 2px 2px black",
+                        textShadow: "0.2px 0.25px .1px black",
+                        marginRight: "15px",
+                        borderRadius: "5px",
+                        textDecoration: "none",
+                      }}
+                      // onClick={signout}
+                      to="/admin-dashboard"
+                    >
+                      Admin
+                    </Link>
+                  ) : (
+                    <></>
+                  )}
                 </ul>
               </div>
             </div>

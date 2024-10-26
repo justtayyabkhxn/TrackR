@@ -18,6 +18,8 @@ import ForgotPassword from "./Components/ForgotPassword";
 import ChangePassword from "./Components/Auth/ChangePassword";
 import AdminLogin from "./Components/AdminLogin";
 import SavedPosts from "./Components/SavedPosts";
+import AdminDashboard from "./Components/AdminDashboard";
+import AdminPrivateRoute from "./Components/AdminPrivateRoute";
 
 function App() {
   return (
@@ -47,6 +49,10 @@ function App() {
                 <Route path="" element={<Feed />} />
               </Route>
               <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/admin-dashboard" element={<AdminPrivateRoute />}>
+                <Route path="" element={<AdminDashboard />} />
+              </Route>
+               {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
               <Route path="*" element={<NotFound />} />
             </>
           }

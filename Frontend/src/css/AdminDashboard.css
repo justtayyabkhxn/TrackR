@@ -1,0 +1,58 @@
+.admin-dashboard {
+  padding: 20px;
+}
+
+.user-list {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Creates a 4-column grid */
+  gap: 10px; /* Adds space between grid items */
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 15px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0.5px 0.5px 4px rgb(0, 0, 0);
+}
+
+.user-name {
+  cursor: pointer;
+  font-weight: bold;
+  flex: 1;
+}
+
+.delete-button, .mail-button {
+  margin-left: 5px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-button {
+  background-color: #ff4d4f;
+  color: white;
+}
+
+.mail-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.user-detail {
+  padding: 20px;
+  /* border: 1px solid #ddd; */
+  /* border-radius: 5px; */
+  margin-top: 10px;
+}
+
+.close-button {
+  border: none;
+  padding: 5px;
+  background-color: #ff4d4f;
+  color: white;
+  cursor: pointer;
+}

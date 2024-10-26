@@ -175,6 +175,17 @@ router.post("/savePost/:user_id/:item_id", async (req, res) => {
   }
 });
 
+//      /users
+
+router.get('/users', async (req, res) => {
+  try {
+    const users = await SignUp.find({}); // Fetch only the required fields
+    res.json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Server error, could not retrieve users' });
+  }
+});
 // POST /edititem
 router.post("/edititem", upload.array("itemPictures"), async (req, res) => {
   try {
