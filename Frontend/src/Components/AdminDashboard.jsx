@@ -3,6 +3,7 @@ import Axios from "axios";
 import "../css/AdminDashboard.css";
 import Navbar from "../Components/Navbar";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
@@ -12,7 +13,7 @@ export default function AdminDashboard() {
     Axios.get("http://localhost:5000/users") // Replace with your backend API URL
       .then((response) => setUsers(response.data))
       .catch((error) => console.error("Error fetching users:", error));
-  }, []);
+  }, [users]);
 
   const handleUserClick = (user) => {
     setSelectedUser(user);
@@ -52,7 +53,16 @@ export default function AdminDashboard() {
               <span className="user-name" onClick={() => handleUserClick(user)}>
                 <div className="user-detail">
                   {/* {console.log(user)} */}
-                  <h2>{user.firstname}'s Details</h2>
+                  <Link to={`/lol`}>
+                    <h2
+                      style={{
+                        color: "#0c151d",
+                        textDecoration: "none",
+                      }}
+                    >
+                      {user.firstname} {user.lastname}
+                    </h2>
+                  </Link>
                   <p>Email: {user.email}</p>
                   <p>Phone: {user.number}</p>
                   <p>User id: {user._id}</p>
@@ -60,7 +70,7 @@ export default function AdminDashboard() {
 
                   {/* {user.name} */}
                   <Button
-                    onClick={() => handleDeleteUser(user.id)}
+                    onClick={() => handleDeleteUser(user._id)}
                     className="delete-button"
                     style={{
                       fontFamily: "DynaPuff",
