@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import "../css/feed.css";
 import "../css/item_card.css";
 import Axios from "axios";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { setConstraint } from "../constraints";
 

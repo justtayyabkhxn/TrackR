@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import "../css/AdminDashboard.css";
 import Navbar from "../Components/Navbar";
+import { Button } from "react-bootstrap";
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
@@ -47,30 +48,41 @@ export default function AdminDashboard() {
         </div>
         <div className="user-list">
           {users.map((user) => (
-            <div className="user-row" key={user._id}
-            >
+            <div className="user-row" key={user._id}>
               <span className="user-name" onClick={() => handleUserClick(user)}>
                 <div className="user-detail">
                   {/* {console.log(user)} */}
                   <h2>{user.firstname}'s Details</h2>
-                  <p>Email: {user.email}</p> 
-                  <p>Phone: {user.number}</p> 
+                  <p>Email: {user.email}</p>
+                  <p>Phone: {user.number}</p>
                   <p>User id: {user._id}</p>
                   {/* Add more user fields here as needed */}
-                
-                {/* {user.name} */}
-                <button
-                  onClick={() => handleDeleteUser(user.id)}
-                  className="delete-button"
-                >
-                  Delete User
-                </button>
-                <button
-                  onClick={() => handleSendMail(user.email)}
-                  className="mail-button"
-                >
-                  Send Mail
-                </button>
+
+                  {/* {user.name} */}
+                  <Button
+                    onClick={() => handleDeleteUser(user.id)}
+                    className="delete-button"
+                    style={{
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
+                      fontSize: "1.05rem",
+                      textShadow: "0.5px 0.5px 2px black",
+                    }}
+                  >
+                    Delete User
+                  </Button>
+                  <Button
+                    onClick={() => handleSendMail(user.email)}
+                    className="mail-button"
+                    style={{
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
+                      fontSize: "1.05rem",
+                      textShadow: "0.5px 0.5px 2px black",
+                    }}
+                  >
+                    Send Mail
+                  </Button>
                 </div>
               </span>
             </div>

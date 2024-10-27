@@ -193,7 +193,7 @@ function ItemPage(props) {
                 Item name:
               </span>
               <span className="details"> {data.name} </span>
-              <button
+              <Button
                 onClick={() =>
                   navigator.clipboard.writeText(
                     `http://localhost:5173/item/${item.name}?cid=${item._id}&type=${item.type}`
@@ -205,7 +205,7 @@ function ItemPage(props) {
                 }}
               >
                 <span style={{ fontSize: "1.5rem" }}>🔗</span>{" "}
-              </button>
+              </Button>
             </h3>
             <hr />
             <h3
