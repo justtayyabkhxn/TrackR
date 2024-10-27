@@ -2,18 +2,28 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import "../css/AdminDashboard.css";
 import Navbar from "../Components/Navbar";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import {
+  Button,
+  Modal,
+  Form,
+} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [showEmailModel, setShowEmailModel] = useState(false);
+  const [emailMessage, setEmailMessage] = useState("");
+  const [emailSubject, setemailSubject] = useState("");
+  const [emailUserId, setEmailUserId] = useState("");
 
+  // Fetch users on component mount
   useEffect(() => {
-    Axios.get("http://localhost:5000/users") // Replace with your backend API URL
+    Axios.get("http://localhost:5000/users")
       .then((response) => setUsers(response.data))
       .catch((error) => console.error("Error fetching users:", error));
-  }, [users]);
+  }, []); // Fetch users only once on mount
+  
 
   const handleUserClick = (user) => {
     setSelectedUser(user);
@@ -25,24 +35,33 @@ export default function AdminDashboard() {
       .catch((error) => console.error("Error deleting user:", error));
   };
 
-  const handleSendMail = (userEmail) => {
-    window.open(`mailto:${userEmail}`);
+  const handleOpenEmailModal = (userId) => {
+    setEmailUserId(userId);
+    setShowEmailModel(true);
+  };
+
+  const handleSendMail = () => {
+    const mailData = {
+      subject: emailSubject,
+      emailBody: emailMessage,
+      userId: emailUserId,
+    };
+
+    setShowEmailModel(false);
+    Axios.post("http://localhost:5000/sendMail", mailData)
+      .then(() => {
+        setEmailMessage("");
+        setemailSubject("");
+      })
+      .catch((err) => console.error("Error sending email:", err));
   };
 
   return (
     <>
       <Navbar />
-      {/* {console.log(users)} */}
       <div className="admin-dashboard">
         <div className="listing-title">
-          <h2
-            style={{
-              textTransform: "uppercase",
-              textAlign: "center",
-              fontFamily: "Concert One, sans-serif",
-              fontWeight: "600",
-            }}
-          >
+          <h2 style={{ textTransform: "uppercase", textAlign: "center" }}>
             Admin Dashboard
           </h2>
           <div className="title-border"></div>
@@ -52,23 +71,15 @@ export default function AdminDashboard() {
             <div className="user-row" key={user._id}>
               <span className="user-name" onClick={() => handleUserClick(user)}>
                 <div className="user-detail">
-                  {/* {console.log(user)} */}
                   <Link to={`/lol`}>
-                    <h2
-                      style={{
-                        color: "#0c151d",
-                        textDecoration: "none",
-                      }}
-                    >
+                    <h2 style={{ color: "#0c151d", textDecoration: "none" }}>
                       {user.firstname} {user.lastname}
                     </h2>
                   </Link>
                   <p>Email: {user.email}</p>
                   <p>Phone: {user.number}</p>
                   <p>User id: {user._id}</p>
-                  {/* Add more user fields here as needed */}
 
-                  {/* {user.name} */}
                   <Button
                     onClick={() => handleDeleteUser(user._id)}
                     className="delete-button"
@@ -82,7 +93,7 @@ export default function AdminDashboard() {
                     Delete User
                   </Button>
                   <Button
-                    onClick={() => handleSendMail(user.email)}
+                    onClick={() => handleOpenEmailModal(user._id)}
                     className="mail-button"
                     style={{
                       fontFamily: "DynaPuff",
@@ -98,12 +109,75 @@ export default function AdminDashboard() {
             </div>
           ))}
         </div>
-        {/* <UserDetail/>
-        {selectedUser && (
-          <UserDetail
-            user={user}
-          />
-        )} */}
+
+        <Modal show={showEmailModel} onHide={() => setShowEmailModel(false)}>
+          <Modal.Header
+            closeButton
+            closeVariant="white"
+            style={{
+              fontFamily: "DynaPuff",
+              fontWeight: "400",
+              fontSize: "1.35rem",
+              backgroundColor: "#0c151d",
+              border: "none",
+              color: "#ff8b4d",
+              textShadow: "0.5px 0.5px 0.2px black",
+            }}
+          >
+            <Modal.Title style={{ fontFamily: "DynaPuff", fontWeight: "400" }}>
+              Send Mail
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body
+            style={{
+              fontSize: "1.05rem",
+              backgroundColor: "#0c151d",
+              border: "none",
+              color: "#ff8b4d",
+              textShadow: "0.5px 0.5px 0.2px black",
+              marginTop: "0px",
+            }}
+          >
+            <Form>
+              <Form.Group>
+                <Form.Label style={{ fontFamily: "DynaPuff", fontWeight: "400" }}>
+                  Subject
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter subject"
+                  value={emailSubject}
+                  onChange={(e) => setemailSubject(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label style={{ fontFamily: "DynaPuff", fontWeight: "400" }}>
+                  Email
+                </Form.Label>
+                <Form.Control
+                  as="textarea"
+                  placeholder="Enter Email"
+                  value={emailMessage}
+                  onChange={(e) => setEmailMessage(e.target.value)}
+                  style={{ height: "250px" }}
+                />
+              </Form.Group>
+              <Button
+                variant="primary"
+                onClick={handleSendMail}
+                style={{
+                  backgroundColor: "#52a302",
+                  border: "none",
+                  marginTop: "15px",
+                }}
+              >
+                Submit
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
+
+       
       </div>
     </>
   );
