@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import "../css/AdminDashboard.css";
 import Navbar from "../Components/Navbar";
-import {
-  Button,
-  Modal,
-  Form,
-} from "react-bootstrap";
+import { Button, Modal, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export default function AdminDashboard() {
@@ -23,7 +19,6 @@ export default function AdminDashboard() {
       .then((response) => setUsers(response.data))
       .catch((error) => console.error("Error fetching users:", error));
   }, []); // Fetch users only once on mount
-  
 
   const handleUserClick = (user) => {
     setSelectedUser(user);
@@ -71,7 +66,10 @@ export default function AdminDashboard() {
             <div className="user-row" key={user._id}>
               <span className="user-name" onClick={() => handleUserClick(user)}>
                 <div className="user-detail">
-                  <Link to={`/lol`}>
+                  <Link
+                    to={`/user/${user._id}`}
+                    style={{ textDecoration: "none" }}
+                  >
                     <h2 style={{ color: "#0c151d", textDecoration: "none" }}>
                       {user.firstname} {user.lastname}
                     </h2>
@@ -140,7 +138,9 @@ export default function AdminDashboard() {
           >
             <Form>
               <Form.Group>
-                <Form.Label style={{ fontFamily: "DynaPuff", fontWeight: "400" }}>
+                <Form.Label
+                  style={{ fontFamily: "DynaPuff", fontWeight: "400" }}
+                >
                   Subject
                 </Form.Label>
                 <Form.Control
@@ -151,7 +151,9 @@ export default function AdminDashboard() {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label style={{ fontFamily: "DynaPuff", fontWeight: "400" }}>
+                <Form.Label
+                  style={{ fontFamily: "DynaPuff", fontWeight: "400" }}
+                >
                   Email
                 </Form.Label>
                 <Form.Control
@@ -176,8 +178,6 @@ export default function AdminDashboard() {
             </Form>
           </Modal.Body>
         </Modal>
-
-       
       </div>
     </>
   );

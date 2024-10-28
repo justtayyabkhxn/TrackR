@@ -516,4 +516,22 @@ router.delete("/users/:userId", async (req, res) => {
   }
 });
 
+
+router.get('/user/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    // Find all posts where createdBy matches userId
+    const posts = await PostItem.find({ createdBy: userId });
+    if (posts.length === 0) {
+      return res.status(404).json({ message: 'No posts found for this user.' });
+    }
+
+    res.json(posts);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error fetching posts for this user.' });
+  }
+});
+
 module.exports = router;

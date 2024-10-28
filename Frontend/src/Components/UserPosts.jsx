@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../Components/Navbar";
-import "../css/faqs.css";
-import image from "../img/faq.jpg";
-import developer from "../img/developer.jpg";
-import list_item from "../img/list-item.jpg";
-import list_item2 from "../img/list-item2.jpg";
-import notification from "../img/notification.jpg";
-import github from "../img/github.svg";
-import mail from "../img/mail.svg";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Axios from "axios";
+import Navbar from "./Navbar";
+
+// UserPosts Component
 import { Card, Col, Container, Row, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export default function SavedPosts() {
+export default function UserPosts() {
+  const { userId } = useParams();
   const [items, setItems] = useState([]);
   const [info, setInfo] = useState("");
 
@@ -45,13 +41,10 @@ export default function SavedPosts() {
 
   const fetchItems = async () => {
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const response = await Axios.get(
-        `http://localhost:5000/mySaves/${user._id}`
-      );
+      const response = await Axios.get(`http://localhost:5000/user/${userId}`);
       setInfo(response.message);
 
-      const data = response.data.items;
+      const data = response.data;
       if (data) {
         const itemList = data.reverse().map((item) => {
           const createdDate = new Date(item.createdAt);
@@ -61,10 +54,10 @@ export default function SavedPosts() {
             }/${createdDate.getFullYear()} ` +
             `${createdDate.getHours()}:${createdDate.getMinutes()}`;
 
-            const imageSrc =
-              item.itemPictures && item.itemPictures.length > 0
-                ? `http://localhost:5000/${item.itemPictures[0].img}`
-                : "/default-img.png";
+          const imageSrc =
+            item.itemPictures && item.itemPictures.length > 0
+              ? `http://localhost:5000/${item.itemPictures[0].img}`
+              : "/default-img.png";
 
           return (
             <Col key={item._id} style={{ marginTop: "2%" }} md={3}>
@@ -190,10 +183,8 @@ export default function SavedPosts() {
         });
 
         setItems(itemList);
-      }
-      else{
+      } else {
         setInfo(response.message);
-
       }
     } catch (err) {
       console.error("Error fetching items:", err);
@@ -216,7 +207,7 @@ export default function SavedPosts() {
             fontWeight: "600",
           }}
         >
-          Saved Posts
+          User Posts
         </h2>
         <div className="title-border"></div>
         <div

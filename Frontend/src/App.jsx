@@ -20,6 +20,7 @@ import AdminLogin from "./Components/AdminLogin";
 import SavedPosts from "./Components/SavedPosts";
 import AdminDashboard from "./Components/AdminDashboard";
 import AdminPrivateRoute from "./Components/AdminPrivateRoute";
+import UserPosts from "./Components/UserPosts";
 
 function App() {
   return (
@@ -51,6 +52,9 @@ function App() {
               <Route path="/admin" element={<AdminLogin />} />
               <Route path="/admin-dashboard" element={<AdminPrivateRoute />}>
                 <Route path="" element={<AdminDashboard />} />
+              </Route>
+              <Route path="/user/:userId" element={<AdminPrivateRoute />}>
+                <Route path="" element={<UserPosts />} />
               </Route>
                {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
               <Route path="*" element={<NotFound />} />
