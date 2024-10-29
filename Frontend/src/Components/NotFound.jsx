@@ -4,6 +4,7 @@ import notFoundImg from "../img/not-found.jpg";
 function NotFound() {
   return (
     <>
+    <div style={{marginTop:"120px"}}>
       <Navbar />
       <div style={{ align: "center", marginTop: "50px" }}>
         <center>
@@ -13,6 +14,7 @@ function NotFound() {
             style={{ height: "500px" }}
           />
         </center>
+      </div>
       </div>
     </>
   );

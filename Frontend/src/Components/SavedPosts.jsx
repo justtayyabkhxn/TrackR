@@ -205,7 +205,7 @@ export default function SavedPosts() {
   }, [info]);
 
   return (
-    <div>
+    <div style={{marginTop:"120px"}}>
       <Navbar />
       <div className="listing-title">
         <h2

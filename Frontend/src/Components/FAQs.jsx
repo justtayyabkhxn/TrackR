@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 export default function FAQs() {
   return (
     <>
+    <div style={{marginTop:"120px"}}>
       <Navbar />
 
       <div
@@ -362,6 +363,7 @@ export default function FAQs() {
         <div className="personal-info">
           <h5>Track It By Tayyab Khan</h5>
         </div>
+      </div>
       </div>
     </>
   );

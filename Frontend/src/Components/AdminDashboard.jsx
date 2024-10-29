@@ -53,6 +53,7 @@ export default function AdminDashboard() {
 
   return (
     <>
+    <div style={{marginTop:"120px"}}>
       <Navbar />
       <div className="admin-dashboard">
         <div className="listing-title">
@@ -178,6 +179,7 @@ export default function AdminDashboard() {
             </Form>
           </Modal.Body>
         </Modal>
+      </div>
       </div>
     </>
   );

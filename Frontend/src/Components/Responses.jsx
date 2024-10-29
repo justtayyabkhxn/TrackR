@@ -61,6 +61,7 @@ function Response() {
 
   return (
     <>
+    <div style={{marginTop:"120px"}}>
       <Navbar />
       <Modal show={showNumber} onHide={handleCloseNumber} backdrop="static">
         <Modal.Body
@@ -365,6 +366,7 @@ function Response() {
             </div>
           );
         })}
+      </div>
       </div>
     </>
   );

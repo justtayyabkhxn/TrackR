@@ -176,7 +176,7 @@ const ReadMore = ({ children }) => {
   }, [user_info._id]);
 
   return (
-    <div>
+    <div style={{marginTop:"120px"}}>
       <Navbar />
       <span
         style={{
@@ -186,6 +186,7 @@ const ReadMore = ({ children }) => {
           margin: "25px",
           fontSize: "45px",
           borderBottom: "5px solid #ff8b4d",
+          marginTop:"1050px"
         }}
       >
         Welcome {user_info.firstname} {user_info.lastname}!

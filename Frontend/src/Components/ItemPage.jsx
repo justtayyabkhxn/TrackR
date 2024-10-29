@@ -31,7 +31,7 @@ function ItemPage(props) {
   const [showEmailModel, setShowEmailModel] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [alreadyAnswered, setAlreadyAnswered] = useState(false);
-  const [showQuestion, setshowtenQuestion] = useState(false);
+  const [showQuestion, setshowQuestion] = useState(false);
   const [answer, setAnswer] = useState("");
   const [itemid, setItemid] = useState("");
   const [Question, setQuestion] = useState(false);
@@ -913,6 +913,7 @@ function ItemPage(props) {
 
   return (
     <>
+    <div style={{marginTop:"120px"}}>
       <Navbar />
       <Container fluid>
         <div className="parent">
@@ -1325,6 +1326,7 @@ function ItemPage(props) {
         theme="dark"
         transition:Flip
       />
+      </div>
     </>
   );
 }

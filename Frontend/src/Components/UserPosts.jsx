@@ -2,27 +2,24 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
 import Navbar from "./Navbar";
-
-// UserPosts Component
-import { Card, Col, Container, Row, Badge } from "react-bootstrap";
+import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export default function UserPosts() {
   const { userId } = useParams();
   const [items, setItems] = useState([]);
   const [info, setInfo] = useState("");
+  const [userInfo, setUserInfo] = useState("");
+  const [loading, setLoading] = useState(true); // New loading state
 
   const ReadMore = ({ children }) => {
     const text = children;
     const [isReadMore, setIsReadMore] = useState(true);
 
-    const toggleReadMore = () => {
-      setIsReadMore(!isReadMore);
-    };
+    const toggleReadMore = () => setIsReadMore(!isReadMore);
 
     return (
       <span
-        className="text"
         style={{
           color: "rgb(149, 149, 149)",
           letterSpacing: "0.1px",
@@ -42,17 +39,16 @@ export default function UserPosts() {
   const fetchItems = async () => {
     try {
       const response = await Axios.get(`http://localhost:5000/user/${userId}`);
-      setInfo(response.message);
+      const data = response.data.items;
+      console.log(response.data.user);
+      setUserInfo(response.data.user);
 
-      const data = response.data;
-      if (data) {
+      if (data && data.length > 0) {
         const itemList = data.reverse().map((item) => {
           const createdDate = new Date(item.createdAt);
-          const createdAt =
-            `${createdDate.getDate()}/${
-              createdDate.getMonth() + 1
-            }/${createdDate.getFullYear()} ` +
-            `${createdDate.getHours()}:${createdDate.getMinutes()}`;
+          const createdAt = `${createdDate.getDate()}/${
+            createdDate.getMonth() + 1
+          }/${createdDate.getFullYear()} ${createdDate.getHours()}:${createdDate.getMinutes()}`;
 
           const imageSrc =
             item.itemPictures && item.itemPictures.length > 0
@@ -89,7 +85,6 @@ export default function UserPosts() {
                   />
                   <Card.Body bsPrefix="card-body">
                     <span
-                      variant={item.status ? "success" : "secondary"}
                       style={{
                         marginTop: "15px",
                         marginBottom: "15px",
@@ -132,21 +127,7 @@ export default function UserPosts() {
                           fontSize: "0.95rem",
                         }}
                       >
-                        Description:{" "}
-                        <ReadMore
-                          style={{
-                            fontFamily: "DynaPuff",
-                            fontWeight: "400",
-                            textShadow: "1px 1px 2px black",
-                            color: "rgb(149, 149, 149)",
-                            letterSpacing: "0.75px",
-                            marginBottom: "15px",
-                            fontSize: "0.95rem",
-                            textTransform: "uppercase",
-                          }}
-                        >
-                          {item.description}
-                        </ReadMore>
+                        Description: <ReadMore>{item.description}</ReadMore>
                       </Card.Text>
                     )}
                     <Card.Text
@@ -184,19 +165,22 @@ export default function UserPosts() {
 
         setItems(itemList);
       } else {
-        setInfo(response.message);
+        setInfo("No posts found for this user.");
       }
     } catch (err) {
       console.error("Error fetching items:", err);
+      setInfo("An error occurred while fetching items.");
+    } finally {
+      setLoading(false); // Set loading to false after fetch completes
     }
   };
 
   useEffect(() => {
     fetchItems();
-  }, [info]);
+  }, [userInfo]);
 
   return (
-    <div>
+    <div style={{ marginTop: "120px" }}>
       <Navbar />
       <div className="listing-title">
         <h2
@@ -207,7 +191,9 @@ export default function UserPosts() {
             fontWeight: "600",
           }}
         >
-          User Posts
+          {userInfo
+            ? `${userInfo.firstname} ${userInfo.lastname}'s Posts`
+            : `User Posts`}
         </h2>
         <div className="title-border"></div>
         <div
@@ -219,12 +205,40 @@ export default function UserPosts() {
             fontSize: "1.25rem",
             textShadow: "0.5px 0.5px 2px black",
           }}
-        >
-          {info}
-        </div>
+        ></div>
       </div>
       <Container fluid>
-        <Row>{items}</Row>
+        <Row>
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                padding: "20px",
+              }}
+            >
+              <Spinner
+                style={{ fontSize: "8rem", color:"black" }}
+                animation="border"
+                role="status"
+                variant="dark"
+              >
+                {/* <span className="sr-only" style={{ fontSize: "1rem" }}>
+                  Loading...
+                </span> */}
+              </Spinner>
+            </div>
+          ) : items.length > 0 ? (
+            items
+          ) : (
+            <p
+              style={{ textAlign: "center", color: "red", fontSize: "1.5rem" }}
+            >
+              No posts found.
+            </p>
+          )}
+        </Row>
       </Container>
     </div>
   );
