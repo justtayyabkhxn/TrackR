@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../Components/Navbar";
+import Navbar from "./Navbar";
 import { useLocation } from "react-router-dom";
 import "../css/feed.css";
 import "../css/item_card.css";
@@ -182,51 +182,34 @@ const SearchPage = () => {
   return (
     <div>
       <Navbar />
-      <span
-        style={{
-          fontFamily: "Concert One, sans-serif",
-          marginLeft: "5px",
-          textTransform: "uppercase",
-          margin: "25px",
-          fontSize: "45px",
-          borderBottom: "5px solid #ff8b4d",
-        }}
-      >
-        You Searched for "{query}" !
-      </span>
-
-      {error &&  (
-        <div
+      <div style={{marginTop:"120px"}}>
+        <span
           style={{
-            color: "red",
-            textAlign: "center",
-            fontSize: "2rem",
-            fontFamily: "DynaPuff",
-            fontWeight: "400",
-            textShadow: "1px 1px 2px black",
-          }}
-        >
-          {error}
-        </div>
-      )}
-      <Container fluid>
-        <h2
-          style={{
-            textAlign: "center",
             fontFamily: "Concert One, sans-serif",
             marginLeft: "5px",
             textTransform: "uppercase",
-            fontSize: "35px",
-            fontWeight: "600",
+            margin: "25px",
+            fontSize: "45px",
+            borderBottom: "5px solid #ff8b4d",
           }}
         >
-          Lost items:
-        </h2>
-        <div className="title-border"></div>
-        <Row>{items}</Row>
-      </Container>
+          You Searched for "{query}" !
+        </span>
 
-      {foundItems.length > 0 && (
+        {error && (
+          <div
+            style={{
+              color: "red",
+              textAlign: "center",
+              fontSize: "2rem",
+              fontFamily: "DynaPuff",
+              fontWeight: "400",
+              textShadow: "1px 1px 2px black",
+            }}
+          >
+            {error}
+          </div>
+        )}
         <Container fluid>
           <h2
             style={{
@@ -238,12 +221,31 @@ const SearchPage = () => {
               fontWeight: "600",
             }}
           >
-            Found items:
+            Lost items:
           </h2>
           <div className="title-border"></div>
-          <Row>{foundItems}</Row>
+          <Row>{items}</Row>
         </Container>
-      )}
+
+        {foundItems.length > 0 && (
+          <Container fluid>
+            <h2
+              style={{
+                textAlign: "center",
+                fontFamily: "Concert One, sans-serif",
+                marginLeft: "5px",
+                textTransform: "uppercase",
+                fontSize: "35px",
+                fontWeight: "600",
+              }}
+            >
+              Found items:
+            </h2>
+            <div className="title-border"></div>
+            <Row>{foundItems}</Row>
+          </Container>
+        )}
+      </div>
     </div>
   );
 };

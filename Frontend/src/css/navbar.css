@@ -14,7 +14,10 @@ body {
   width: 100%;
   overflow-x: hidden; 
 } */
-
+*::selection {
+  color: white;
+  background-color: #ff8900;
+}
 :root {
   --bg-color: #0c151d;
   --navbar-bg-color: #1e1240f0;
@@ -31,12 +34,12 @@ body {
 .navbar {
   background-color: var(--bg-color);
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   padding: 10px;
   box-shadow: 2px 2px 5px black;
   border-radius: 0px 0px 30px 30px;
   width: 100%;
-  max-width: 100vw;
+  max-width: 100%;
   margin-bottom: 20px; /* Prevent horizontal overflow */
   position: fixed; /* Fixes the navbar at the top */
   top: 0;
@@ -47,26 +50,6 @@ body {
 /* Add a top padding to the main content to avoid overlap */
 body {
   padding-top: 100px; /* Adjust the padding based on navbar height */
-}
-.logo {
-  margin-left: 10px;
-}
-
-.logo > h2 {
-  color: var(--text-color);
-  font-size: 35px;
-}
-
-.logo > h2:hover {
-  text-decoration: none;
-  color: var(--hover-color);
-}
-
-.logo img {
-  height: 80px;
-  margin: 2px;
-  border-radius: 40px;
-  box-shadow: 1px 1px 3px black;
 }
 
 /* Sign-in styles */
@@ -81,7 +64,10 @@ body {
   font-size: 22px;
   cursor: pointer;
 }
-
+.dropDown{
+  background-color: var(--bg-color);
+  width:fit-content;
+}
 .signin span {
   border-bottom: solid 3px var(--text-color);
   border-right: solid 3px var(--text-color);
@@ -100,9 +86,7 @@ body {
 .signin > ul:hover {
   color: var(--hover-color);
 }
-.lost-item {
-  margin-right: 500px;
-}
+
 /* Post-sign-in styles */
 .postsignin {
   display: flex;
@@ -115,21 +99,31 @@ body {
   height: 80px;
   /* margin-right: 400px; */
   border-radius: 40px;
-  margin-left: 0px;
+  /* margin-left: 0px; */
   box-shadow: 1px 1px 3px black;
+}
+
+.signOut {
+  /* background-color: #ff8b4d; */
+  text-decoration: none;
+  color: #ffffff;
+  border: none;
+  height: 53px;
+  font-size: 20px;
+  box-shadow: 2px 2px 2px black;
+  text-shadow: 0.2px 0.25px 0.1px black;
+  /* margin-right: 15px; */
+  border-radius: 5px;
 }
 .otherRoutes {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: end;
+  justify-content: center;
   width: 100%;
   align-items: center;
 }
 
-.otherRoutes ul {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+.otherRoutes {
   width: 100%;
   /* margin-right: 20px; */
 }
@@ -137,21 +131,21 @@ body {
 .otherRoutes a {
   color: var(--text-color);
   font-size: 20px;
-  margin-right: 20px;
+  margin-right: 10px;
   padding: 10px;
   text-transform: uppercase;
   border-right: 3px solid var(--footer-bg-color);
+  border-radius: 10px 10px 10px 10px;
   border-bottom: 3px solid var(--footer-bg-color);
   box-shadow: 2px 2px 2px black;
   text-shadow: 2px 2px 2px black;
 }
 .profile {
   padding: 0px;
-  width: fit-content;
   margin: 0px;
-  margin-left: 70px;
+  /* margin-left: 20px; */
 }
-.profile img {
+.Profile {
   border-right: none;
   border-bottom: none;
   height: 50px;
@@ -159,9 +153,10 @@ body {
   border-radius: 50px;
   padding: 0px;
   transition: all 0.25s ease-out;
-  margin-left: 15px;
+  /* margin-left: 10px; */
+  margin-top: 5px;
 }
-.profile img:hover {
+.Profile:hover {
   transform: scale(1.02);
   box-shadow: 0px 0px 5px #ff8b4d;
 }
@@ -171,7 +166,7 @@ body {
 }
 
 .loginLink {
-  margin-left: -50px;
+  margin-left: 0px;
 }
 .name {
   margin-left: 0px;
@@ -282,23 +277,27 @@ body {
 
 @media (max-width: 480px) {
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: start;
   }
-
+  .dropDown{
+    background-color: var(--bg-color);
+    width:fit-content;
+  }
   .postsignin {
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
   }
 
-  .otherRoutes ul {
-    flex-direction: column;
+  .otherRoutes{
+    flex-direction: row;
     width: 100%;
+    margin-top: 20px;
   }
 
   .signin > ul,
   .postsignin > ul {
-    width: 100%;
+    width: fit-content;
     justify-content: space-between; /* Prevent overflow */
   }
 }

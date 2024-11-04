@@ -182,20 +182,7 @@ function PostItem() {
   };
   return (
     <div>
-      <Button
-        variant="primary"
-        onClick={handleShow}
-        style={{
-          backgroundColor: "#ff8b4d",
-          color: "#0c151d",
-          border: "none",
-          height: "53px",
-          fontSize: "20px",
-          boxShadow: "2px 2px 2px black",
-          textShadow: "0.2px 0.25px .1px black",
-          marginRight: "0px",
-        }}
-      >
+      <Button className="postButton" onClick={handleShow}>
         POST ITEM
       </Button>
       <Modal

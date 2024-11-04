@@ -4,5 +4,55 @@
   font-family: "DynaPuff", system-ui;
   font-optical-sizing: auto;
   font-weight: 200;
-  /* font-size: 50rem; */
+}
+
+/* Default styles for larger screens */
+.postButton {
+  background-color: #ff8b4d;
+  color: #0c151d;
+  border: none;
+  height: 53px;
+  font-size: 20px;
+  box-shadow: 2px 2px 2px black;
+  text-shadow: 0.2px 0.25px 0.1px black;
+  margin-right: 0px;
+}
+.postButton:hover {
+  background-color: #ff8b4dce;
+  color: #0c151d;
+}
+
+/* Medium screens */
+@media (max-width: 1100px) {
+  .toastNotif {
+    font-size: 1.2rem;
+  }
+  
+  .postButton {
+    height: 45px;
+    font-size: 16px;
+  }
+}
+@media (max-width: 768px) {
+  .toastNotif {
+    font-size: 1.2rem;
+  }
+  
+  .postButton {
+    height: 45px;
+    font-size: 16px;
+  }
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .toastNotif {
+    font-size: 0.51rem;
+  }
+  
+  .postButton {
+    height: 60px;
+    font-size: 16px;
+    margin-right: 5px;
+  }
 }

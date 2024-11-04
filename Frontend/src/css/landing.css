@@ -12,13 +12,15 @@
 html {
   scroll-behavior: smooth;
 }
-
+.main{
+  margin-top: 30px;
+}
 /* Introduction section */
 .intro {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap-reverse;
+  justify-content:space-evenly;
+  flex-wrap: wrap;
 }
 
 :root {
@@ -28,12 +30,11 @@ html {
   height: 500px;
   width: 350px;
   position: relative;
-  margin-left: 200px;
 }
 .part-2 img {
   width: 400px;
   height: 400px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 .developer-img img {
   width: 500px;
@@ -69,8 +70,8 @@ html {
 .footer img {
   background: none;
 }
-.image {
-  margin-right: 1.5rem; /* 25px */
+.footer{
+  width: 100vw;
 }
 
 /* Button styling */
@@ -81,7 +82,7 @@ html {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  margin: 0.25rem; /* 4px 2px */
+  /* margin: 0.25rem; */
   cursor: pointer;
   border-radius: 16px;
 }
@@ -101,38 +102,19 @@ html {
   font-family: "Staatliches", cursive;
 }
 
-/* Demo video section */
-.demo_video {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: 3.125rem 0; /* 50px 0px */
-}
-
-.demo_video .section-heading {
-  color: #2e186a;
-  font-size: 2.575rem;
-  padding: 0.5rem;
-  font-family: "Staatliches", cursive;
-  border-bottom: 3px solid var(--text-color);
-}
-
-.yt_video {
-  margin: 1rem 0 4.375rem; /* 15px 0 70px */
-}
-
 /* Inspiration section */
 .total-inspiration {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  margin-top: -5%;
+  justify-content:space-around;
+  /* margin-top: -5%; */
+  margin-bottom: 100px;
 }
 
 .inspiration {
   display: flex;
   justify-content: center;
-  margin: auto;
+  /* margin: auto; */
   max-width: 700px;
   text-align: center;
   font-size: 1.125rem;
@@ -165,7 +147,7 @@ span {
 
 /* Custom button */
 .btn-custom {
-  margin: auto;
+  /* margin: auto; */
   background-color: #2e186a;
   color: white;
   padding: 0.625rem;
@@ -178,9 +160,6 @@ span {
 }
 
 /* About section */
-.total-about {
-  margin-top: 10%;
-}
 
 .total-about .section-heading {
   text-align: center;
@@ -222,7 +201,7 @@ span {
 
 .signupCircle {
   margin-bottom: 10px;
-  margin-top: -5px;
+  /* margin-top: -5px; */
   box-shadow: 1px 1px 2px black;
   text-shadow: 1px 1px 3px black;
   font-family: DynaPuff, system-ui;
@@ -236,33 +215,11 @@ p {
   color: rgb(52, 61, 72);
   font-size: 1.125rem;
   text-shadow: 0.5px 0px 0.25px black;
+  margin-bottom: 20px;
+
 }
 
-/* Contact form */
-.total-contact-form {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 10%;
-}
 
-.contact-title .section-heading {
-  width: fit-content;
-  margin: 0;
-}
-
-.contact-title {
-  margin: 0px 25px;
-}
-
-.contact-form {
-  flex-grow: 2;
-  margin-right: 25px;
-}
-
-.contact-title p {
-  max-width: 560px;
-}
 .getStartedButton {
   box-shadow: 2px 1px 3px black;
 }
@@ -306,7 +263,8 @@ p {
 /* Responsive styles */
 @media (max-width: 1020px) {
   .image {
-    display: none;
+    width: 350px;
+    height: 350px;
   }
 }
 
@@ -317,8 +275,22 @@ p {
 }
 
 @media (max-width: 480px) {
+
   .developer-img {
     width: 350px;
     height: 350px;
+  }
+
+  .main{
+    margin-top: 5px;
+  }
+  .title h1{
+    font-size: 2.5rem;
+  }
+  .section-heading{
+    font-size: 1.75rem;
+  }
+  .roundtext{
+    font-size: 1.05rem;
   }
 }

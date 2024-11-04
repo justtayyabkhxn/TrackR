@@ -29,11 +29,12 @@ export default function Home() {
   }, []);
   return (
     <>
-      <div style={{ marginTop: "120px" }}>
+      <div className="main">
         <Navbar />
         <div data-aos="fade-right" className="main">
           <div className="intro">
             <div className="part-1">
+              {/* child1 start */}
               <div className="title">
                 <h1 id="title-h">TRACK IT</h1>
                 <p>Where lost items find their home.</p>
@@ -48,6 +49,8 @@ export default function Home() {
                   <span>DIVE IN</span>
                 </Button>
               </div>
+            {/* child1 end */}
+
             </div>
 
             <div className="part-2">
@@ -120,9 +123,9 @@ export default function Home() {
                   </div>
                   <p>
                     List your item on the wall by filling certain details and
-                    image. That's it!
+                    image.That's it!
                     <Link to="/faqs">
-                      <Button variant="custom" size="lg" className="faqCircle">
+                      <Button variant="custom" size="sm" className="faqCircle">
                         FAQs
                       </Button>
                     </Link>
@@ -133,7 +136,7 @@ export default function Home() {
                   <div className="circletext">
                     <span>PRIVACY INTEGRATED</span>
                   </div>
-                  <p>
+                  <p className="roundtext">
                     Your contact info is shared only with those who answer your
                     security question, ensuring your privacy.
                   </p>
