@@ -2,6 +2,7 @@ const express = require('express');
 // const nodemailer = require('nodemailer');
 // const mailgun = require('nodemailer-mailgun-transport');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const ms = require('ms');
 const nodemailer = require("nodemailer");
 
@@ -17,6 +18,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES = process.env.JWT_EXPIRES;
 const NODE_ENV = process.env.NODE_ENV;
 const admin=process.env.ADMIN;
+
 // console.log(admin);
 const signJwt = (id) => {
     return jwt.sign({ id }, JWT_SECRET, {
@@ -202,8 +204,10 @@ router.get('/', (req, res) => res.send('This is Home page!!'));
 router.post('/signup', checkField, checkUsername, checkPassword, async (req, res) => {
     const { firstname, lastname, email, number, password, verified } = req.body;
     try {
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
         console.log("Hello: ", req.body);
-        const newSignup = await Signup.create({ firstname, lastname, email, number, password, verified });
+        const newSignup = await Signup.create({ firstname, lastname, email, number, password:hashedPassword, verified });
         sendToken(newSignup, 201, res);
         console.log(newSignup)
     } catch (err) {
@@ -289,10 +293,12 @@ router.post('/changePassword', checkPassword, async (req, res) => {
                 message: "Email does not exist"
             });
         }
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
         // Update the user's password in the database
         const updatedUser = await Signup.findOneAndUpdate(
             { email },                   // Find the user by email
-            { password: password }, // Update password
+            { password: hashedPassword}, // Update password
             { new: true }                 // Return the updated document
         );
 
@@ -391,7 +397,8 @@ router.post('/login', checkFieldLogin, async (req, res) => {
         }
 
         // Check if the password matches
-        if (user.password === password) { // Use bcryptjs for password comparison in production
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (isMatch) { // Use bcryptjs for password comparison in production
             
             // Check if the user is verified only after password is correct
             if (!user.verified) {

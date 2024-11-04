@@ -62,7 +62,7 @@ const ProfilePage = () => {
               readOnly
             />
           </div>
-          <div className="row1" style={{ position: "relative", width: "100%" }}>
+          {/* <div className="row1" style={{ position: "relative", width: "100%" }}>
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
@@ -86,7 +86,7 @@ const ProfilePage = () => {
             >
               {showPassword ? "Hide" : "Show"}
             </span>
-          </div>
+          </div> */}
 
           <Link
             to="/change-password"
