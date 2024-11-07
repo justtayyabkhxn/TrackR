@@ -8,12 +8,21 @@
     margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 40px;
+
 }
-.responese-card{
+.response-card{
     border: 1px solid black;
     display: flexbox;
     padding: 10px 10px 15px 15px;
     margin: 10px 10px;
     box-shadow: 0 5px 25px rgba(204, 204, 204, 0.75); /* Updated to modern RGBA syntax */
     border-radius: 10px;
+    margin-left: 30px;
+}
+
+@media (max-width: 480px) {
+    .response-card{
+        margin-left: 10px;
+    }
 }

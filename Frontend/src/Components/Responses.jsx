@@ -142,14 +142,13 @@ function Response() {
           return (
             <div
               key={response.itemId}
-              className="responese-card"
+              className="response-card"
               style={{
                 fontFamily: "DynaPuff, system-ui",
                 fontWeight: "400",
                 cursor: "pointer",
                 boxShadow: "1px 1px 5px black",
                 padding: "15px",
-                marginLeft: "30px",
                 marginBottom: "30px",
                 backgroundColor: "#0c151d",
                 borderBottom: "5px solid #ff8b4d",

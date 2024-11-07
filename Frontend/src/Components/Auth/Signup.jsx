@@ -141,8 +141,9 @@ const Signup = () => {
                 onChange={handleChange}
                 style={{ width: "150%" }}
               />
-              <span
-                onClick={() => setShowCPassword(!showCPassword)}
+             <span
+                className="showPassword"
+                onClick={() => setShowPassword(!showPassword)}
                 style={{
                   position: "absolute",
                   fontFamily: "DynaPuff, system-ui",
@@ -153,6 +154,7 @@ const Signup = () => {
                   cursor: "pointer",
                   fontSize: "1.05rem",
                   color: "#ff8b4d",
+                  marginLeft: "10px",
                 }}
               >
                 {showCPassword ? "Hide" : "Show"}

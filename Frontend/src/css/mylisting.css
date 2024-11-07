@@ -6,3 +6,12 @@
 .badge{
      background-color: #ff8b4d;
 }
+.itemCard{
+    margin-left: 30px;
+}
+
+@media (max-width: 480px) {
+    .itemCard{
+        margin-left: 27px;
+    }
+}

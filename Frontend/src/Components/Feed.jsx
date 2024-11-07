@@ -88,17 +88,11 @@ export default function Feed() {
                   style={{ textDecoration: "none" }} // Remove default underline from links
                 >
                   <Card
+                  className="itemCard"
                     bsPrefix="item-card"
                     style={{
                       height: "600px",
                       width: "350px",
-                      cursor: "pointer",
-                      boxShadow: "1px 1px 5px black",
-                      padding: "10px",
-                      marginLeft: "50px",
-                      // marginBottom: "30px",
-                      backgroundColor: "#0c151d",
-                      borderBottom: "5px solid #ff8b4d",
                     }}
                   >
                     <Card.Img
@@ -182,16 +176,20 @@ export default function Feed() {
       <Navbar />
       <center>
         <span
+        className="welcomeText"
           style={{
             fontFamily: "Concert One, sans-serif",
             textTransform: "uppercase",
             margin: "25px",
-            fontSize: "45px",
+            fontSize: "3rem",
             borderBottom: "5px solid #ff8b4d",
             marginTop: "1050px",
           }}
         >
-          Welcome {user_info.firstname} {user_info.lastname}!
+          <span>
+            Welcome {user_info.firstname} {user_info.lastname}!
+            
+            </span>
         </span>
       </center>
 

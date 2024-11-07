@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../css/newSignup.css";
+import "../../css/login.css"
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory for React Router v6
 import Navbar from "../Navbar";
@@ -70,7 +70,7 @@ function Login() {
   return (
     <>
       <Navbar />
-      <div style={{ display: "flex" }}>
+      <div className="main-box" style={{ display: "flex" }}>
         <form className="Box-1-login">
           <h1>Log in</h1>
           <p style={{ color: "red" }}>

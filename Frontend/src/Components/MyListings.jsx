@@ -58,17 +58,17 @@ const Feed = () => {
           <Col key={item._id} style={{ marginTop: "2%" }} md={3}>
             <Link to={`/item/${item.name}?cid=${item._id}&type=${item.type}`}>
               <Card
+                className="itemCard"
                 bsPrefix="item-card"
                 style={{
                   cursor: "pointer",
                   boxShadow: "1px 1px 5px black",
                   padding: "10px",
-                  marginLeft: "30px",
                   marginBottom: "30px",
                   backgroundColor: "#0c151d",
                   borderBottom: "5px solid #ff8b4d",
-                  height:"500px",
-                  width:"350px",
+                  height: "500px",
+                  width: "350px",
                   maxHeight: "650px",
                   maxWidth: "650px",
                 }}
@@ -90,13 +90,13 @@ const Feed = () => {
                       marginBottom: "15px",
                       letterSpacing: "1px",
                       fontSize: "0.95rem",
-                      backgroundColor:"#ff8b4d",
+                      backgroundColor: "#ff8b4d",
                       textShadow: "0px 0px 0.5px black",
                       fontFamily: "DynaPuff",
                       fontWeight: "400",
-                      borderRadius:"15px",
-                      color:"#0c151d",
-                      boxShadow:"2px 2px 2px black"
+                      borderRadius: "15px",
+                      color: "#0c151d",
+                      boxShadow: "2px 2px 2px black",
                     }}
                     className="badge"
                   >
@@ -188,7 +188,7 @@ const Feed = () => {
   }, []);
 
   return (
-    <div style={{marginTop:"120px"}}>
+    <div style={{ marginTop: "120px" }}>
       <Navbar />
       <div className="listing-title">
         <h2
