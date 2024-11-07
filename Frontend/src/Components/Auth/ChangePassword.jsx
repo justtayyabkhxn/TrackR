@@ -76,6 +76,7 @@ function ChangePassword() {
           autoClose: 2000,
           theme: "dark",
         });
+        
 
         // Delay navigation by 2 seconds
         setTimeout(() => {
@@ -177,7 +178,7 @@ function ChangePassword() {
             </span>
           </div>
           <button
-            type="button"
+            type="submit"
             className="submit"
             onClick={handleSubmit}
             disabled={loading}

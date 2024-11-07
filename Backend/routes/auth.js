@@ -1,17 +1,14 @@
 const express = require('express');
-// const nodemailer = require('nodemailer');
-// const mailgun = require('nodemailer-mailgun-transport');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const ms = require('ms');
 const nodemailer = require("nodemailer");
-
+const { z } = require("zod");
 const { promisify } = require('util');
 const { requireSignin } = require('../middleware');
 const Signup = require('../models/signup');
 require('dotenv').config({ path: "../.env" });
 const randomstring = require('randomstring');
-
 const router = express.Router();
 var generatedOTP = 0;
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -19,12 +16,24 @@ const JWT_EXPIRES = process.env.JWT_EXPIRES;
 const NODE_ENV = process.env.NODE_ENV;
 const admin = process.env.ADMIN;
 
-// console.log(admin);
 const signJwt = (id) => {
     return jwt.sign({ id }, JWT_SECRET, {
         expiresIn: JWT_EXPIRES,
     });
 };
+
+// Zod schema for validating signup form fields
+const signupSchema = z.object({
+    firstname: z.string().min(1, { message: "Firstname is required" }),
+    lastname: z.string().min(1, { message: "Lastname is required" }),
+    email: z.string().email({ message: "Invalid email address" }),
+    number: z.string().length(10, { message: "Phone number must be 10 digits" }),
+    password: z.string().min(8, { message: "Password must be at least 8 characters" }),
+    cpassword: z.string().min(8, { message: "Confirm password must be at least 8 characters" })
+}).refine((data) => data.password === data.cpassword, {
+    message: "Passwords do not match",
+    path: ["cpassword"]
+});
 
 const sendToken = (user, statusCode, res) => {
     // Sign the JWT
@@ -59,6 +68,36 @@ const decryptJwt = async (token) => {
     return await jwtverify(token, JWT_SECRET);
 };
 
+// Middleware to validate signup data
+const validateSignup = (req, res, next) => {
+    try {
+        signupSchema.parse(req.body);
+        next();
+    } catch (err) {
+        const message = err.errors[0].message;
+        res.status(200).json({ message });
+    }
+};
+// Define Zod schema for password validation
+const changePasswordSchema = z.object({
+    password: z.string().min(8, { message: 'Password must be at least 8 characters long' }),
+    cpassword: z.string().min(8, { message: 'Confirm Password must be at least 8 characters long' })
+}).refine((data) => data.password === data.cpassword, {
+    message: "Passwords do not match",
+    path: ["cpassword"], // Error will be associated with cpassword
+});
+
+const checkFieldChangePassword = (req, res, next) => {
+    const validationResult = changePasswordSchema.safeParse(req.body);
+
+    if (!validationResult.success) {
+        // Extract error messages and return them in response
+        const errors = validationResult.error.errors.map(error => error.message);
+        return res.status(200).json({ message: errors.join(', ') });
+    }
+
+    next();
+};
 const secure = async (req, res, next) => {
     const token = req.cookies?.jwt;
     if (!token) {
@@ -73,7 +112,7 @@ const secure = async (req, res, next) => {
         req.user = user;
         next();
     } catch (err) {
-        return res.status(401).json({
+        return res.status(200).json({
             status: 'unauthorized',
             message: 'Invalid token',
         });
@@ -88,21 +127,7 @@ const checkField = (req, res, next) => {
     next();
 };
 
-const checkFieldChangePassword = (req, res, next) => {
-    const { password, cpassword } = req.body;
-    if (!password || !cpassword) {
-        return res.status(200).json({ message: 'Please enter all the fields' });
-    }
-    next();
-};
 
-const checkFieldLogin = (req, res, next) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
-        return res.status(200).json({ message: 'Please enter all the fields' });
-    }
-    next();
-};
 const checkAdminFieldLogin = (req, res, next) => {
     const { password } = req.body;
     if (!password) {
@@ -199,9 +224,24 @@ const verifyUser = async (req, res, next) => {
     }
 };
 
+// Login schema and validation middleware
+const loginSchema = z.object({
+    email: z.string().email({ message: "Invalid email address" }),
+});
+
+const validateLogin = (req, res, next) => {
+    try {
+        loginSchema.parse(req.body);
+        next();
+    } catch (err) {
+        const message = err.errors[0].message;
+        res.status(200).json({ message });
+    }
+};
+
 router.get('/', (req, res) => res.send('This is Home page!!'));
 
-router.post('/signup', checkField, checkUsername, checkPassword, async (req, res) => {
+router.post('/signup', checkField, validateSignup, checkUsername, checkPassword, async (req, res) => {
     const { firstname, lastname, email, number, password, verified } = req.body;
     try {
         const saltRounds = 10;
@@ -280,7 +320,7 @@ router.get('/resetPassword', async (req, res) => {
     }
 });
 
-router.post('/changePassword', checkPassword, async (req, res) => {
+router.post('/changePassword', checkFieldChangePassword, async (req, res) => {
     try {
         const { email, password, cpassword } = req.body; // Assuming payload has 'email' and 'newPassword'
         console.log(email, password, cpassword)
@@ -382,29 +422,17 @@ router.post('/adminLogin', checkAdminFieldLogin, async (req, res) => {
 });
 
 
-router.post('/login', checkFieldLogin, async (req, res) => {
+router.post('/login', validateLogin, async (req, res) => {
     const { email, password } = req.body;
-    if (email == admin) {
-        return res.status(200).json({
-            message: "Please visit admin page"
-        })
+    if (email === admin) {
+        return res.status(200).json({ message: "Please visit admin page" });
     }
     try {
-
         const user = await Signup.findOne({ email });
-        if (!user) {
-            return res.status(200).json({ message: 'Email does not exist' });
-        }
-
-        // Check if the password matches
+        if (!user) return res.status(200).json({ message: 'Email does not exist' });
         const isMatch = await bcrypt.compare(password, user.password);
-        if (isMatch) { // Use bcryptjs for password comparison in production
-
-            // Check if the user is verified only after password is correct
-            if (!user.verified) {
-                return res.status(200).json({ message: 'User not verified', status: false });
-            }
-
+        if (isMatch) {
+            if (!user.verified) return res.status(200).json({ message: 'User not verified', status: false });
             const jwtToken = signJwt(user._id);
             res.cookie('jwt', jwtToken, { expiresIn: '1hr' });
             res.status(200).json({ jwtToken, user });
@@ -414,9 +442,7 @@ router.post('/login', checkFieldLogin, async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: 'Server error' });
     }
-    console.log("New Login: ", { email, password });
 });
-
 
 router.post('/checktoken', requireSignin, (req, res) => {
     res.status(200).json({});
