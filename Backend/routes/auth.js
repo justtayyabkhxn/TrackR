@@ -17,7 +17,7 @@ var generatedOTP = 0;
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES = process.env.JWT_EXPIRES;
 const NODE_ENV = process.env.NODE_ENV;
-const admin=process.env.ADMIN;
+const admin = process.env.ADMIN;
 
 // console.log(admin);
 const signJwt = (id) => {
@@ -104,7 +104,7 @@ const checkFieldLogin = (req, res, next) => {
     next();
 };
 const checkAdminFieldLogin = (req, res, next) => {
-    const {password } = req.body;
+    const { password } = req.body;
     if (!password) {
         return res.status(200).json({ message: 'Please enter all the fields' });
     }
@@ -207,7 +207,7 @@ router.post('/signup', checkField, checkUsername, checkPassword, async (req, res
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         console.log("Hello: ", req.body);
-        const newSignup = await Signup.create({ firstname, lastname, email, number, password:hashedPassword, verified });
+        const newSignup = await Signup.create({ firstname, lastname, email, number, password: hashedPassword, verified });
         sendToken(newSignup, 201, res);
         console.log(newSignup)
     } catch (err) {
@@ -298,7 +298,7 @@ router.post('/changePassword', checkPassword, async (req, res) => {
         // Update the user's password in the database
         const updatedUser = await Signup.findOneAndUpdate(
             { email },                   // Find the user by email
-            { password: hashedPassword}, // Update password
+            { password: hashedPassword }, // Update password
             { new: true }                 // Return the updated document
         );
 
@@ -355,20 +355,20 @@ router.get('/verifyOTP', async (req, res) => {
 router.post('/adminLogin', checkAdminFieldLogin, async (req, res) => {
     const { email, password } = req.body;
     try {
-        console.log(email);        
+        console.log(email);
         const user = await Signup.findOne({ email });
         if (!user) {
             return res.status(200).json({ message: 'Email does not exist' });
         }
-
+        const isMatch = await bcrypt.compare(password, user.password);
         // Check if the password matches
-        if (user.password === password) { // Use bcryptjs for password comparison in production
-            
+        if (isMatch) { // Use bcryptjs for password comparison in production
+
             // Check if the user is verified only after password is correct
             if (!user.verified) {
                 return res.status(200).json({ message: 'User not verified', status: false });
             }
-            
+
             const jwtToken = signJwt(user._id);
             res.cookie('jwt', jwtToken, { expiresIn: '1hr' });
             res.status(200).json({ jwtToken, user });
@@ -384,9 +384,9 @@ router.post('/adminLogin', checkAdminFieldLogin, async (req, res) => {
 
 router.post('/login', checkFieldLogin, async (req, res) => {
     const { email, password } = req.body;
-    if(email==admin){
+    if (email == admin) {
         return res.status(200).json({
-            message:"Please visit admin page"
+            message: "Please visit admin page"
         })
     }
     try {
@@ -399,12 +399,12 @@ router.post('/login', checkFieldLogin, async (req, res) => {
         // Check if the password matches
         const isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) { // Use bcryptjs for password comparison in production
-            
+
             // Check if the user is verified only after password is correct
             if (!user.verified) {
                 return res.status(200).json({ message: 'User not verified', status: false });
             }
-            
+
             const jwtToken = signJwt(user._id);
             res.cookie('jwt', jwtToken, { expiresIn: '1hr' });
             res.status(200).json({ jwtToken, user });

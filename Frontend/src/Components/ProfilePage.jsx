@@ -7,6 +7,8 @@ import Axios from "axios";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { setConstraint } from "../constraints";
+import { ReactSession } from "react-client-session";
+
 
 const ProfilePage = () => {
   const [user_info, setUserInfo] = useState(() => {
@@ -17,6 +19,8 @@ const ProfilePage = () => {
 
   useEffect(() => {
     setConstraint(true);
+    ReactSession.set("email", user_info.email);
+
   }, [user_info]);
 
   return (

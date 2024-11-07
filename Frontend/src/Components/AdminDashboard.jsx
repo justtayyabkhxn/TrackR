@@ -18,7 +18,7 @@ export default function AdminDashboard() {
     Axios.get("http://localhost:5000/users")
       .then((response) => setUsers(response.data))
       .catch((error) => console.error("Error fetching users:", error));
-  }, []); // Fetch users only once on mount
+  }, [users]); // Fetch users only once on mount
 
   const handleUserClick = (user) => {
     setSelectedUser(user);

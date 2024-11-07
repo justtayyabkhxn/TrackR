@@ -18,34 +18,36 @@ export default function Feed() {
   const [foundItems, setFoundItems] = useState([]);
   const [error, setError] = useState(null); // Added error state
 
-const ReadMore = ({ children }) => {
-  const [isReadMore, setIsReadMore] = useState(true);
-  const toggleReadMore = () => setIsReadMore(!isReadMore);
+  const ReadMore = ({ children }) => {
+    const [isReadMore, setIsReadMore] = useState(true);
+    const toggleReadMore = () => setIsReadMore(!isReadMore);
 
-  const text = children;
+    const text = children;
 
-  // Define the character limit (you can adjust this value)
-  const charLimit = 20;
+    // Define the character limit (you can adjust this value)
+    const charLimit = 20;
 
-  // Only show the "read more" option if the text exceeds the character limit
-  if (text.length <= charLimit) {
-    return <span>{text}</span>; // No need to toggle if the text is short
-  }
+    // Only show the "read more" option if the text exceeds the character limit
+    if (text.length <= charLimit) {
+      return <span>{text}</span>; // No need to toggle if the text is short
+    }
 
-  return (
-    <span>
-      {isReadMore ? text.slice(0, text.slice(0, charLimit).lastIndexOf(" ")) : text}{" "}
-      {/* Ensures slicing at the nearest word boundary */}
-      <span
-        onClick={toggleReadMore}
-        className="read-or-hide"
-        style={{ cursor: "pointer", color: "grey" }}
-      >
-        {isReadMore ? "..." : ""}
+    return (
+      <span>
+        {isReadMore
+          ? text.slice(0, text.slice(0, charLimit).lastIndexOf(" "))
+          : text}{" "}
+        {/* Ensures slicing at the nearest word boundary */}
+        <span
+          onClick={toggleReadMore}
+          className="read-or-hide"
+          style={{ cursor: "pointer", color: "grey" }}
+        >
+          {isReadMore ? "..." : ""}
+        </span>
       </span>
-    </span>
-  );
-};
+    );
+  };
 
   // Fetch lost and found items
   useEffect(() => {
@@ -80,7 +82,7 @@ const ReadMore = ({ children }) => {
                 : "/default-img.png"; // Provide a default image
 
             const card = (
-              <Col key={item._id} md={3} xs={12} style={{ marginTop: "5%"}}>
+              <Col key={item._id} md={3} xs={12} style={{ marginTop: "5%" }}>
                 <Link
                   to={`/item/${item.name}?cid=${item._id}&type=${item.type}`}
                   style={{ textDecoration: "none" }} // Remove default underline from links
@@ -88,8 +90,8 @@ const ReadMore = ({ children }) => {
                   <Card
                     bsPrefix="item-card"
                     style={{
-                      height:"600px",
-                      width:"350px",
+                      height: "600px",
+                      width: "350px",
                       cursor: "pointer",
                       boxShadow: "1px 1px 5px black",
                       padding: "10px",
@@ -176,21 +178,22 @@ const ReadMore = ({ children }) => {
   }, [user_info._id]);
 
   return (
-    <div style={{marginTop:"120px"}}>
+    <div style={{ marginTop: "120px" }}>
       <Navbar />
-      <span
-        style={{
-          fontFamily: "Concert One, sans-serif",
-          marginLeft: "5px",
-          textTransform: "uppercase",
-          margin: "25px",
-          fontSize: "45px",
-          borderBottom: "5px solid #ff8b4d",
-          marginTop:"1050px"
-        }}
-      >
-        Welcome {user_info.firstname} {user_info.lastname}!
-      </span>
+      <center>
+        <span
+          style={{
+            fontFamily: "Concert One, sans-serif",
+            textTransform: "uppercase",
+            margin: "25px",
+            fontSize: "45px",
+            borderBottom: "5px solid #ff8b4d",
+            marginTop: "1050px",
+          }}
+        >
+          Welcome {user_info.firstname} {user_info.lastname}!
+        </span>
+      </center>
 
       {error && (
         <div style={{ color: "red", textAlign: "center" }}>{error}</div>
@@ -221,7 +224,7 @@ const ReadMore = ({ children }) => {
             style={{
               textAlign: "center",
               fontFamily: "Concert One, sans-serif",
-              marginTop:"25px",
+              marginTop: "25px",
               marginLeft: "5px",
               textTransform: "uppercase",
               fontSize: "35px",
