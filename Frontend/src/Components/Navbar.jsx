@@ -61,7 +61,21 @@ function NavBar() {
           <Image src={logo} alt="Logo" width="30" height="30" className="d-inline-block align-top" />
           TrackIt
         </Navbar.Brand> */}
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Toggle
+            aria-controls="responsive-navbar-nav"
+            className="custom-toggler"
+          >
+            <span
+              className="custom-toggler-icon"
+              style={{
+                fontFamily: "DynaPuff",
+                fontWeight: "400",
+                textShadow: "1px 1px 2px black",
+              }}
+            >
+              menu
+            </span>
+          </Navbar.Toggle>
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <div className="otherRoutes">
@@ -108,7 +122,7 @@ function NavBar() {
               {isSignedIn && (
                 <div>
                   <NavDropdown
-                  className="dropDown"
+                    className="dropDown"
                     title={
                       <Image
                         src={profile}

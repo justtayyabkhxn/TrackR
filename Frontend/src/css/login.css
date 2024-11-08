@@ -13,7 +13,6 @@ body {
   font-weight: 400;
   box-sizing: border-box;
 }
-
 .Box-1-login {
   width: 90%;
   max-width: 400px;
@@ -30,44 +29,11 @@ body {
   /* margin: 10px 10px 10px 10px; */
   margin-right: 10px;
 }
-.Box-1 h1 {
-  color: var(--text-color);
-  text-transform: uppercase;
-  font-weight: 500;
-  padding: 10px;
-  border-bottom: solid 5px var(--text-color);
-  text-shadow: 1px 1px 2px black;
-  font-size: 40px;
-}
-.Box-1-login h1 {
-  color: var(--text-color);
-  text-transform: uppercase;
-  font-weight: 500;
-  padding: 10px;
-  border-bottom: solid 5px var(--text-color);
-  text-shadow: 1px 1px 2px black;
-  font-size: 40px;
+form {
+  margin-top: 2000px;
 }
 
-.Box-1 input[type="email"],
-.Box-1 input[type="password"] {
-  border: 0;
-  background: none;
-  display: block;
-  margin: 20px auto;
-  text-align: center;
-  border: 2px solid #03a9f4;
-  padding: 14px 10px;
-  width: 100%;
-  max-width: 280px;
-  outline: none;
-  color: white;
-  border-radius: 24px;
-  transition: width 0.25s, border-color 0.25s;
-  font-family: "DynaPuff", system-ui;
-  font-optical-sizing: auto;
-  font-weight: 200;
-}
+
 .Box-1-login input[type="email"],
 .Box-1-login input[type="password"] {
   border: 0;
@@ -87,11 +53,7 @@ body {
   font-optical-sizing: auto;
   font-weight: 200;
 }
-p {
-  font-family: "DynaPuff", system-ui;
-  font-optical-sizing: auto;
-  font-weight: 200;
-}
+
 
 .clickHere {
   font-family: "DynaPuff", system-ui;
@@ -239,26 +201,25 @@ a {
 }
 
 @media (max-width: 480px) {
-    .Box-1-login {
-      width: 90%; /* Adjusted to ensure responsiveness while maintaining the layout */
-      max-width: 300px; /* Reduced to fit smaller screens */
-    }
-    .main-box {
-      margin: 10px;
-      margin-top: 20px; /* Adjusted to reduce unnecessary vertical space */
-    }
-    .showPassword {
-      margin-right: 30px; /* Adjusted for better positioning on smaller screens */
-    }
-    h1{
-        font-size: 0.75rem;
-    }
-    .row1 {
-      flex-direction: column;
-      gap: 15px;
-    }
-    body{
-        margin:20px;
-    }
+  .Box-1-login {
+    width: 90%; /* Adjusted to ensure responsiveness while maintaining the layout */
+    max-width: 300px;
   }
-  
+  .main-box {
+    margin: 10px;
+    /* margin-top: 20000px; */
+  }
+  .showPassword {
+    margin-right: 30px; /* Adjusted for better positioning on smaller screens */
+  }
+  .main-heading {
+    font-size: 0.75rem;
+  }
+  .row1 {
+    flex-direction: column;
+    gap: 15px;
+  }
+  body {
+    margin: 20px;
+  }
+}

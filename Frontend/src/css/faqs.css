@@ -53,15 +53,6 @@ summary,.heading {
   flex-direction: row;
   justify-content: space-evenly;
 }
-/* Developer image */
-.personal-info h5 {
-  font-family: "DynaPuff", system-ui;
-  font-optical-sizing: auto;
-  font-weight: 200;
-  text-shadow: 0px 1px 1px black;
-  text-transform: uppercase;
-  text-decoration: underline;
-}
 /* Responsive styles */
 @media (max-width: 1020px) {
   .image {
@@ -76,8 +67,20 @@ summary,.heading {
 }
 
 @media (max-width: 480px) {
-  .developer-img {
-    width: 350px;
-    height: 350px;
+  .para{
+    font-size: 1.05rem;
   }
+  .heading{
+    font-size: 1.35rem;
+  }
+  .faq{
+    width: 50%;
+  }
+  .mainDiv img{
+    height: 170px;
+    border-bottom: 5px solid #fd6e00;
+    margin-bottom: 20px;
+    margin-top: -70px;
+  }
+
 }

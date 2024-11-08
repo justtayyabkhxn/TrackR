@@ -24,7 +24,7 @@ export default function FAQs() {
           >
             <details>
               <summary>
-                <span className="heading">1. What is TrackIt?</span>
+                <span className="heading">What is TrackIt?</span>
               </summary>
               <section>
                 <p className="para">
@@ -45,7 +45,7 @@ export default function FAQs() {
 
             <details>
               <summary>
-                <span className="heading">2. How do I report a lost item?</span>
+                <span className="heading">How do I report a lost item?</span>
               </summary>
               <section>
                 <p className="para">
@@ -66,7 +66,7 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  3. Can I report a found item anonymously?
+                  Can I report a found item anonymously?
                 </span>
               </summary>
               <section>
@@ -87,7 +87,7 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  4. Is there a way to contact the person who found my item?
+                  Is there a way to contact the person who found my item?
                 </span>
               </summary>
               <section>
@@ -109,7 +109,7 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  5. What kind of items can I report?
+                  What kind of items can I report?
                 </span>
               </summary>
               <section>
@@ -129,7 +129,7 @@ export default function FAQs() {
 
             <details>
               <summary>
-                <span className="heading">6. Is TrackIt free to use?</span>
+                <span className="heading">Is TrackIt free to use?</span>
               </summary>
               <section>
                 <p className="para">
@@ -149,7 +149,7 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  7. How does the notification system work?
+                  How does the notification system work?
                 </span>
               </summary>
               <section>
@@ -171,7 +171,7 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  8. How do I update or delete my listing?
+                  How do I update or delete my listing?
                 </span>
               </summary>
               <section>
@@ -192,7 +192,7 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  9. Is my personal information safe on TrackIt?
+                  Is my personal information safe on TrackIt?
                 </span>
               </summary>
               <section>
@@ -213,7 +213,7 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  10. How do I search for lost items?
+                  How do I search for lost items?
                 </span>
               </summary>
               <section>
@@ -234,7 +234,7 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  11. Can I use TrackIt on my mobile device?
+                  Can I use TrackIt on my mobile device?
                 </span>
               </summary>
               <section>
@@ -253,7 +253,7 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  12. What should I do if I find a suspicious listing?
+                  What should I do if I find a suspicious listing?
                 </span>
               </summary>
               <section>
@@ -274,7 +274,7 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  13. How long will my lost item listing stay active?
+                  How long will my lost item listing stay active?
                 </span>
               </summary>
               <section>
@@ -295,7 +295,7 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  14. Can businesses use TrackIt to report lost items?
+                  Can businesses use TrackIt to report lost items?
                 </span>
               </summary>
               <section>
@@ -316,7 +316,7 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  15. What happens if no one claims a found item?
+                  What happens if no one claims a found item?
                 </span>
               </summary>
               <section>

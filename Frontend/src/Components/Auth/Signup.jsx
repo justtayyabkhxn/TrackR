@@ -60,8 +60,8 @@ const Signup = () => {
   return (
     <>
       <Navbar />
-      <div>
-        <form className="Box-1">
+      <div className="main-box" >
+        <form className="Box-1" style={{marginTop:"100px"}}>
           <h1 className="name">Sign up</h1>
           <p style={{ color: "red" }}>{info}</p>
           <div className="row1">

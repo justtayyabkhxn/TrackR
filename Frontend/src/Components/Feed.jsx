@@ -27,7 +27,6 @@ export default function Feed() {
     // Define the character limit (you can adjust this value)
     const charLimit = 20;
 
-    // Only show the "read more" option if the text exceeds the character limit
     if (text.length <= charLimit) {
       return <span>{text}</span>; // No need to toggle if the text is short
     }

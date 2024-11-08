@@ -14,7 +14,7 @@ import ProfilePage from "./Components/ProfilePage"
 import FAQs from "./Components/FAQs"
 import OTPVerification from "./Components/Auth/OTPVerification";
 import NotFound from "./Components/NotFound";
-import ForgotPassword from "./Components/ForgotPassword";
+import ForgotPassword from "./Components/Auth/ForgotPassword";
 import ChangePassword from "./Components/Auth/ChangePassword";
 import AdminLogin from "./Components/AdminLogin";
 import SavedPosts from "./Components/SavedPosts";

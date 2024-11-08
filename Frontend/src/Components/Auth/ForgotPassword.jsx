@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "../css/forgotpassword.css";
+import "../../css/forgotpassword.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory for React Router v6
-import Navbar from "../Components/Navbar";
+import Navbar from "../Navbar";
 import { Spinner } from "react-bootstrap";
 import { ToastContainer, toast, Flip } from "react-toastify";
 import { ReactSession } from "react-client-session";
@@ -37,8 +37,8 @@ function ForgotPassword() {
       console.log(response);
 
       if (response.data.success) {
-        console.log(emailID)
-        ReactSession.set("email",emailID);
+        console.log(emailID);
+        ReactSession.set("email", emailID);
 
         toast.success("OTP sent successfully!", {
           position: "top-right",
@@ -85,7 +85,6 @@ function ForgotPassword() {
           theme: "dark",
         });
 
-
         // Delay navigation by 2 seconds
         setTimeout(() => {
           navigate("/change-password"); // Navigate to change-passowrd page after 2 seconds
@@ -104,7 +103,13 @@ function ForgotPassword() {
   return (
     <>
       <Navbar />
-      <div style={{ display: "flex" }}>
+      <div
+        style={{
+          width: "500px",
+          borderRadius: "100px",
+          padding: "50px",
+        }}
+      >
         <form className="Box-1-login">
           <h1>Reset Password</h1>
           <p style={{ color: "red" }}>{info}</p>
@@ -167,8 +172,7 @@ function ForgotPassword() {
             )}
           </button>
         </form>
-        <ToastContainer/>
-
+        <ToastContainer />
       </div>
     </>
   );

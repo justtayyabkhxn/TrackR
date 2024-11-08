@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../css/login.css"
+import "../../css/login.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory for React Router v6
 import Navbar from "../Navbar";
@@ -71,75 +71,86 @@ function Login() {
     <>
       <Navbar />
       <div className="main-box" style={{ display: "flex" }}>
-        <form className="Box-1-login">
-          <h1>Log in</h1>
-          <p style={{ color: "red" }}>
-            {info}
-            {!verified && (
-              <Link
-                to="/verify"
-                style={{ color: "white", textDecoration: "none" }}
-              >
-                Verify Now.
-              </Link>
-            )}
-          </p>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email id"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <div style={{ position: "relative" }}>
+        <div
+          className="Box-1"
+          style={{
+            width: "500px",
+            borderRadius: "100px",
+            padding: "50px",
+          }}
+        >
+          <form className="Box-1-login">
+            <div className="main-heading">
+              <h1>Log in</h1>
+            </div>
+            <p style={{ color: "red" }}>
+              {info}
+              {!verified && (
+                <Link
+                  to="/verify"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Verify Now.
+                </Link>
+              )}
+            </p>
             <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="email"
+              name="email"
+              placeholder="Email id"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
-              style={{ width: "100%" }}
             />
-            <span
-              className="showPassword"
-              onClick={() => setShowPassword(!showPassword)}
+            <div style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                style={{ width: "100%" }}
+              />
+              <span
+                className="showPassword"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </span>
+            </div>
+            <button
+              type="button"
+              className="submitLogin"
+              onClick={handleSubmit}
+              disabled={loading}
             >
-              {showPassword ? "Hide" : "Show"}
-            </span>
-          </div>
-          <button
-            type="button"
-            className="submitLogin"
-            onClick={handleSubmit}
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                <span className="sr-only">Loading...</span>
-              </>
-            ) : (
-              <>Log In</>
-            )}
-          </button>
-          <p style={{ color: "white" }}>
-            Don't have an account?{" "}
-            <Link className="clickHere" to="/sign-up">
-              Click Here
+              {loading ? (
+                <>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  <span className="sr-only">Loading...</span>
+                </>
+              ) : (
+                <>Log In</>
+              )}
+            </button>
+            <p style={{ color: "white" }}>
+              Don't have an account?{" "}
+              <Link className="clickHere" to="/sign-up">
+                Click Here
+              </Link>
+            </p>
+            <Link to="/forgot-password" className="forgotPass">
+              Reset Password
             </Link>
-          </p>
-          <Link to="/forgot-password" className="forgotPass">
-            Reset Password
-          </Link>
-        </form>
+          </form>
+        </div>
       </div>
     </>
   );
