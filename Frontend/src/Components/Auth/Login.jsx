@@ -134,7 +134,7 @@ function Login() {
                     role="status"
                     aria-hidden="true"
                   />
-                  <span className="sr-only">Loading...</span>
+                  <span className="sr-only"> Loading...</span>
                 </>
               ) : (
                 <>Log In</>

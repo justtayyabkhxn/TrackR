@@ -33,7 +33,7 @@
   display: flex;
   justify-content: center;
   padding: 10px;
-  box-shadow: 2px 2px 5px black;
+  box-shadow: 2px 2px 15px black;
   border-radius: 0px 0px 30px 30px;
   width: 100%;
   max-width: 100%;
@@ -325,14 +325,16 @@ body {
     flex-direction: row;
     width: 100%;
   }
-
+  .otherRoutes {
+    display: flex;
+    flex-wrap: wrap;
+  }
   .otherRoutes a {
     flex-direction: row;
-    /* width: 100%; */
+    /* width:auto; */
     margin-top: 20px;
     color: var(--text-color);
-    font-size: 20px;
-    margin-right: 10px;
+    margin-right: 5px;
     padding: 10px;
     text-transform: uppercase;
     border-right: 2px solid var(--footer-bg-color);
@@ -340,11 +342,13 @@ body {
     border-bottom: 2px solid var(--footer-bg-color);
     box-shadow: 2px 2px 2px black;
     text-shadow: 2px 2px 2px black;
+    font-size: 0.75rem;
   }
 
   .signin > ul,
   .postsignin > ul {
     width: fit-content;
+    font-size: 0.65rem;
     justify-content: space-between;
   }
 }

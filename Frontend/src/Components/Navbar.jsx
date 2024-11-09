@@ -94,20 +94,20 @@ function NavBar() {
                 ) : (
                   <>
                     <div className="postsignin">
-                      <Nav.Link as={Link} to="/feed">
+                      <Nav.Link as={Link} to="/feed" className="routes">
                         Feed
                       </Nav.Link>
-                      <Nav.Link as={Link} to="/responses">
+                      <Nav.Link as={Link} to="/responses" className="routes">
                         Responses
                       </Nav.Link>
-                      <Nav.Link as={Link} to="/mylistings">
+                      <Nav.Link as={Link} to="/mylistings" className="routes">
                         My Listings
                       </Nav.Link>
-                      <Nav.Link as={Link} to="/saves">
+                      <Nav.Link as={Link} to="/saves" className="routes">
                         Saved Posts
                       </Nav.Link>
                       {admin === userInfo._id && (
-                        <Nav.Link as={Link} to="/admin-dashboard">
+                        <Nav.Link as={Link} to="/admin-dashboard" className="routes">
                           Admin
                         </Nav.Link>
                       )}

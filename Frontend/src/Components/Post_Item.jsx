@@ -190,6 +190,9 @@ function PostItem() {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        style={{
+          marginTop:"50px"
+        }}
       >
         <Modal.Header
           closeButton

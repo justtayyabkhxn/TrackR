@@ -143,7 +143,7 @@ const Signup = () => {
               />
              <span
                 className="showPassword"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() => setShowCPassword(!showCPassword)}
                 style={{
                   position: "absolute",
                   fontFamily: "DynaPuff, system-ui",
