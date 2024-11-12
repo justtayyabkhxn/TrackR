@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import logo from "../img/logo.jpg";
+import logo from "../img/logo.png";
 import profile from "../img/profile.png";
 import PostItem from "./Post_Item";
 import "../css/Navbar.css";
@@ -57,10 +57,6 @@ function NavBar() {
     <div className="navbar">
       <Navbar collapseOnSelect expand="xl" className="symbol">
         <Container>
-          {/* <Navbar.Brand as={Link} to="/">
-          <Image src={logo} alt="Logo" width="30" height="30" className="d-inline-block align-top" />
-          TrackIt
-        </Navbar.Brand> */}
           <Navbar.Toggle
             aria-controls="responsive-navbar-nav"
             className="custom-toggler"

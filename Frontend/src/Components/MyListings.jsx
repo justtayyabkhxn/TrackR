@@ -80,8 +80,13 @@ const Feed = () => {
                     borderRadius: "10px",
                     marginBottom: "10px",
                   }}
-                  src={`http://localhost:5000/${item.itemPictures[0].img}`}
+                  src={
+                    item.itemPictures && item.itemPictures[0]
+                      ? `http://localhost:5000/${item.itemPictures[0].img}`
+                      : "/default-img.png" // Update this path to the location of your default image
+                  }
                 />
+
                 <Card.Body bsPrefix="card-body">
                   <span
                     variant={item.status ? "success" : "secondary"}

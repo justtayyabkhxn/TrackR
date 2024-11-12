@@ -913,419 +913,419 @@ function ItemPage(props) {
 
   return (
     <>
-    <div style={{marginTop:"120px"}}>
-      <Navbar />
-      <Container fluid>
-        <div className="parent">
-          <div style={{ marginTop: "20px" }}>
-            {ItemData.itemPictures &&
-            Array.isArray(ItemData.itemPictures) &&
-            ItemData.itemPictures.length > 0 ? (
-              <img
-                style={{
-                  padding: "15px 15px 0px 15px",
-                  borderRadius: "10px",
-                  marginBottom: "0.10px",
-                  borderBottom: "8px solid #ff8b4d",
-                }}
-                src={`http://localhost:5000/${ItemData.itemPictures[0].img}`}
-                alt="item"
-              />
-            ) : (
-              <div>
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                  style={{ color: "#0c151d" }}
-                />
-                <span
-                  className="sr-only"
-                  style={{ fontSize: "1.2rem", color: "#0c151d" }}
-                >
-                  {" "}
-                  No Post...
-                </span>
-              </div>
-            )}
-          </div>
-          <div className="itempage">
-            <div>{Itemname}</div>
-          </div>
-        </div>
-        <div>{authenticationPage}</div>
-        {/* Modals */}
-        <Modal show={ActivationRequest} onHide={handleCloseActivation}>
-          <Modal.Body>Are you sure?</Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={handleCloseActivation}>
-              No
-            </Button>
-            <Button variant="danger" onClick={() => submitActivate(item_id)}>
-              Yes
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        <Modal show={showDelete} onHide={handleCloseDelete}>
-          <Modal.Body
-            style={{
-              fontFamily: "DynaPuff",
-              fontWeight: "400",
-              fontSize: "1.35rem",
-              backgroundColor: "#0c151d",
-              border: "none",
-              color: "#ff8b4d",
-              textShadow: "0.5px 0.5px 0.2px black",
-            }}
-          >
-            Are you sure?
-          </Modal.Body>
-          <Modal.Footer
-            style={{
-              fontFamily: "DynaPuff",
-              fontWeight: "400",
-              fontSize: "1.05rem",
-              backgroundColor: "#0c151d",
-              border: "none",
-              color: "#ff8b4d",
-              textShadow: "0.5px 0.5px 0.2px black",
-              marginTop: "0px",
-            }}
-          >
-            <Button
-              variant="primary"
-              onClick={handleCloseDelete}
-              style={{
-                backgroundColor: "#a80303",
-                border: "none",
-                textShadow: "0.5px 0.5px 2px black",
-                boxShadow: "0.5px 0.5px 2px black",
-              }}
-            >
-              No
-            </Button>
-            <Button
-              variant="danger"
-              onClick={delete_item}
-              style={{
-                backgroundColor: "#52a302",
-                border: "none",
-                textShadow: "0.5px 0.5px 2px black",
-                boxShadow: "0.5px 0.5px 2px black",
-              }}
-            >
-              Yes
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
-        <Modal show={show} onHide={() => setShow(false)}>
-          <Modal.Header
-            closeButton
-            closeVariant="white"
-            style={{
-              fontFamily: "DynaPuff",
-              fontWeight: "400",
-              fontSize: "1.35rem",
-              backgroundColor: "#0c151d",
-              border: "none",
-              color: "#ff8b4d",
-              textShadow: "0.5px 0.5px 0.2px black",
-            }}
-          >
-            <Modal.Title style={{ fontFamily: "DynaPuff", fontWeight: "400" }}>
-              Edit Item
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body
-            style={{
-              fontSize: "1.05rem",
-              backgroundColor: "#0c151d",
-              border: "none",
-              color: "#ff8b4d",
-              textShadow: "0.5px 0.5px 0.2px black",
-              marginTop: "0px",
-            }}
-          >
-            <Form>
-              <Form.Group>
-                <Form.Label
+      <div style={{ marginTop: "120px" }}>
+        <Navbar />
+        <Container fluid>
+          <div className="parent">
+            <div style={{ marginTop: "20px" }}>
+              {ItemData.itemPictures &&
+              Array.isArray(ItemData.itemPictures) &&
+              ItemData.itemPictures.length > 0 ? (
+                <img
                   style={{
-                    fontFamily: "DynaPuff",
-                    fontWeight: "400",
-                    marginBottom: "1px",
-                    marginTop: "8px",
+                    padding: "15px 15px 0px 15px",
+                    borderRadius: "10px",
+                    marginBottom: "0.10px",
+                    borderBottom: "8px solid #ff8b4d",
                   }}
-                >
-                  Item name
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter item"
-                  value={itemname}
-                  onChange={(e) => setItemnameState(e.target.value)}
+                  src={`http://localhost:5000/${ItemData.itemPictures[0].img}`}
+                  alt="item"
                 />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label
-                  style={{
-                    fontFamily: "DynaPuff",
-                    fontWeight: "400",
-                    marginBottom: "1px",
-                    marginTop: "8px",
-                  }}
-                >
-                  Description
-                </Form.Label>
-                <Form.Control
-                  as="textarea"
-                  placeholder="Enter description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label
-                  style={{
-                    fontFamily: "DynaPuff",
-                    fontWeight: "400",
-                    marginBottom: "1px",
-                    marginTop: "8px",
-                  }}
-                >
-                  Question
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter question"
-                  value={itemquestion}
-                  onChange={(e) => setItemQuestion(e.target.value)}
-                />
-              </Form.Group>
-              <Button
-                variant="primary"
-                onClick={handleEdit}
-                style={{
-                  backgroundColor: "#52a302",
-                  border: "none",
-                  marginTop: "15px",
-                  textShadow: "0.5px 0.5px 2px black",
-                  boxShadow: "0.5px 0.5px 2px black",
-                }}
-              >
-                Submit
-              </Button>
-            </Form>
-          </Modal.Body>
-        </Modal>
-
-        <Modal show={showEmailModel} onHide={() => setShowEmailModel(false)}>
-          <Modal.Header
-            closeButton
-            closeVariant="white"
-            style={{
-              fontFamily: "DynaPuff",
-              fontWeight: "400",
-              fontSize: "1.35rem",
-              backgroundColor: "#0c151d",
-              border: "none",
-              color: "#ff8b4d",
-              textShadow: "0.5px 0.5px 0.2px black",
-            }}
-          >
-            <Modal.Title style={{ fontFamily: "DynaPuff", fontWeight: "400" }}>
-              Send Mail
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body
-            style={{
-              fontSize: "1.05rem",
-              backgroundColor: "#0c151d",
-              border: "none",
-              color: "#ff8b4d",
-              textShadow: "0.5px 0.5px 0.2px black",
-              marginTop: "0px",
-            }}
-          >
-            <Form>
-              <Form.Group>
-                <Form.Label
-                  style={{
-                    fontFamily: "DynaPuff",
-                    fontWeight: "400",
-                    marginBottom: "1px",
-                    marginTop: "8px",
-                  }}
-                >
-                  Subject
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter subject"
-                  value={emailSubject}
-                  onChange={(e) => setemailSubject(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label
-                  style={{
-                    fontFamily: "DynaPuff",
-                    fontWeight: "400",
-                    marginBottom: "1px",
-                    marginTop: "8px",
-                  }}
-                >
-                  Email
-                </Form.Label>
-                <Form.Control
-                  as="textarea"
-                  placeholder="Enter Email"
-                  value={emailMessage}
-                  onChange={(e) => setEmailMessage(e.target.value)}
-                  style={{
-                    height: "250px",
-                  }}
-                />
-              </Form.Group>
-              <Button
-                variant="primary"
-                onClick={sendMail}
-                style={{
-                  backgroundColor: "#52a302",
-                  border: "none",
-                  marginTop: "15px",
-                  textShadow: "0.5px 0.5px 2px black",
-                  boxShadow: "0.5px 0.5px 2px black",
-                }}
-              >
-                Submit
-              </Button>
-            </Form>
-          </Modal.Body>
-        </Modal>
-
-        <Modal
-          show={showQuestion}
-          onHide={handleCloseQuestion}
-          backdrop="static"
-        >
-          {showQuestion ? (
-            <div>
-              {/* Question and answer form */}
-              <Modal.Body
-                style={{
-                  backgroundColor: "#0c151d",
-                  color: "#ff8b4d",
-                  border: "none",
-                  fontSize: "1.52rem",
-                  textShadow: "0.2px 0.25px 2px black",
-                  marginRight: "0px",
-                  marginBottom: "0px",
-                  textTransform: "capitalize",
-                }}
-              >
-                <Form.Group>
-                  <Form.Label>QUESTION: {itemquestion} ?</Form.Label>{" "}
-                  {/* Display the question */}
-                  <Form.Control
-                    as="textarea"
-                    placeholder="Enter Answer"
-                    value={answer}
-                    onChange={(e) => setAnswer(e.target.value)}
+              ) : (
+                <div>
+                  <img
                     style={{
-                      backgroundColor: "#dbd9d9",
-                      border: "none",
-                      color: "#0c151d",
+                      padding: "15px 15px 0px 15px",
+                      borderRadius: "10px",
+                      marginBottom: "0.10px",
+                      borderBottom: "8px solid #ff8b4d",
+                      height:"250px"
                     }}
+                    src={`/default-img.png`}
+                    alt="item"
+                  />
+                </div>
+              )}
+            </div>
+            <div className="itempage">
+              <div>{Itemname}</div>
+            </div>
+          </div>
+          <div>{authenticationPage}</div>
+          {/* Modals */}
+          <Modal show={ActivationRequest} onHide={handleCloseActivation}>
+            <Modal.Body>Are you sure?</Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={handleCloseActivation}>
+                No
+              </Button>
+              <Button variant="danger" onClick={() => submitActivate(item_id)}>
+                Yes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          <Modal show={showDelete} onHide={handleCloseDelete}>
+            <Modal.Body
+              style={{
+                fontFamily: "DynaPuff",
+                fontWeight: "400",
+                fontSize: "1.35rem",
+                backgroundColor: "#0c151d",
+                border: "none",
+                color: "#ff8b4d",
+                textShadow: "0.5px 0.5px 0.2px black",
+              }}
+            >
+              Are you sure?
+            </Modal.Body>
+            <Modal.Footer
+              style={{
+                fontFamily: "DynaPuff",
+                fontWeight: "400",
+                fontSize: "1.05rem",
+                backgroundColor: "#0c151d",
+                border: "none",
+                color: "#ff8b4d",
+                textShadow: "0.5px 0.5px 0.2px black",
+                marginTop: "0px",
+              }}
+            >
+              <Button
+                variant="primary"
+                onClick={handleCloseDelete}
+                style={{
+                  backgroundColor: "#a80303",
+                  border: "none",
+                  textShadow: "0.5px 0.5px 2px black",
+                  boxShadow: "0.5px 0.5px 2px black",
+                }}
+              >
+                No
+              </Button>
+              <Button
+                variant="danger"
+                onClick={delete_item}
+                style={{
+                  backgroundColor: "#52a302",
+                  border: "none",
+                  textShadow: "0.5px 0.5px 2px black",
+                  boxShadow: "0.5px 0.5px 2px black",
+                }}
+              >
+                Yes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
+          <Modal show={show} onHide={() => setShow(false)}>
+            <Modal.Header
+              closeButton
+              closeVariant="white"
+              style={{
+                fontFamily: "DynaPuff",
+                fontWeight: "400",
+                fontSize: "1.35rem",
+                backgroundColor: "#0c151d",
+                border: "none",
+                color: "#ff8b4d",
+                textShadow: "0.5px 0.5px 0.2px black",
+              }}
+            >
+              <Modal.Title
+                style={{ fontFamily: "DynaPuff", fontWeight: "400" }}
+              >
+                Edit Item
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body
+              style={{
+                fontSize: "1.05rem",
+                backgroundColor: "#0c151d",
+                border: "none",
+                color: "#ff8b4d",
+                textShadow: "0.5px 0.5px 0.2px black",
+                marginTop: "0px",
+              }}
+            >
+              <Form>
+                <Form.Group>
+                  <Form.Label
+                    style={{
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
+                      marginBottom: "1px",
+                      marginTop: "8px",
+                    }}
+                  >
+                    Item name
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter item"
+                    value={itemname}
+                    onChange={(e) => setItemnameState(e.target.value)}
                   />
                 </Form.Group>
-              </Modal.Body>
-              <Modal.Footer
-                style={{
-                  backgroundColor: "#0c151d",
-                  color: "#ff8b4d",
-                  border: "none",
-                  fontSize: "1.52rem",
-                  boxShadow: "2px 2px 2px black",
-                  textShadow: "0.2px 0.25px 2px black",
-                  marginRight: "0px",
-                  marginTop: "0px",
-                  textTransform: "capitalize",
-                }}
-              >
+                <Form.Group>
+                  <Form.Label
+                    style={{
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
+                      marginBottom: "1px",
+                      marginTop: "8px",
+                    }}
+                  >
+                    Description
+                  </Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    placeholder="Enter description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label
+                    style={{
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
+                      marginBottom: "1px",
+                      marginTop: "8px",
+                    }}
+                  >
+                    Question
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter question"
+                    value={itemquestion}
+                    onChange={(e) => setItemQuestion(e.target.value)}
+                  />
+                </Form.Group>
                 <Button
                   variant="primary"
-                  onClick={handleCloseQuestion}
+                  onClick={handleEdit}
                   style={{
                     backgroundColor: "#52a302",
                     border: "none",
+                    marginTop: "15px",
                     textShadow: "0.5px 0.5px 2px black",
                     boxShadow: "0.5px 0.5px 2px black",
                   }}
                 >
-                  Close
-                </Button>
-                <Button
-                  variant="primary"
-                  onClick={submitAnswer}
-                  style={{
-                    backgroundColor: "#a80303",
-                    border: "none",
-                    textShadow: "0.5px 0.5px 2px black",
-                    boxShadow: "0.5px 0.5px 2px black",
-                  }}
-                >
-                  {" "}
-                  {/* Submit the answer */}
                   Submit
                 </Button>
-              </Modal.Footer>
-            </div>
-          ) : (
-            <div>
-              {/* Initial confirmation */}
-              <Modal
-                show={showConfirmation}
-                onHide={() => setShowConfirmation(false)}
-                backdrop="static"
+              </Form>
+            </Modal.Body>
+          </Modal>
+
+          <Modal show={showEmailModel} onHide={() => setShowEmailModel(false)}>
+            <Modal.Header
+              closeButton
+              closeVariant="white"
+              style={{
+                fontFamily: "DynaPuff",
+                fontWeight: "400",
+                fontSize: "1.35rem",
+                backgroundColor: "#0c151d",
+                border: "none",
+                color: "#ff8b4d",
+                textShadow: "0.5px 0.5px 0.2px black",
+              }}
+            >
+              <Modal.Title
+                style={{ fontFamily: "DynaPuff", fontWeight: "400" }}
               >
-                <Modal.Footer>
-                  <Button
-                    variant="primary"
-                    onClick={() => setShowConfirmation(false)}
-                  >
-                    No
-                  </Button>
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      setShowConfirmation(false);
-                      show_question();
+                Send Mail
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body
+              style={{
+                fontSize: "1.05rem",
+                backgroundColor: "#0c151d",
+                border: "none",
+                color: "#ff8b4d",
+                textShadow: "0.5px 0.5px 0.2px black",
+                marginTop: "0px",
+              }}
+            >
+              <Form>
+                <Form.Group>
+                  <Form.Label
+                    style={{
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
+                      marginBottom: "1px",
+                      marginTop: "8px",
                     }}
                   >
-                    Yes
+                    Subject
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter subject"
+                    value={emailSubject}
+                    onChange={(e) => setemailSubject(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label
+                    style={{
+                      fontFamily: "DynaPuff",
+                      fontWeight: "400",
+                      marginBottom: "1px",
+                      marginTop: "8px",
+                    }}
+                  >
+                    Email
+                  </Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    placeholder="Enter Email"
+                    value={emailMessage}
+                    onChange={(e) => setEmailMessage(e.target.value)}
+                    style={{
+                      height: "250px",
+                    }}
+                  />
+                </Form.Group>
+                <Button
+                  variant="primary"
+                  onClick={sendMail}
+                  style={{
+                    backgroundColor: "#52a302",
+                    border: "none",
+                    marginTop: "15px",
+                    textShadow: "0.5px 0.5px 2px black",
+                    boxShadow: "0.5px 0.5px 2px black",
+                  }}
+                >
+                  Submit
+                </Button>
+              </Form>
+            </Modal.Body>
+          </Modal>
+
+          <Modal
+            show={showQuestion}
+            onHide={handleCloseQuestion}
+            backdrop="static"
+          >
+            {showQuestion ? (
+              <div>
+                {/* Question and answer form */}
+                <Modal.Body
+                  style={{
+                    backgroundColor: "#0c151d",
+                    color: "#ff8b4d",
+                    border: "none",
+                    fontSize: "1.52rem",
+                    textShadow: "0.2px 0.25px 2px black",
+                    marginRight: "0px",
+                    marginBottom: "0px",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  <Form.Group>
+                    <Form.Label>QUESTION: {itemquestion} ?</Form.Label>{" "}
+                    {/* Display the question */}
+                    <Form.Control
+                      as="textarea"
+                      placeholder="Enter Answer"
+                      value={answer}
+                      onChange={(e) => setAnswer(e.target.value)}
+                      style={{
+                        backgroundColor: "#dbd9d9",
+                        border: "none",
+                        color: "#0c151d",
+                      }}
+                    />
+                  </Form.Group>
+                </Modal.Body>
+                <Modal.Footer
+                  style={{
+                    backgroundColor: "#0c151d",
+                    color: "#ff8b4d",
+                    border: "none",
+                    fontSize: "1.52rem",
+                    boxShadow: "2px 2px 2px black",
+                    textShadow: "0.2px 0.25px 2px black",
+                    marginRight: "0px",
+                    marginTop: "0px",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  <Button
+                    variant="primary"
+                    onClick={handleCloseQuestion}
+                    style={{
+                      backgroundColor: "#52a302",
+                      border: "none",
+                      textShadow: "0.5px 0.5px 2px black",
+                      boxShadow: "0.5px 0.5px 2px black",
+                    }}
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={submitAnswer}
+                    style={{
+                      backgroundColor: "#a80303",
+                      border: "none",
+                      textShadow: "0.5px 0.5px 2px black",
+                      boxShadow: "0.5px 0.5px 2px black",
+                    }}
+                  >
+                    {" "}
+                    {/* Submit the answer */}
+                    Submit
                   </Button>
                 </Modal.Footer>
-              </Modal>
-            </div>
-          )}
-        </Modal>
-      </Container>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition:Flip
-      />
+              </div>
+            ) : (
+              <div>
+                {/* Initial confirmation */}
+                <Modal
+                  show={showConfirmation}
+                  onHide={() => setShowConfirmation(false)}
+                  backdrop="static"
+                >
+                  <Modal.Footer>
+                    <Button
+                      variant="primary"
+                      onClick={() => setShowConfirmation(false)}
+                    >
+                      No
+                    </Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => {
+                        setShowConfirmation(false);
+                        show_question();
+                      }}
+                    >
+                      Yes
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+              </div>
+            )}
+          </Modal>
+        </Container>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition:Flip
+        />
       </div>
     </>
   );
