@@ -10,23 +10,36 @@ import list_item from "../../img/list-item.jpg";
 import list_item2 from "../../img/list-item2.jpg";
 import notification from "../../img/notification.jpg";
 import github from "../../img/github.svg";
-// import linkedin from "../img/linkedin.svg";
 import mail from "../../img/mail.svg";
 import { Container, Row, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export default function Home() {
   const ref = useRef();
+  const [title, setTitle] = useState("");
+  const typingText = "TRACK IT";
+  const [typingDirection, setTypingDirection] = useState(1);
+
+  useEffect(() => {
+    let index = 0;
+    const typingInterval = setInterval(() => {
+      setTitle(typingText.slice(0, index));
+      index += typingDirection;
+    }, 250); // Adjust typing speed here
+
+    return () => clearInterval(typingInterval);
+  }, [typingDirection]);
 
   useEffect(() => {
     AOS.init({
       offset: 100,
       delay: 0,
       duration: 600,
-      once: true, // triggers animation only once
-      mirror: false, // disables animation when scrolling up
+      once: true,
+      mirror: false,
     });
   }, []);
+
   return (
     <>
       <div className="main">
@@ -34,9 +47,8 @@ export default function Home() {
         <div data-aos="fade-right" className="main">
           <div className="intro">
             <div className="part-1">
-              {/* child1 start */}
               <div className="title">
-                <h1 id="title-h">TRACK IT</h1>
+                <h1 id="title-h">{title}</h1>
                 <p>Where lost items find their home.</p>
                 <Button
                   variant="custom"
@@ -49,8 +61,6 @@ export default function Home() {
                   <span>DIVE IN</span>
                 </Button>
               </div>
-            {/* child1 end */}
-
             </div>
 
             <div className="part-2">
@@ -68,7 +78,6 @@ export default function Home() {
             </div>
             <Row className="inspiration">
               <h6 className="section-heading">
-                {" "}
                 <span>WHAT IS THIS ?</span>
               </h6>
               <p>
@@ -97,8 +106,7 @@ export default function Home() {
             <div className="total-about">
               <div ref={ref} className="about-heading">
                 <h6 className="section-heading">
-                  {" "}
-                  <span>HOW IT WORKS.</span>{" "}
+                  <span>HOW IT WORKS.</span>
                 </h6>
               </div>
               <div className="about-card">
@@ -123,7 +131,7 @@ export default function Home() {
                   </div>
                   <p>
                     List your item on the wall by filling certain details and
-                    image.That's it!
+                    image. That's it!
                     <Link to="/faqs">
                       <Button variant="custom" size="sm" className="faqCircle">
                         FAQs

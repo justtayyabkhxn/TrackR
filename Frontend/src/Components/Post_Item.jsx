@@ -15,6 +15,7 @@ function PostItem() {
   const [itemQuestion, setItemQuestion] = useState("");
   const [itemImage, setItemImage] = useState([]);
   const [type, setType] = useState("");
+  const [location, setLocation] = useState("");
 
   const handleShow = () => setShow(true);
 
@@ -58,12 +59,13 @@ function PostItem() {
   };
 
   const handleSubmit = () => {
-    if (itemName && description && type) {
+    if (itemName && description && type && location) {
       const info = new FormData();
       info.append("name", itemName);
       info.append("description", description);
       info.append("question", itemQuestion);
       info.append("type", type);
+      info.append("location",location)
 
       if (itemImage.length > 0) {
         itemImage.forEach((image) => {
@@ -180,6 +182,7 @@ function PostItem() {
       });
     }
   };
+
   return (
     <div>
       <Button className="postButton" onClick={handleShow}>
@@ -191,7 +194,7 @@ function PostItem() {
         backdrop="static"
         keyboard={false}
         style={{
-          marginTop:"50px"
+          marginTop: "50px",
         }}
       >
         <Modal.Header
@@ -292,19 +295,16 @@ function PostItem() {
                   textShadow: "0.5px 0.5px 1px black",
                 }}
               >
-                Item type<span style={{ color: "red" }}>*</span>
+                Upload image
               </Form.Label>
               <Form.Control
-                as="select"
-                value={type}
-                onChange={(e) => setType(e.target.value)}
-                required
-              >
-                <option value="">Choose...</option>
-                <option value="Lost">Lost It</option>
-                <option value="Found">Found It</option>
-              </Form.Control>
+                type="file"
+                accept=".jpg, .jpeg, .png"
+                onChange={handleFileChange}
+                multiple
+              />
             </Form.Group>
+
             <Form.Group>
               <Form.Label
                 style={{
@@ -317,83 +317,90 @@ function PostItem() {
                   textShadow: "0.5px 0.5px 1px black",
                 }}
               >
-                Upload Image
+                Type<span style={{ color: "red" }}>*</span>
               </Form.Label>
-              <Form.Control type="file" multiple onChange={handleFileChange} />
+              <Form.Select
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+              >
+                <option value="">Select Type</option>
+                <option value="Lost">Lost</option>
+                <option value="Found">Found</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label
+                style={{
+                  color: "#ff8b4d",
+                  textTransform: "uppercase",
+                  marginTop: "7.5px",
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "400",
+                  textShadow: "0.5px 0.5px 1px black",
+                }}
+              >
+                Location<span style={{ color: "red" }}>*</span>
+              </Form.Label>
+              <Form.Control
+                as="select"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                required
+              >
+                <option value="">Select location</option>
+                <option value="Library">Library</option>
+                <option value="Main Hall">Main Hall</option>
+                <option value="Cafeteria">Cafeteria</option>
+                {/* Add more locations as needed */}
+              </Form.Control>
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer
-          style={{ backgroundColor: "#0c151d", textTransform: "uppercase" }}
-        >
+        <Modal.Footer style={{ backgroundColor: "#0c151d" }}>
           <Button
             variant="secondary"
             onClick={handleClose}
-            style={{
-              textTransform: "uppercase",
-              marginTop: "7.5px",
-              marginBottom: "1px",
-              fontFamily: "DynaPuff, system-ui",
-              fontWeight: "400",
-              textShadow: "1px 1px 2px black",
-            }}
+            style={{ background: "red", border: "none" }}
           >
-            Close
+            <span
+              style={{
+                fontFamily: "DynaPuff, system-ui",
+                fontWeight: "400",
+                textTransform: "uppercase",
+                textShadow: "0.5px 0.5px 1px black",
+                color: "white",
+              }}
+            >
+              Close
+            </span>
           </Button>
           <Button
             variant="primary"
             onClick={handleSubmit}
-            style={{
-              textTransform: "uppercase",
-              marginTop: "7.5px",
-              marginBottom: "1px",
-              fontFamily: "DynaPuff, system-ui",
-              fontWeight: "400",
-              backgroundColor: "green",
-              border: "none",
-            }}
+            disabled={loading}
+            style={{ background: "green", border: "none" }}
           >
             {loading ? (
-              <>
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-                <span className="visually-hidden">Loading...</span>
-              </>
+              <Spinner as="span" animation="border" size="sm" role="status" />
             ) : (
-              <>
-                <span
-                  style={{
-                    textShadow: "1px 1px 2px black",
-                    fontFamily: "DynaPuff, system-ui",
-                    fontWeight: "400",
-                  }}
-                >
-                  Submit
-                </span>
-              </>
+              <span
+                style={{
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "400",
+                  textTransform: "uppercase",
+                  textShadow: "0.5px 0.5px 1px black",
+                  color: "white",
+                }}
+              >
+                Submit
+              </span>
             )}
           </Button>
         </Modal.Footer>
       </Modal>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition:Flip
-      />
+      <ToastContainer />
     </div>
   );
 }
+
 export default PostItem;

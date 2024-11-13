@@ -249,6 +249,22 @@ function ItemPage(props) {
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
                 letterSpacing: "0.85px",
+                marginBottom: "0.10px",
+                textTransform: "capitalize",
+              }}
+            >
+              Item Location : <span className="details">{data.location}</span>
+            </h3>
+            <hr />
+            <h3
+              className="attributes"
+              style={{
+                fontFamily: "DynaPuff, system-ui",
+                fontWeight: "400",
+                fontSize: "1.25rem",
+                textShadow: "1px 1px 2px black",
+                color: "rgb(149, 149, 149)",
+                letterSpacing: "0.85px",
                 marginBottom: ".10px",
                 textTransform: "capitalize",
               }}
@@ -939,7 +955,7 @@ function ItemPage(props) {
                       borderRadius: "10px",
                       marginBottom: "0.10px",
                       borderBottom: "8px solid #ff8b4d",
-                      height:"250px"
+                      height: "250px",
                     }}
                     src={`/default-img.png`}
                     alt="item"
@@ -1166,6 +1182,7 @@ function ItemPage(props) {
                     placeholder="Enter subject"
                     value={emailSubject}
                     onChange={(e) => setemailSubject(e.target.value)}
+                    required
                   />
                 </Form.Group>
                 <Form.Group>
@@ -1187,6 +1204,7 @@ function ItemPage(props) {
                     style={{
                       height: "250px",
                     }}
+                    required
                   />
                 </Form.Group>
                 <Button

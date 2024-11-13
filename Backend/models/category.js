@@ -31,6 +31,10 @@ const PostItemSchema = new Schema({
     type: Boolean,
     default: true,
   },
+  location:{
+    type: String,
+    required: true,
+  },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'SignUp', // Reference the actual model name, not the schema name

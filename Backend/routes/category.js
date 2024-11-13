@@ -52,7 +52,7 @@ const upload = multer({ storage });
 // POST /postitem
 router.post("/postitem", requireSignin, userMiddleware, upload.array("itemPictures"), async (req, res) => {
   try {
-    const { name, description, question, type } = req.body;
+    const { name, description, question, type, location } = req.body;
     let itemPictures = [];
     if (req.files.length > 0) {
       itemPictures = req.files.map((file) => ({ img: file.filename }));
@@ -65,6 +65,7 @@ router.post("/postitem", requireSignin, userMiddleware, upload.array("itemPictur
       type,
       createdBy: req.user.id,
       itemPictures,
+      location,
     });
     console.log("New post: ", newPost);
 
@@ -452,29 +453,33 @@ router.get("/searchItem/:query", async (req, res) => {
   try {
     const { query } = req.params;
 
-    // Use a case-insensitive regex to search for items whose 'name' field contains the query string
+    // Use a case-insensitive regex to search for items where 'name', 'description', or 'location' fields contain the query string
     const filteredPosts = await PostItem.find({
-      name: { $regex: query, $options: "i" } // 'i' makes the search case-insensitive
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { description: { $regex: query, $options: "i" } },
+        { location: { $regex: query, $options: "i" } }
+      ]
     });
-    // If you want to log the found items:
 
     res.status(200).json({
       msg: "Items retrieved successfully",
       data: filteredPosts,
-      query: query // Send the filtered items back in the response
+      query: query
     });
   } catch (err) {
     res.status(400).json({ msg: err.message });
   }
 });
 
+
 // POST /sendMail
 router.post("/sendMail", async (req, res) => {
   try {
     const { subject, emailBody, userId } = req.body;
-    console.log("Recieeved: ", subject, emailBody, userId)
+    console.log("Recieved: ", subject, emailBody, userId)
     if (!subject || !emailBody || !userId) {
-      return res.status(400).json({ message: "Subject, email body, and userId are required." });
+      return res.status(200).json({ message: "Subject, email body, and userId are required." });
     }
 
     // Search for the user in the Signup schema by userId
