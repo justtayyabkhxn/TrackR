@@ -3,11 +3,12 @@ import Navbar from "../Components/Navbar";
 import "../css/item_card.css";
 import "../css/mylisting.css";
 import Axios from "axios";
-import { Card, Col, Container, Row, Badge } from "react-bootstrap";
+import { Card, Col, Container, Row, Spinner } from "react-bootstrap"; // Import Spinner
 import { Link } from "react-router-dom";
 
 const Feed = () => {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state
 
   const ReadMore = ({ children }) => {
     const text = children;
@@ -37,6 +38,7 @@ const Feed = () => {
   };
 
   const fetchItems = async () => {
+    setLoading(true); // Start loading
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const response = await Axios.get(
@@ -83,7 +85,7 @@ const Feed = () => {
                   src={
                     item.itemPictures && item.itemPictures[0]
                       ? `http://localhost:5000/${item.itemPictures[0].img}`
-                      : "/default-img.png" // Update this path to the location of your default image
+                      : "/default-img.png"
                   }
                 />
 
@@ -132,21 +134,7 @@ const Feed = () => {
                         fontSize: "0.95rem",
                       }}
                     >
-                      Description:{" "}
-                      <ReadMore
-                        style={{
-                          fontFamily: "DynaPuff",
-                          fontWeight: "400",
-                          textShadow: "1px 1px 2px black",
-                          color: "rgb(149, 149, 149)",
-                          letterSpacing: "0.75px",
-                          marginBottom: "15px",
-                          fontSize: "0.95rem",
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        {item.description}
-                      </ReadMore>
+                      Description: <ReadMore>{item.description}</ReadMore>
                     </Card.Text>
                   )}
                   <Card.Text
@@ -185,6 +173,8 @@ const Feed = () => {
       setItems(itemList);
     } catch (err) {
       console.error("Error fetching items:", err);
+    } finally {
+      setLoading(false); // End loading
     }
   };
 
@@ -209,7 +199,36 @@ const Feed = () => {
         <div className="title-border"></div>
       </div>
       <Container fluid>
-        <Row>{items}</Row>
+        {loading ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+              padding: "20px",
+            }}
+          >
+            <Spinner
+              style={{ fontSize: "8rem", color: "black" }}
+              animation="border"
+              role="status"
+              variant="dark"
+            >
+              {/* Loading spinner */}
+            </Spinner>
+          </div>
+        ) : (
+          <div>
+            {items.length > 0 ? <Row>{items}</Row> : <div style={{
+              color: "red",
+              textAlign: "center",
+              fontSize: "2rem",
+              fontFamily: "DynaPuff",
+              fontWeight: "400",
+              textShadow: "1px 1px 2px black",
+            }}>No Listed Items</div>}
+          </div>
+        )}
       </Container>
     </div>
   );

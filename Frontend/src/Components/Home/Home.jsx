@@ -172,7 +172,7 @@ export default function Home() {
             </a>
           </div>
           <div className="personal-info">
-            <h5>Track It By Tayyab Khan</h5>
+            <h5> © 2024, Track It By AMU</h5>
           </div>
         </div>
       </div>

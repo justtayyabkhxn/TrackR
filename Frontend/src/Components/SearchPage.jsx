@@ -4,15 +4,15 @@ import { useLocation } from "react-router-dom";
 import "../css/feed.css";
 import "../css/item_card.css";
 import Axios from "axios";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { setConstraint } from "../constraints";
 
 const SearchPage = () => {
   const [query, setQuery] = useState("");
-  const location = useLocation(); // Get the current URL
+  const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const queryValue = params.get("query"); // Extract the value of the 'query' parameter
+  const queryValue = params.get("query");
 
   const [user_info, setUserInfo] = useState(() => {
     return JSON.parse(localStorage.getItem("user")) || {};
@@ -20,7 +20,8 @@ const SearchPage = () => {
 
   const [items, setItems] = useState([]);
   const [foundItems, setFoundItems] = useState([]);
-  const [error, setError] = useState(null); // Added error state
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false); // Added loading state
 
   const ReadMore = ({ children }) => {
     const text = children;
@@ -29,8 +30,7 @@ const SearchPage = () => {
 
     return (
       <span>
-        {isReadMore ? text.slice(0, 10) : text}{" "}
-        {/* Adjusted slicing for better readability */}
+        {isReadMore ? text.slice(0, 10) : text}
         <span
           onClick={toggleReadMore}
           className="read-or-hide"
@@ -42,15 +42,15 @@ const SearchPage = () => {
     );
   };
 
-  // Fetch lost and found items
   useEffect(() => {
     setConstraint(true);
+    setLoading(true); // Start loading
     if (queryValue) {
-      // If queryValue exists, set the query state
       setQuery(queryValue);
     } else {
       console.error("Query is missing or undefined");
     }
+
     const fetchItems = async () => {
       try {
         const response = await Axios.get(
@@ -60,36 +60,31 @@ const SearchPage = () => {
           throw new Error("Invalid response structure");
         }
         const data = response.data.data.reverse();
-        // Reverse data to show latest items first
         if (!data.length) {
           setError("NO ITEMS FOUND");
         }
 
         const lostItems = [];
         const foundItemsList = [];
-
-        // Filter and categorize items into Lost and Found, considering the status
+        
         data.forEach((item) => {
           if (item.status === true) {
-            // Only consider items with status true
             const created_date = new Date(item.createdAt);
             const createdAt = `${created_date.getDate()}/${
               created_date.getMonth() + 1
             }/${created_date.getFullYear()} ${created_date.getHours()}:${created_date.getMinutes()}`;
 
             const userIsOwner = item.createdBy === user_info._id;
-
-            // Check if itemPictures array exists and has at least one item
             const imageSrc =
               item.itemPictures && item.itemPictures.length > 0
                 ? `http://localhost:5000/${item.itemPictures[0].img}`
-                : "/default-img.png"; // Provide a default image
+                : "/default-img.png";
 
             const card = (
               <Col key={item._id} md={3} xs={12} style={{ marginTop: "2%" }}>
                 <Link
                   to={`/item/${item.name}?cid=${item._id}&type=${item.type}`}
-                  style={{ textDecoration: "none" }} // Remove default underline from links
+                  style={{ textDecoration: "none" }}
                 >
                   <Card
                     bsPrefix="item-card"
@@ -159,7 +154,6 @@ const SearchPage = () => {
               </Col>
             );
 
-            // Categorize items into Lost and Found
             if (item.type === "Lost") {
               lostItems.push(card);
             } else if (item.type === "Found") {
@@ -168,11 +162,13 @@ const SearchPage = () => {
           }
         });
 
-        setItems(lostItems); // Set lost items with status true
-        setFoundItems(foundItemsList); // Set found items with status true
+        setItems(lostItems);
+        setFoundItems(foundItemsList);
       } catch (error) {
         console.error("Error fetching items:", error);
         setError("Failed to load items. Please try again later.");
+      } finally {
+        setLoading(false); // End loading
       }
     };
 
@@ -182,7 +178,7 @@ const SearchPage = () => {
   return (
     <div>
       <Navbar />
-      <div style={{marginTop:"120px"}}>
+      <div style={{ marginTop: "120px" }}>
         <span
           style={{
             fontFamily: "Concert One, sans-serif",
@@ -210,40 +206,63 @@ const SearchPage = () => {
             {error}
           </div>
         )}
-        <Container fluid>
-          <h2
-            style={{
-              textAlign: "center",
-              fontFamily: "Concert One, sans-serif",
-              marginLeft: "5px",
-              textTransform: "uppercase",
-              fontSize: "35px",
-              fontWeight: "600",
-            }}
-          >
-            Lost items:
-          </h2>
-          <div className="title-border"></div>
-          <Row>{items}</Row>
-        </Container>
 
-        {foundItems.length > 0 && (
-          <Container fluid>
-            <h2
-              style={{
-                textAlign: "center",
-                fontFamily: "Concert One, sans-serif",
-                marginLeft: "5px",
-                textTransform: "uppercase",
-                fontSize: "35px",
-                fontWeight: "600",
-              }}
-            >
-              Found items:
-            </h2>
-            <div className="title-border"></div>
-            <Row>{foundItems}</Row>
-          </Container>
+        {loading ? (
+          <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            padding: "20px",
+          }}
+        >
+          <Spinner
+            style={{ fontSize: "8rem", color: "black" }}
+            animation="border"
+            role="status"
+            variant="dark"
+          >
+            {/* Loading spinner */}
+          </Spinner>
+        </div>
+        ) : (
+          <>
+            <Container fluid>
+              <h2
+                style={{
+                  textAlign: "center",
+                  fontFamily: "Concert One, sans-serif",
+                  marginLeft: "5px",
+                  textTransform: "uppercase",
+                  fontSize: "35px",
+                  fontWeight: "600",
+                }}
+              >
+                Lost items:
+              </h2>
+              <div className="title-border"></div>
+              <Row>{items}</Row>
+            </Container>
+
+            {foundItems.length > 0 && (
+              <Container fluid>
+                <h2
+                  style={{
+                    textAlign: "center",
+                    fontFamily: "Concert One, sans-serif",
+                    marginLeft: "5px",
+                    textTransform: "uppercase",
+                    fontSize: "35px",
+                    fontWeight: "600",
+                  }}
+                >
+                  Found items:
+                </h2>
+                <div className="title-border"></div>
+                <Row>{foundItems}</Row>
+              </Container>
+            )}
+          </>
         )}
       </div>
     </div>
