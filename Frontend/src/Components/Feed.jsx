@@ -226,9 +226,10 @@ export default function Feed() {
                 fontFamily: "Concert One, sans-serif",
                 fontSize: "35px",
                 fontWeight: "600",
+                textDecoration:"uppercase"
               }}
             >
-              Lost items:
+              LOST ITEMS:
             </h2>
             <div className="title-border"></div>
             <Row>{items}</Row>
@@ -244,7 +245,7 @@ export default function Feed() {
                   fontWeight: "600",
                 }}
               >
-                Found items:
+                FOUND ITEMS:
               </h2>
               <div className="title-border"></div>
               <Row>{foundItems}</Row>
