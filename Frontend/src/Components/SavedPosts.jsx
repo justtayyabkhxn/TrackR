@@ -192,7 +192,7 @@ export default function SavedPosts() {
     <div style={{ marginTop: "120px" }}>
       <Navbar />
       <div className="listing-title">
-        <h2>Saved Posts</h2>
+        <h2>SAVED POSTS</h2>
         <div className="title-border"></div>
         <div style={{ color: "red" }}>{info}</div>
       </div>

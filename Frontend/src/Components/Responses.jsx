@@ -155,7 +155,7 @@ function Response() {
             </div>
           ) : (
             <div className="responses-list">
-              {responses.map((response) => {
+              {responses.length>0 ? (responses.map((response) => {
                 const createdDate = new Date(response.createdAt);
                 const formattedDate = `${createdDate.getDate()}/${
                   createdDate.getMonth() + 1
@@ -375,7 +375,18 @@ function Response() {
                     )}
                   </div>
                 );
-              })}
+              })):(
+                <div style={{
+                  color: "red",
+                  textAlign: "center",
+                  marginLeft:"50rem",
+                  fontSize: "2rem",
+                  fontFamily: "DynaPuff",
+                  fontWeight: "400",
+                  textShadow: "1px 1px 2px black",
+                }}>No Responses</div>
+              )}
+              
             </div>
           )}
         </div>
