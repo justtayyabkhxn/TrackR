@@ -171,8 +171,8 @@ export default function Home() {
               <img src={mail} className="icon" alt="" />
             </a>
           </div>
-          <div className="personal-info">
-            <h5> © 2024, Track It By AMU</h5>
+          <div className="personal-info" >
+            <h5 style={{textDecoration:"none"}}> TRACK IT BY TAYYAB KHAN</h5>
           </div>
         </div>
       </div>

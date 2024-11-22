@@ -120,7 +120,7 @@ function Login() {
               </span>
             </div>
             <button
-              type="button"
+              type="submit"
               className="submitLogin"
               onClick={handleSubmit}
               disabled={loading}

@@ -243,6 +243,7 @@ router.get('/', (req, res) => res.send('This is Home page!!'));
 
 router.post('/signup', checkField, validateSignup, checkUsername, checkPassword, async (req, res) => {
     const { firstname, lastname, email, number, password, verified } = req.body;
+    // console.log("Hello: ", req.body);
     try {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
