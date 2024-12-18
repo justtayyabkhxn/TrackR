@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 export default function Home() {
   const ref = useRef();
   const [title, setTitle] = useState("");
-  const typingText = "TRACK IT";
+  const typingText = "TRACKR";
   const [typingDirection, setTypingDirection] = useState(1);
 
   useEffect(() => {
@@ -172,7 +172,7 @@ export default function Home() {
             </a>
           </div>
           <div className="personal-info" >
-            <h5 style={{textDecoration:"none"}}> TRACK IT BY TAYYAB KHAN</h5>
+            <h5 style={{textDecoration:"none"}}> TRACKR BY TAYYAB KHAN</h5>
           </div>
         </div>
       </div>

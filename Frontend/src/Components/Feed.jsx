@@ -226,7 +226,7 @@ export default function Feed() {
                 fontFamily: "Concert One, sans-serif",
                 fontSize: "35px",
                 fontWeight: "600",
-                textDecoration:"uppercase"
+                textDecoration: "uppercase",
               }}
             >
               LOST ITEMS:

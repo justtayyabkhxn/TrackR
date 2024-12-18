@@ -1,6 +1,6 @@
-# TrackIt – A Lost & Found System
+# TrackR – A Lost & Found System
 
-TrackIt is a web application designed to help users report lost items and find them through an organized lost-and-found system. The system enables users to list their lost or found items, communicate with others, and increase the chances of finding their belongings.
+TrackR is a web application designed to help users report lost items and find them through an organized lost-and-found system. The system enables users to list their lost or found items, communicate with others, and increase the chances of finding their belongings.
 
 ## Features
 
@@ -135,4 +135,4 @@ For any queries or issues, feel free to reach out:
 - **Email**: tayyabkhangk4734@gmail.com.com
 - **GitHub**: [justtayyabkhxn](https://github.com/justtayyabkhxn)
 
-----# TrackIt
+----# TrackR

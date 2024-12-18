@@ -24,18 +24,18 @@ export default function FAQs() {
           >
             <details>
               <summary>
-                <span className="heading">What is TrackIt?</span>
+                <span className="heading">What is TrackR?</span>
               </summary>
               <section>
                 <p className="para">
-                  TrackIt is a web-based platform specifically designed to help
+                  TrackR is a web-based platform specifically designed to help
                   users manage lost and found items in an organized and
                   efficient way. Whether you’ve lost something or found an item,
-                  TrackIt provides a central place to report and search for lost
+                  TrackR provides a central place to report and search for lost
                   belongings. The platform allows users to submit detailed
                   descriptions of items, including images and locations, making
                   it easier for others to identify and retrieve their lost
-                  property. TrackIt also ensures a smooth user experience by
+                  property. TrackR also ensures a smooth user experience by
                   offering real-time notifications, anonymous submissions, and
                   secure contact options, all aimed at simplifying the process
                   of recovering lost items.
@@ -49,7 +49,7 @@ export default function FAQs() {
               </summary>
               <section>
                 <p className="para">
-                  Reporting a lost item on TrackIt is simple and user-friendly.
+                  Reporting a lost item on TrackR is simple and user-friendly.
                   First, you’ll need to sign up for an account. Once registered,
                   navigate to the 'Lost Items' section, where you will find an
                   easy-to-use form. This form allows you to enter important
@@ -57,7 +57,7 @@ export default function FAQs() {
                   description, the location where it was lost, and any relevant
                   images. After submitting the form, your lost item listing will
                   be posted publicly on the platform, making it available for
-                  others to see. TrackIt will notify you if someone finds or
+                  others to see. TrackR will notify you if someone finds or
                   reports an item matching your description.
                 </p>
               </section>
@@ -71,7 +71,7 @@ export default function FAQs() {
               </summary>
               <section>
                 <p className="para">
-                  Yes, TrackIt offers an option for users to report found items
+                  Yes, TrackR offers an option for users to report found items
                   anonymously. This feature is designed to encourage more people
                   to report found items without feeling obligated to share
                   personal information. When submitting a found item, you can
@@ -92,10 +92,10 @@ export default function FAQs() {
               </summary>
               <section>
                 <p className="para">
-                  Yes, TrackIt provides a secure and private communication
+                  Yes, TrackR provides a secure and private communication
                   system for users to contact each other regarding lost and
                   found items. If someone finds your item and reports it on
-                  TrackIt, their contact details will either be visible (if they
+                  TrackR, their contact details will either be visible (if they
                   chose not to remain anonymous), or you can send them a message
                   through the in-app messaging feature. This messaging system
                   ensures that communication happens securely within the
@@ -114,14 +114,14 @@ export default function FAQs() {
               </summary>
               <section>
                 <p className="para">
-                  TrackIt allows you to report a wide variety of lost and found
+                  TrackR allows you to report a wide variety of lost and found
                   items. From everyday items like keys, wallets, mobile phones,
                   and clothing to more specific things like documents, IDs, or
-                  valuable electronics, TrackIt’s flexible system can
+                  valuable electronics, TrackR’s flexible system can
                   accommodate almost anything. There is also an option to
                   categorize your items, making it easier for others to filter
                   and search for specific types of belongings. Whether your item
-                  is of high value or just a personal memento, TrackIt offers a
+                  is of high value or just a personal memento, TrackR offers a
                   platform to try and get it back to its owner.
                 </p>
               </section>
@@ -129,11 +129,11 @@ export default function FAQs() {
 
             <details>
               <summary>
-                <span className="heading">Is TrackIt free to use?</span>
+                <span className="heading">Is TrackR free to use?</span>
               </summary>
               <section>
                 <p className="para">
-                  Yes, TrackIt is completely free for all users. Whether you are
+                  Yes, TrackR is completely free for all users. Whether you are
                   reporting a lost or found item or searching for one, you do
                   not need to pay anything to access the platform’s core
                   features. Our goal is to help communities and individuals
@@ -154,7 +154,7 @@ export default function FAQs() {
               </summary>
               <section>
                 <p className="para">
-                  TrackIt’s notification system is designed to keep you updated
+                  TrackR’s notification system is designed to keep you updated
                   in real-time. After submitting a lost item report, you will
                   automatically receive notifications if someone reports finding
                   an item that matches your description. Likewise, if you report
@@ -177,7 +177,7 @@ export default function FAQs() {
               <section>
                 <p className="para">
                   Managing your lost or found listings is easy. Simply log into
-                  your TrackIt account and navigate to the 'My Listings' section
+                  your TrackR account and navigate to the 'My Listings' section
                   in your dashboard. From there, you can view all the items
                   you’ve reported and choose to update or delete any listing.
                   Updating allows you to add more details or change information
@@ -192,17 +192,17 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  Is my personal information safe on TrackIt?
+                  Is my personal information safe on TrackR?
                 </span>
               </summary>
               <section>
                 <p className="para">
-                  TrackIt places a strong emphasis on protecting users’ personal
-                  information. When you sign up and use TrackIt, your personal
+                  TrackR places a strong emphasis on protecting users’ personal
+                  information. When you sign up and use TrackR, your personal
                   data is securely stored and is not shared with anyone unless
                   you explicitly allow it. Additionally, we use encryption to
                   protect sensitive information, and all communication through
-                  the platform is conducted securely. TrackIt complies with
+                  the platform is conducted securely. TrackR complies with
                   global privacy standards and regulations to ensure that your
                   data remains private and that you have full control over how
                   your information is shared with others.
@@ -218,13 +218,13 @@ export default function FAQs() {
               </summary>
               <section>
                 <p className="para">
-                  TrackIt offers a powerful and intuitive search feature that
+                  TrackR offers a powerful and intuitive search feature that
                   helps you locate lost items quickly. On the homepage, you’ll
                   find a search bar where you can input keywords related to your
                   lost item, such as item type, location, or description. You
                   can also use filters to narrow down your search based on
                   specific categories or timeframes. Once you submit your search
-                  query, TrackIt will display all matching listings, giving you
+                  query, TrackR will display all matching listings, giving you
                   the opportunity to contact the person who found your item if
                   applicable.
                 </p>
@@ -234,15 +234,15 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  Can I use TrackIt on my mobile device?
+                  Can I use TrackR on my mobile device?
                 </span>
               </summary>
               <section>
                 <p className="para">
-                  Yes, TrackIt is fully responsive and optimized for mobile use.
+                  Yes, TrackR is fully responsive and optimized for mobile use.
                   Whether you’re on a smartphone or tablet, you can easily
                   access the platform, report items, or search for lost
-                  belongings while on the go. All of TrackIt’s features are
+                  belongings while on the go. All of TrackR’s features are
                   available on mobile devices, ensuring a seamless experience
                   regardless of the device you’re using. This allows users to
                   quickly report or find items in real-time, wherever they are.
@@ -258,13 +258,13 @@ export default function FAQs() {
               </summary>
               <section>
                 <p className="para">
-                  If you encounter a listing on TrackIt that appears suspicious,
+                  If you encounter a listing on TrackR that appears suspicious,
                   fraudulent, or violates our community guidelines, you can
                   report it directly to our support team. There is a “Report”
                   button available on each listing, which will send the listing
                   to our moderation team for review. We take reports seriously
                   and aim to investigate all suspicious activity promptly. By
-                  keeping TrackIt’s listings safe and trustworthy, we ensure
+                  keeping TrackR’s listings safe and trustworthy, we ensure
                   that the platform remains a reliable resource for lost and
                   found items.
                 </p>
@@ -279,11 +279,11 @@ export default function FAQs() {
               </summary>
               <section>
                 <p className="para">
-                  By default, lost item listings on TrackIt stay active for 30
+                  By default, lost item listings on TrackR stay active for 30
                   days. After this period, you will receive a reminder to either
                   renew or deactivate your listing if the item has not been
                   found. If needed, you can extend the listing’s duration by
-                  updating it through your dashboard. TrackIt also allows you to
+                  updating it through your dashboard. TrackR also allows you to
                   manually deactivate listings once the item is recovered. This
                   system ensures that only current and relevant listings remain
                   visible on the platform, making it easier for users to find
@@ -295,19 +295,19 @@ export default function FAQs() {
             <details>
               <summary>
                 <span className="heading">
-                  Can businesses use TrackIt to report lost items?
+                  Can businesses use TrackR to report lost items?
                 </span>
               </summary>
               <section>
                 <p className="para">
-                  Yes, TrackIt is designed for use by both individuals and
+                  Yes, TrackR is designed for use by both individuals and
                   businesses. Businesses like cafes, gyms, hotels, and other
                   establishments where lost items are common can create accounts
-                  to report items found on their premises. By using TrackIt,
+                  to report items found on their premises. By using TrackR,
                   businesses can help reconnect customers with their lost
                   belongings in a streamlined and organized manner. Businesses
                   can post found items on behalf of their customers, and
-                  TrackIt’s notification system will ensure that those searching
+                  TrackR’s notification system will ensure that those searching
                   for items can easily connect with the business.
                 </p>
               </section>
@@ -321,11 +321,11 @@ export default function FAQs() {
               </summary>
               <section>
                 <p className="para">
-                  If an item you’ve reported as found on TrackIt goes unclaimed
+                  If an item you’ve reported as found on TrackR goes unclaimed
                   after a certain period, it’s up to you to decide how to handle
                   it. You can choose to keep the item, donate it to charity, or
                   follow local laws and regulations regarding found property.
-                  TrackIt does not impose any specific rules on what to do with
+                  TrackR does not impose any specific rules on what to do with
                   unclaimed items, leaving that decision to the person who found
                   it. However, we encourage users to follow ethical practices
                   and make reasonable efforts to return the item to its rightful
