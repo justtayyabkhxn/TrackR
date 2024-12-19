@@ -16,18 +16,19 @@ import OTPVerification from "./Components/Auth/OTPVerification";
 import NotFound from "./Components/NotFound";
 import ForgotPassword from "./Components/Auth/ForgotPassword";
 import ChangePassword from "./Components/Auth/ChangePassword";
-import AdminLogin from "./Components/AdminLogin";
+import AdminLogin from "./Components/Admin/AdminLogin";
 import SavedPosts from "./Components/SavedPosts";
-import AdminDashboard from "./Components/AdminDashboard";
-import AdminPrivateRoute from "./Components/AdminPrivateRoute";
+import AdminDashboard from "./Components/Admin/AdminDashboard";
+import AdminPrivateRoute from "./Components/Admin/AdminPrivateRoute";
 import UserPosts from "./Components/UserPosts";
+import UserProfile from "./Components/UserProfile";
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          {/* Hello world */}
+         
           <Route path="/" element={<Home />} />
           <Route path="/sign-up" element={<Signup />} />
           {
@@ -49,6 +50,7 @@ function App() {
               <Route path="/feed" element={<PrivateRoute />}>
                 <Route path="" element={<Feed />} />
               </Route>
+              <Route path="/userProfile/:userId" element={<UserProfile />}/>
               <Route path="/admin" element={<AdminLogin />} />
               <Route path="/admin-dashboard" element={<AdminPrivateRoute />}>
                 <Route path="" element={<AdminDashboard />} />

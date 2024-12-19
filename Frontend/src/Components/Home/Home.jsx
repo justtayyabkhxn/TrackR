@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 export default function Home() {
   const ref = useRef();
   const [title, setTitle] = useState("");
-  const typingText = "TRACKR";
+  const typingText = "TrackR";
   const [typingDirection, setTypingDirection] = useState(1);
 
   useEffect(() => {
@@ -157,7 +157,7 @@ export default function Home() {
         <div className="footer">
           <div className="social-icon">
             <a
-              href="https://github.com/justtayyabkhxn/Track-It"
+              href="https://github.com/justtayyabkhxn/TrackR"
               target="_blank"
               rel="noopener noreferrer"
             >

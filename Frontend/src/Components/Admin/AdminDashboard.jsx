@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import "../css/AdminDashboard.css";
-import Navbar from "../Components/Navbar";
+import "../../css/AdminDashboard.css";
+import Navbar from "../../Components/Navbar";
 import { Button, Modal, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 

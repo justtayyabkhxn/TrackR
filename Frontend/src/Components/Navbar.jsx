@@ -6,6 +6,7 @@ import logo from "../img/logo.png";
 import profile from "../img/profile.png";
 import PostItem from "./Post_Item";
 import "../css/Navbar.css";
+import UserProfile from "./UserProfile";
 
 function NavBar() {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -130,9 +131,11 @@ function NavBar() {
                     align="end"
                   >
                     <NavDropdown.Item as="span">
+                    <Nav.Link as={Link} to={`/userProfile/${userInfo._id}`}>
                       <span style={{ textAlign: "center" }}>
                         {userInfo.firstname} {userInfo.lastname}
                       </span>
+                      </Nav.Link>
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item>

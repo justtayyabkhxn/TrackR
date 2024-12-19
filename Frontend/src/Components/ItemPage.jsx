@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 import {
   Button,
@@ -180,14 +181,34 @@ function ItemPage(props) {
             }}
           >
             <h3 className="attributes">
+              <Link to={`/userProfile/${Createdby}`}>
+              <span
+                style={{
+                  fontFamily: "DynaPuff, system-ui",
+                  fontWeight: "500",
+                  fontSize: "1.25rem",
+                  textTransform: "uppercase",
+                  // textDecoration: "underline",
+                  textShadow: "1px 1px 2px black",
+                  color: "#ff8b4d",
+                }}
+              >
+                See User Profile
+              </span>
+                </Link>
+            </h3>
+            <h3 className="attributes">
               <span
                 style={{
                   fontFamily: "Concert One, sans-serif",
                   fontWeight: "1.5rem",
-                  fontSize: "1.55rem",
-                  textTransform: "uppercase",
-                  textDecoration: "underline",
+                  fontSize: "1.25rem",
                   textShadow: "1px 1px 2px black",
+                  color: "rgb(149, 149, 149)",
+                  letterSpacing: "0.85px",
+                  marginBottom: "5px",
+                  textTransform: "uppercase",
+                  textDecoration:"underline"
                 }}
               >
                 Item name:
@@ -207,17 +228,21 @@ function ItemPage(props) {
                 <span style={{ fontSize: "1.5rem" }}>🔗</span>{" "}
               </Button>
             </h3>
-            <hr />
+            {/* <hr /> */}
+
+            {/* <hr /> */}
+
             <h3
               className="attributes"
               style={{
-                fontFamily: "DynaPuff, system-ui",
-                fontWeight: "400",
+                fontFamily: "Concert One, sans-serif",
+                fontWeight: "1.5rem",
+                fontSize: "1.25rem",
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
-                letterSpacing: "0.75px",
-                marginBottom: "0.5px",
-                textTransform: "capitalize",
+                letterSpacing: "0.5px",
+                marginBottom: "5px",
+                textTransform: "uppercase",
               }}
             >
               Item description :{" "}
@@ -227,14 +252,14 @@ function ItemPage(props) {
             <h3
               className="attributes"
               style={{
-                fontFamily: "DynaPuff, system-ui",
-                fontWeight: "400",
+                fontFamily: "Concert One, sans-serif",
+                fontWeight: "1.5rem",
                 fontSize: "1.25rem",
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
-                letterSpacing: "0.85px",
-                marginBottom: "0.10px",
-                textTransform: "capitalize",
+                letterSpacing: "0.5px",
+                marginBottom: "5px",
+                textTransform: "uppercase",
               }}
             >
               Item type : <span className="details">{data.type}</span>
@@ -243,14 +268,14 @@ function ItemPage(props) {
             <h3
               className="attributes"
               style={{
-                fontFamily: "DynaPuff, system-ui",
-                fontWeight: "400",
+                fontFamily: "Concert One, sans-serif",
+                fontWeight: "1.5rem",
                 fontSize: "1.25rem",
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
-                letterSpacing: "0.85px",
-                marginBottom: "0.10px",
-                textTransform: "capitalize",
+                letterSpacing: "0.5px",
+                marginBottom: "5px",
+                textTransform: "uppercase",
               }}
             >
               Item Location : <span className="details">{data.location}</span>
@@ -259,14 +284,14 @@ function ItemPage(props) {
             <h3
               className="attributes"
               style={{
-                fontFamily: "DynaPuff, system-ui",
-                fontWeight: "400",
+                fontFamily: "Concert One, sans-serif",
+                fontWeight: "1.5rem",
                 fontSize: "1.25rem",
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
-                letterSpacing: "0.85px",
-                marginBottom: ".10px",
-                textTransform: "capitalize",
+                letterSpacing: "0.5px",
+                marginBottom: "5px",
+                textTransform: "uppercase",
               }}
             >
               Status :{" "}
@@ -278,14 +303,14 @@ function ItemPage(props) {
             <h6
               className="attributes"
               style={{
-                fontFamily: "DynaPuff, system-ui",
-                fontWeight: "200",
+                fontFamily: "Concert One, sans-serif",
+                fontWeight: "1.5rem",
                 fontSize: "1.25rem",
                 textShadow: "1px 1px 2px black",
                 color: "rgb(149, 149, 149)",
-                letterSpacing: "0.85px",
+                letterSpacing: "0.5px",
                 marginBottom: "10px",
-                textTransform: "capitalize",
+                textTransform: "uppercase",
               }}
             >
               Created at:{" "}
