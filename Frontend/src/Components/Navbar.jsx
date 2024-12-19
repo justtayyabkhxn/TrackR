@@ -147,6 +147,19 @@ function NavBar() {
                             width: "fit-content",
                           }}
                         >
+                          Account Info
+                        </span>
+                      </Nav.Link>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <Nav.Link as={Link} to="/change-password">
+                        <span
+                          style={{
+                            textAlign: "center",
+                            color: "black",
+                            width: "fit-content",
+                          }}
+                        >
                           Change Password
                         </span>
                       </Nav.Link>

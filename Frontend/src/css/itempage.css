@@ -1,55 +1,69 @@
 .itempage {
-    display: flex;
-    margin: 20px 20px 20px 0px;
-    flex-wrap: wrap; /* Added flex-wrap back to handle responsiveness */
+  display: flex;
+  margin: 20px 20px 20px 0px;
+  flex-wrap: wrap; /* Added flex-wrap back to handle responsiveness */
 }
 
 .itemDescription {
-    display: flex;
-    flex-direction: column;
-    /* border: 1px solid black; */
-    border-radius: 10px;
-    background-color: #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px black;
+  padding: 10px;
+  margin-left: 30px;
+  margin-bottom: 0.3px;
+  background-color: #0c151d;
+  border-bottom: 5px solid #ff8b4d;
+  max-height: 650px;
+  max-width: 650px;
 }
-.parent{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-evenly;
+.parent {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 .details {
-    font-family: "DynaPuff", system-ui;
+  font-family: "DynaPuff", system-ui;
   font-optical-sizing: auto;
   font-weight: 500;
-    color: #ff8b4d;
+  color: #ff8b4d;
 }
 .attributes {
-    color: #777777;
-    font-size: 1.35rem;
-    margin-left: 5px;
+  font-family: "Concert One", sans-serif;
+  font-weight: 1.5rem;
+  font-size: 1.25rem;
+  text-shadow: 1px 1px 2px black;
+  color: rgb(149, 149, 149);
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
 .ed-button {
-    margin: 10px 0px;
+  margin: 10px 0px;
 }
 
-.ed-button>button {
-    margin-left: 5px;
+.ed-button > button {
+  margin-left: 5px;
 }
 
 .responses {
-    margin: 10px 10px;
-    display: inline-block;
+  margin: 10px 10px;
+  display: inline-block;
 }
-img{
-    height: 350px;
-    max-width: 750px;
-    /* box-shadow: 2px 2px 2px black; */
-    background-color: #0c151d;
+img {
+  height: 350px;
+  max-width: 750px;
+  /* box-shadow: 2px 2px 2px black; */
+  background-color: #0c151d;
 }
-  
+
 @media (max-width: 480px) {
-    .itempage {
-        flex-wrap: wrap;
-    }
+  .itempage {
+    flex-wrap: wrap;
+  }
 }

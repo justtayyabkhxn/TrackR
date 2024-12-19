@@ -178,7 +178,7 @@ export default function UserProfile() {
 
   useEffect(() => {
     fetchItems();
-  }, [userInfo]);
+  }, []);
 
   return (
     <div style={{ marginTop: "120px" }}>

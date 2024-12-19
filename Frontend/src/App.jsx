@@ -11,7 +11,7 @@ import ItemPage from "./Components/ItemPage";
 import MyListings from "./Components/MyListings";
 import SearchResults from "./Components/SearchPage"
 import ProfilePage from "./Components/ProfilePage"
-import FAQs from "./Components/FAQs"
+import FAQs from "./Components/Home/FAQs"
 import OTPVerification from "./Components/Auth/OTPVerification";
 import NotFound from "./Components/NotFound";
 import ForgotPassword from "./Components/Auth/ForgotPassword";

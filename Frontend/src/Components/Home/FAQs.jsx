@@ -1,9 +1,9 @@
 import React from "react";
-import Navbar from "../Components/Navbar";
-import "../css/faqs.css";
-import image from "../img/faq.jpg";
-import github from "../img/github.svg";
-import mail from "../img/mail.svg";
+import Navbar from "../Navbar";
+import "../../css/faqs.css";
+import image from "../../img/faq.jpg";
+import github from "../../img/github.svg";
+import mail from "../../img/mail.svg";
 
 export default function FAQs() {
   return (

@@ -6,7 +6,6 @@ import { Spinner } from "react-bootstrap";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
-
 import {
   Button,
   Modal,
@@ -21,10 +20,8 @@ import { LOGGED_IN, setConstraint } from "../constraints";
 
 function ItemPage(props) {
   const navigate = useNavigate();
-
   const [ItemData, setItemData] = useState([]);
   const [item, setItem] = useState([]);
-  // console.log("Item Data", ItemData);
   const [Itemname, setItemname] = useState("");
   const [ActivationRequest, setActivationRequest] = useState(false);
   const [Createdby, setCreatedby] = useState("");
@@ -39,7 +36,7 @@ function ItemPage(props) {
   const [isOwner, setIsOwner] = useState();
   const [isSaved, setIsSaved] = useState(false);
   const [emailMessage, setEmailMessage] = useState("");
-
+  const [creator_info, setCreatorInfo] = useState("");
   const [itemname, setItemnameState] = useState("");
   const [description, setDescription] = useState("");
   const [emailSubject, setemailSubject] = useState("");
@@ -53,11 +50,9 @@ function ItemPage(props) {
   const [validateUser, setvalidateUser] = useState(false);
   const [messageId, setMessageId] = useState("");
   const [response, setResponse] = useState("");
-
   // Modal Controls
   const handleCloseDelete = () => setShowDelete(false);
   const handleShowQuestion = () => setshowQuestion(true);
-
   const handleCloseActivation = () => setActivationRequest(false);
   const handleActivateConfirm = () => {
     setActivationRequest(true); // Open confirmation modal
@@ -78,45 +73,33 @@ function ItemPage(props) {
     setvalidateUser(true);
   };
 
-  // const handleShowQuestion = () => setQuestion(true);
-  // const handleShowQuestion = () => setShowQuestion(true);
-
-  // Constants and Data Extraction from URL
   setConstraint(true);
   const location = useLocation(); // Use the useLocation hook to get the current location object
   const queryParams = new URLSearchParams(location.search); // Create a URLSearchParams object from the query string
 
   const item_id = queryParams.get("cid"); // Extract the item ID from the 'cid' parameter
-  // const item_type = queryParams.get("type").split("/")[0]; // Extract the item type from the 'type' parameter and split it
   const item_owner = ItemData.createdBy;
-  // console.log("Item Data: ",ItemData)
-
-  // const current_user = queryParams.get("type").split("/")[1]; // Extract the current user info from the 'type' parameter
 
   const [user_info, setUserInfo] = useState(() => {
     return JSON.parse(localStorage.getItem("user")) || {};
   });
   const user_id = user_info._id;
-  // console.log("User: ", user_id);
-  // console.log("Post owner: ", item_owner);
+
   const temp = [];
   const validation = [];
   const admin = "67075569252b464e56db8e31";
   // Fetching item data on component mount
   useEffect(() => {
+    fetchCreator();
     Axios.get(`http://localhost:5000/item/${item_id}`)
       .then((response) => {
         const data = response.data.Item;
         const answersData = response.data.Answers;
         setItem(data);
-        console.log(item);
+        // console.log(item);
         setItemAnswers(answersData);
-        // console.log("Data is: ", data);
-
         setItemData(data);
-        // const current_user = ;
         setIsOwner(user_id == item_owner || user_id == admin ? true : false);
-        // console.log("img id: ", ItemData);
         Axios.get(
           `http://localhost:5000/responseData/${user_id}/${item_id}`
         ).then((response) => {
@@ -166,53 +149,29 @@ function ItemPage(props) {
         setItemImage(data.itemPictures);
 
         temp.push(
-          <div
-            className="itemDescription"
-            style={{
-              cursor: "pointer",
-              boxShadow: "1px 1px 5px black",
-              padding: "10px",
-              marginLeft: "30px",
-              marginBottom: "0.30px",
-              backgroundColor: "#0c151d",
-              borderBottom: "5px solid #ff8b4d",
-              maxHeight: "650px",
-              maxWidth: "650px",
-            }}
-          >
+          <div className="itemDescription">
             <h3 className="attributes">
-              <Link to={`/userProfile/${Createdby}`}>
-              <span
-                style={{
-                  fontFamily: "DynaPuff, system-ui",
-                  fontWeight: "500",
-                  fontSize: "1.25rem",
-                  textTransform: "uppercase",
-                  // textDecoration: "underline",
-                  textShadow: "1px 1px 2px black",
-                  color: "#ff8b4d",
-                }}
-              >
-                See User Profile
+              <span>
+                Posted By:&nbsp;
               </span>
-                </Link>
+              <Link to={`/userProfile/${Createdby}`}>
+                <span
+                  style={{
+                    fontFamily: "DynaPuff, system-ui",
+                    fontWeight: "500",
+                    fontSize: "1.25rem",
+                    textTransform: "uppercase",
+                    textDecoration: "none",
+                    textShadow: "1px 1px 2px black",
+                    color: "#ff8b4d",
+                  }}
+                >
+                  {creator_info.firstname} {creator_info.lastname}
+                </span>
+              </Link>
             </h3>
             <h3 className="attributes">
-              <span
-                style={{
-                  fontFamily: "Concert One, sans-serif",
-                  fontWeight: "1.5rem",
-                  fontSize: "1.25rem",
-                  textShadow: "1px 1px 2px black",
-                  color: "rgb(149, 149, 149)",
-                  letterSpacing: "0.85px",
-                  marginBottom: "5px",
-                  textTransform: "uppercase",
-                  textDecoration:"underline"
-                }}
-              >
-                Item name:
-              </span>
+              <span>Item name:</span>
               <span className="details"> {data.name} </span>
               <Button
                 onClick={() =>
@@ -228,91 +187,27 @@ function ItemPage(props) {
                 <span style={{ fontSize: "1.5rem" }}>🔗</span>{" "}
               </Button>
             </h3>
-            {/* <hr /> */}
-
-            {/* <hr /> */}
-
-            <h3
-              className="attributes"
-              style={{
-                fontFamily: "Concert One, sans-serif",
-                fontWeight: "1.5rem",
-                fontSize: "1.25rem",
-                textShadow: "1px 1px 2px black",
-                color: "rgb(149, 149, 149)",
-                letterSpacing: "0.5px",
-                marginBottom: "5px",
-                textTransform: "uppercase",
-              }}
-            >
+            <h3 className="attributes">
               Item description :{" "}
               <span className="details">{data.description}</span>
             </h3>
             <hr />
-            <h3
-              className="attributes"
-              style={{
-                fontFamily: "Concert One, sans-serif",
-                fontWeight: "1.5rem",
-                fontSize: "1.25rem",
-                textShadow: "1px 1px 2px black",
-                color: "rgb(149, 149, 149)",
-                letterSpacing: "0.5px",
-                marginBottom: "5px",
-                textTransform: "uppercase",
-              }}
-            >
+            <h3 className="attributes">
               Item type : <span className="details">{data.type}</span>
             </h3>
             <hr />
-            <h3
-              className="attributes"
-              style={{
-                fontFamily: "Concert One, sans-serif",
-                fontWeight: "1.5rem",
-                fontSize: "1.25rem",
-                textShadow: "1px 1px 2px black",
-                color: "rgb(149, 149, 149)",
-                letterSpacing: "0.5px",
-                marginBottom: "5px",
-                textTransform: "uppercase",
-              }}
-            >
+            <h3 className="attributes">
               Item Location : <span className="details">{data.location}</span>
             </h3>
             <hr />
-            <h3
-              className="attributes"
-              style={{
-                fontFamily: "Concert One, sans-serif",
-                fontWeight: "1.5rem",
-                fontSize: "1.25rem",
-                textShadow: "1px 1px 2px black",
-                color: "rgb(149, 149, 149)",
-                letterSpacing: "0.5px",
-                marginBottom: "5px",
-                textTransform: "uppercase",
-              }}
-            >
+            <h3 className="attributes">
               Status :{" "}
               <span className="details">
                 {data.status ? "Active" : "Inactive"}
               </span>
             </h3>
             <hr />
-            <h6
-              className="attributes"
-              style={{
-                fontFamily: "Concert One, sans-serif",
-                fontWeight: "1.5rem",
-                fontSize: "1.25rem",
-                textShadow: "1px 1px 2px black",
-                color: "rgb(149, 149, 149)",
-                letterSpacing: "0.5px",
-                marginBottom: "10px",
-                textTransform: "uppercase",
-              }}
-            >
+            <h6 className="attributes">
               Created at:{" "}
               <span className="details">
                 {new Date(data.createdAt).toLocaleString()}
@@ -718,7 +613,7 @@ function ItemPage(props) {
       </span>
     );
     setauthenication(validation);
-  }, [alreadyAnswered, item_id, isOwner, isSaved]);
+  }, [alreadyAnswered, item_id, isOwner, isSaved, creator_info]);
 
   // Submit Functions
 
@@ -950,6 +845,20 @@ function ItemPage(props) {
         setTimeout(() => window.location.reload(), 2000);
       })
       .catch((err) => console.log(err));
+  };
+
+  const fetchCreator = async () => {
+    try {
+      const response = await Axios.get(
+        `http://localhost:5000/user/${item_owner}`
+      );
+      const data = response.data.items;
+      console.log(response.data.user);
+      setCreatorInfo(response.data.user);
+      console.log(creator_info);
+    } catch (err) {
+      console.error("Error fetching items:", err);
+    }
   };
 
   return (
