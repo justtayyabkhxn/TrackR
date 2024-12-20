@@ -5,7 +5,6 @@ import Navbar from "./Navbar";
 import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-
 export default function UserProfile() {
   const { userId } = useParams();
   const [items, setItems] = useState([]);
@@ -39,7 +38,9 @@ export default function UserProfile() {
 
   const fetchItems = async () => {
     try {
-      const response = await Axios.get(`http://localhost:5000/user/${userId}`);
+      const response = await Axios.get(
+        `http://localhost:5000/getUser/${userId}`
+      );
       const data = response.data.items;
       console.log(response.data.user);
       setUserInfo(response.data.user);
@@ -189,11 +190,13 @@ export default function UserProfile() {
             textTransform: "uppercase",
             textAlign: "center",
             fontFamily: "Concert One, sans-serif",
+            whiteSpace: "pre-wrap",
             fontWeight: "600",
+           
           }}
         >
           {userInfo
-            ? `${userInfo.firstname} ${userInfo.lastname}'s Posts`
+            ? `${userInfo.firstname} ${userInfo.lastname}\n`
             : `User Posts`}
         </h2>
         <div className="title-border"></div>
@@ -220,7 +223,7 @@ export default function UserProfile() {
               }}
             >
               <Spinner
-                style={{ fontSize: "8rem", color:"black" }}
+                style={{ fontSize: "8rem", color: "black" }}
                 animation="border"
                 role="status"
                 variant="dark"

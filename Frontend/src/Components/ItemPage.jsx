@@ -79,6 +79,7 @@ function ItemPage(props) {
 
   const item_id = queryParams.get("cid"); // Extract the item ID from the 'cid' parameter
   const item_owner = ItemData.createdBy;
+  // alert(item_owner);
 
   const [user_info, setUserInfo] = useState(() => {
     return JSON.parse(localStorage.getItem("user")) || {};
@@ -88,9 +89,10 @@ function ItemPage(props) {
   const temp = [];
   const validation = [];
   const admin = "67075569252b464e56db8e31";
+  
   // Fetching item data on component mount
   useEffect(() => {
-    fetchCreator();
+    
     Axios.get(`http://localhost:5000/item/${item_id}`)
       .then((response) => {
         const data = response.data.Item;
@@ -855,11 +857,13 @@ function ItemPage(props) {
       const data = response.data.items;
       console.log(response.data.user);
       setCreatorInfo(response.data.user);
-      console.log(creator_info);
     } catch (err) {
       console.error("Error fetching items:", err);
     }
   };
+  useEffect(()=>{
+    fetchCreator();
+  },[Createdby])
 
   return (
     <>

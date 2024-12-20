@@ -80,8 +80,11 @@ function Login() {
           }}
         >
           <form className="Box-1-login">
+            
             <div className="main-heading">
+              
               <h1>Log in</h1>
+              <hr />
             </div>
             <p style={{ color: "red" }}>
               {info}

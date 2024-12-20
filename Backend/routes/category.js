@@ -524,6 +524,22 @@ router.delete("/users/:userId", async (req, res) => {
 
 router.get('/user/:userId', async (req, res) => {
   const { userId } = req.params;
+  // console.log(userId);
+
+  try {
+    // Find all posts where createdBy matches userId
+    const user = await SignUp.findById(userId);
+
+    res.json({
+      user:user
+    });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+router.get('/getUser/:userId', async (req, res) => {
+  const { userId } = req.params;
 
   try {
     // Find all posts where createdBy matches userId
