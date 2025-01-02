@@ -68,7 +68,7 @@ export default function AdminDashboard() {
               <span className="user-name" onClick={() => handleUserClick(user)}>
                 <div className="user-detail">
                   <Link
-                    to={`/user/${user._id}`}
+                    to={`/userProfile/${user._id}`}
                     style={{ textDecoration: "none" }}
                   >
                     <h2 style={{ color: "#0c151d", textDecoration: "none" }}>

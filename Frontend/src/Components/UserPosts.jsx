@@ -177,7 +177,7 @@ export default function UserPosts() {
 
   useEffect(() => {
     fetchItems();
-  }, [userInfo]);
+  }, [userId]);
 
   return (
     <div style={{ marginTop: "120px" }}>

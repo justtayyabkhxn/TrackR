@@ -20,7 +20,7 @@ function AdminLogin() {
   const navigate = useNavigate();
   ReactSession.set("email", email);
   useEffect(() => {
-    setEmail("admin@trackit.com");
+    setEmail("admin@trackr.com");
   }, []);
 
   const handleSubmit = async () => {
@@ -89,7 +89,7 @@ function AdminLogin() {
               borderColor: "#ff8b4d",
               textShadow: "1px 1px 1px black",
             }}
-            value={"admin@trackit.com"}
+            value={"admin@trackr.com"}
             required
             readOnly
           />

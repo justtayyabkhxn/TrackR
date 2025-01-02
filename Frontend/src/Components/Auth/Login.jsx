@@ -76,7 +76,7 @@ function Login() {
           style={{
             width: "500px",
             borderRadius: "100px",
-            padding: "50px",
+            padding: "50px",     
           }}
         >
           <form className="Box-1-login">
