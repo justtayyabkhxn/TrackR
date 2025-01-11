@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config({ path: './.env' });
+require('dotenv').config({ path: "../.env" });
 
 exports.requireSignin = (req, res, next) => {
   try {
@@ -10,6 +10,7 @@ exports.requireSignin = (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
     const user = jwt.verify(token, process.env.JWT_SECRET);
+   
     // console.log("Token ",token);
     req.user = user; // Attach the decoded user to the request object
     req.role = 'user'; // Set the user role (adjust if necessary)

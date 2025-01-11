@@ -9,7 +9,8 @@ const { PostItem } = require("../models/category");
 const messageschema = require("../models/messages");
 const { requireSignin, userMiddleware } = require("../middleware");
 
-require("dotenv").config({ path: '../../.env' });
+require('dotenv').config({ path: "../../.env" });
+
 
 const router = express.Router();
 

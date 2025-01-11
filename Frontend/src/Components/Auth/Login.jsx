@@ -6,6 +6,9 @@ import Navbar from "../Navbar";
 import { Spinner } from "react-bootstrap";
 import { ToastContainer, toast, Flip } from "react-toastify";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+console.log(serverUrl)
+
 import { ReactSession } from "react-client-session";
 
 function Login() {

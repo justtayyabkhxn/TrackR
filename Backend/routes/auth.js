@@ -7,15 +7,15 @@ const { z } = require("zod");
 const { promisify } = require('util');
 const { requireSignin } = require('../middleware');
 const Signup = require('../models/signup');
-require('dotenv').config({ path: "../.env" });
+require('dotenv').config({ path: "../../.env" });
 const randomstring = require('randomstring');
 const router = express.Router();
+
 var generatedOTP = 0;
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES = process.env.JWT_EXPIRES;
 const NODE_ENV = process.env.NODE_ENV;
 const admin = process.env.ADMIN;
-
 const signJwt = (id) => {
     return jwt.sign({ id }, JWT_SECRET, {
         expiresIn: JWT_EXPIRES,
