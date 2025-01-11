@@ -40,7 +40,7 @@ body {
 .Box-1-login h1 {
   color: var(--text-color);
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 900;
   padding: 10px;
   border-bottom: solid 5px var(--text-color);
   text-shadow: 1px 1px 2px black;
@@ -88,6 +88,10 @@ body {
   font-family: "DynaPuff", system-ui;
   font-optical-sizing: auto;
   font-weight: 200;
+}
+.main-box .name{
+  font-weight: 900;
+  font-family: "Delius Swash Caps", serif;
 }
 p {
   font-family: "DynaPuff", system-ui;

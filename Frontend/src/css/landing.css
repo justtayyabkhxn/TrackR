@@ -267,6 +267,15 @@ p {
   text-transform: uppercase;
   text-decoration: underline;
 }
+.personal-info a{
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  text-shadow: 0px 1px 1px black;
+  text-transform: uppercase;
+  text-decoration: underline;
+  color: #0c151d;
+}
 /* Responsive styles */
 @media (max-width: 1020px) {
   .image {

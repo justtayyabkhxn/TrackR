@@ -53,7 +53,10 @@ body {
   font-weight: 200;
 }
 
-
+.main-heading h1{
+  font-family: "Delius Swash Caps", serif;
+  font-weight: 900;
+}
 .clickHere {
   font-family: "DynaPuff", system-ui;
   font-optical-sizing: auto;
@@ -185,6 +188,15 @@ a {
 
 .signup {
   display: flex;
+}
+.Box-1-login h1 {
+  color: var(--text-color);
+  text-transform: uppercase;
+  font-weight: 900;
+  padding: 10px;
+  border-bottom: solid 5px var(--text-color);
+  text-shadow: 1px 1px 2px black;
+  font-size: 40px;
 }
 
 @media (max-width: 768px) {

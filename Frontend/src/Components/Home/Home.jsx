@@ -172,7 +172,17 @@ export default function Home() {
             </a>
           </div>
           <div className="personal-info" >
-            <h5 style={{textDecoration:"none"}}> TRACKR BY TAYYAB KHAN</h5>
+            <h5 style={{textDecoration:"none"}}> TRACKR BY &nbsp;
+            <a
+              href="https://justtayyabkhan.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              
+            >
+             TAYYAB KHAN
+            </a>
+            </h5>
+             
           </div>
         </div>
       </div>

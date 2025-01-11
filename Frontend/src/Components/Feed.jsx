@@ -181,13 +181,7 @@ export default function Feed() {
       <center>
         <span
           className="welcomeText"
-          style={{
-            fontFamily: "Concert One, sans-serif",
-            textTransform: "uppercase",
-            margin: "25px",
-            fontSize: "3rem",
-            borderBottom: "5px solid #ff8b4d",
-          }}
+          
         >
           Welcome {user_info.firstname} {user_info.lastname}!
         </span>

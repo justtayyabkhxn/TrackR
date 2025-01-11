@@ -11,7 +11,14 @@
     width: 150%;
     max-height: 450px;
   } */
-
+.welcomeText{
+  font-weight: 900;
+  font-family: "Delius Swash Caps", serif;
+  text-transform: uppercase;
+  margin: 25px;
+  font-size: 3rem;
+  border-bottom: 5px solid #ff8b4d;
+}
 .item-card > img {
   max-height: 267px;
   border-radius: 10px 10px 0 0; /* Simplified border-radius */

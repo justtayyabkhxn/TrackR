@@ -189,9 +189,10 @@ export default function UserProfile() {
           style={{
             textTransform: "uppercase",
             textAlign: "center",
-            fontFamily: "Concert One, sans-serif",
+            fontFamily: "Delius Swash Caps, sans-serif",
             whiteSpace: "pre-wrap",
-            fontWeight: "600",
+            fontWeight: "900",
+            fontSize:"50px"
            
           }}
         >
