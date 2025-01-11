@@ -6,6 +6,9 @@ import Axios from "axios";
 import { Card, Col, Container, Row, Spinner } from "react-bootstrap"; // Import Spinner
 import { Link } from "react-router-dom";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 const Feed = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
@@ -42,7 +45,7 @@ const Feed = () => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const response = await Axios.get(
-        `http://localhost:5000/mylistings/${user._id}`
+        `${serverUrl}/mylistings/${user._id}`
       );
 
       const data = response.data.item;
@@ -84,7 +87,7 @@ const Feed = () => {
                   }}
                   src={
                     item.itemPictures && item.itemPictures[0]
-                      ? `http://localhost:5000/${item.itemPictures[0].img}`
+                      ? `${serverUrl}/${item.itemPictures[0].img}`
                       : "/default-img.png"
                   }
                 />

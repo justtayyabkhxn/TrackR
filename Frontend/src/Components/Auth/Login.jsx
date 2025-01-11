@@ -7,7 +7,6 @@ import { Spinner } from "react-bootstrap";
 import { ToastContainer, toast, Flip } from "react-toastify";
 
 const serverUrl = import.meta.env.VITE_SERVER_URL;
-console.log(serverUrl)
 
 import { ReactSession } from "react-client-session";
 
@@ -30,7 +29,7 @@ function Login() {
     try {
       const payload = { email, password };
 
-      const response = await axios.post("http://localhost:5000/login", payload);
+      const response = await axios.post(`${serverUrl}/login`, payload);
 
       if (response.data.user) {
         // Authentication successful

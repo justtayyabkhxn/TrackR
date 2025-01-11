@@ -5,6 +5,9 @@ import Navbar from "./Navbar";
 import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 export default function UserProfile() {
   const { userId } = useParams();
   const [items, setItems] = useState([]);
@@ -39,7 +42,7 @@ export default function UserProfile() {
   const fetchItems = async () => {
     try {
       const response = await Axios.get(
-        `http://localhost:5000/getUser/${userId}`
+        `${serverUrl}/getUser/${userId}`
       );
       const data = response.data.items;
       console.log(response.data.user);
@@ -54,7 +57,7 @@ export default function UserProfile() {
 
           const imageSrc =
             item.itemPictures && item.itemPictures.length > 0
-              ? `http://localhost:5000/${item.itemPictures[0].img}`
+              ? `${serverUrl}/${item.itemPictures[0].img}`
               : "/default-img.png";
 
           return (

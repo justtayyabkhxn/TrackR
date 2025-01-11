@@ -7,6 +7,9 @@ import { Spinner } from "react-bootstrap";
 import { ToastContainer, toast, Flip } from "react-toastify";
 import { ReactSession } from "react-client-session";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 function ForgotPassword() {
   ReactSession.setStoreType("sessionStorage");
 
@@ -31,7 +34,7 @@ function ForgotPassword() {
 
   const sendOTP = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/resetPassword", {
+      const response = await axios.get(`${serverUrl}/resetPassword`, {
         params: { email: emailID },
       });
       console.log(response);
@@ -73,7 +76,7 @@ function ForgotPassword() {
     try {
       const payload = { email: emailID, userOTP: OTP };
 
-      const response = await axios.get("http://localhost:5000/verifyOTP", {
+      const response = await axios.get(`${serverUrl}/verifyOTP`, {
         params: payload,
       });
 

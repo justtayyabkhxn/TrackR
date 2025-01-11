@@ -6,6 +6,9 @@ import Axios from "axios";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 export default function SavedPosts() {
   const [items, setItems] = useState([]);
   const [info, setInfo] = useState("");
@@ -33,7 +36,7 @@ export default function SavedPosts() {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const response = await Axios.get(
-        `http://localhost:5000/mySaves/${user._id}`
+        `${serverUrl}/mySaves/${user._id}`
       );
       setInfo(response.message);
 
@@ -49,7 +52,7 @@ export default function SavedPosts() {
 
           const imageSrc =
             item.itemPictures && item.itemPictures.length > 0
-              ? `http://localhost:5000/${item.itemPictures[0].img}`
+              ? `${serverUrl}/${item.itemPictures[0].img}`
               : "/default-img.png";
 
               return (

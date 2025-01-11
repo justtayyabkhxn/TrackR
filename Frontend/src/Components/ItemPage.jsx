@@ -18,6 +18,9 @@ import {
 import Navbar from "./Navbar";
 import { LOGGED_IN, setConstraint } from "../constraints";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 function ItemPage(props) {
   const navigate = useNavigate();
   const [ItemData, setItemData] = useState([]);
@@ -93,7 +96,7 @@ function ItemPage(props) {
   // Fetching item data on component mount
   useEffect(() => {
     
-    Axios.get(`http://localhost:5000/item/${item_id}`)
+    Axios.get(`${serverUrl}/item/${item_id}`)
       .then((response) => {
         const data = response.data.Item;
         const answersData = response.data.Answers;
@@ -103,14 +106,14 @@ function ItemPage(props) {
         setItemData(data);
         setIsOwner(user_id == item_owner || user_id == admin ? true : false);
         Axios.get(
-          `http://localhost:5000/responseData/${user_id}/${item_id}`
+          `${serverUrl}/responseData/${user_id}/${item_id}`
         ).then((response) => {
           const hasAnswered = response.data.answered;
           setAlreadyAnswered(hasAnswered);
         });
 
         const saveItem = () => {
-          Axios.post(`http://localhost:5000/savePost/${user_id}/${item_id}`)
+          Axios.post(`${serverUrl}/savePost/${user_id}/${item_id}`)
             .then((response) => {
               const message = response.data.message;
               setIsSaved(true); // Assume item saved successfully
@@ -121,7 +124,7 @@ function ItemPage(props) {
             });
         };
         const unsaveItem = () => {
-          Axios.post(`http://localhost:5000/unsavePost/${user_id}/${item_id}`)
+          Axios.post(`${serverUrl}/unsavePost/${user_id}/${item_id}`)
             .then((response) => {
               const message = response.data.message;
               setIsSaved(false); // Assume item saved successfully
@@ -132,7 +135,7 @@ function ItemPage(props) {
             });
         };
 
-        Axios.get(`http://localhost:5000/isSaved/${user_id}/${item_id}`)
+        Axios.get(`${serverUrl}/isSaved/${user_id}/${item_id}`)
           .then((response) => {
             const isPostSaved = response.data.saved;
             setIsSaved(isPostSaved);
@@ -620,7 +623,7 @@ function ItemPage(props) {
   // Submit Functions
 
   const submitActivate = (item_id) => {
-    Axios.post(`http://localhost:5000/activateItem/${item_id}`)
+    Axios.post(`${serverUrl}/activateItem/${item_id}`)
       .then(() => {
         toast.success("Item Activated!", {
           position: "bottom-right",
@@ -648,7 +651,7 @@ function ItemPage(props) {
 
   //Deactivate Item
   const submitDeactivate = (item_id) => {
-    Axios.post(`http://localhost:5000/deactivateItem/${item_id}`)
+    Axios.post(`${serverUrl}/deactivateItem/${item_id}`)
       .then(() => {
         toast.success("Item Deactivated!", {
           position: "bottom-right",
@@ -675,7 +678,7 @@ function ItemPage(props) {
   };
   //DELETE ITEM
   const delete_item = () => {
-    Axios.post("http://localhost:5000/deleteitem", { item_id })
+    Axios.post(`${serverUrl}/deleteitem`, { item_id })
       .then(() => {
         handleCloseDelete();
         toast.success("Item deleted successfully!", {
@@ -708,7 +711,7 @@ function ItemPage(props) {
       userId: item_owner,
     };
 
-    Axios.post("http://localhost:5000/sendMail", mailData)
+    Axios.post(`${serverUrl}/sendMail`, mailData)
       .then(() => {
         toast.success("Mail Sent successfully!", {
           position: "bottom-right",
@@ -756,7 +759,7 @@ function ItemPage(props) {
       });
     }
 
-    Axios.post("http://localhost:5000/edititem", formData)
+    Axios.post(`${serverUrl}/edititem`, formData)
       .then(() => {
         toast.success("Item edited successfully!", {
           position: "bottom-right",
@@ -787,7 +790,7 @@ function ItemPage(props) {
   };
   //SUBMIT  ANSWER
   const submitAnswer = () => {
-    Axios.post("http://localhost:5000/submitAnswer", {
+    Axios.post(`${serverUrl}/submitAnswer`, {
       itemId: item_id,
       question: itemquestion,
       answer: answer,
@@ -821,7 +824,7 @@ function ItemPage(props) {
   };
   //VALIDATE ANSWER
   const validate_answer = (id, answer) => {
-    Axios.post(`http://localhost:5000/confirmResponse/${id}`, {
+    Axios.post(`${serverUrl}/confirmResponse/${id}`, {
       response: answer,
     }) // Fix URL and key
       .then(() => {
@@ -852,7 +855,7 @@ function ItemPage(props) {
   const fetchCreator = async () => {
     try {
       const response = await Axios.get(
-        `http://localhost:5000/user/${item_owner}`
+        `${serverUrl}/user/${item_owner}`
       );
       const data = response.data.items;
       console.log(response.data.user);
@@ -882,7 +885,7 @@ function ItemPage(props) {
                     marginBottom: "0.10px",
                     borderBottom: "8px solid #ff8b4d",
                   }}
-                  src={`http://localhost:5000/${ItemData.itemPictures[0].img}`}
+                  src={`${serverUrl}/${ItemData.itemPictures[0].img}`}
                   alt="item"
                 />
               ) : (

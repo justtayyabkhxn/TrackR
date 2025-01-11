@@ -6,6 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer, Flip } from "react-toastify";
 import { ReactSession } from "react-client-session";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 const Signup = () => {
   ReactSession.setStoreType("localStorage");
   const [info, setInfo] = useState("");
@@ -37,7 +40,7 @@ const Signup = () => {
 
     axios
       .post(
-        "http://localhost:5000/signup",
+        `${serverUrl}/signup`,
         formData,
         { withCredentials: true } // Include this option if dealing with cookies or authentication
       )

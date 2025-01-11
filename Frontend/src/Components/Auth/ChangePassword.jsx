@@ -7,6 +7,9 @@ import { Spinner } from "react-bootstrap";
 import { ToastContainer, toast, Flip } from "react-toastify";
 import { ReactSession } from "react-client-session";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 function ChangePassword() {
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState("");
@@ -65,7 +68,7 @@ function ChangePassword() {
       };
 
       const response = await axios.post(
-        "http://localhost:5000/changePassword",
+        `${serverUrl}/changePassword`,
         payload
       );
 

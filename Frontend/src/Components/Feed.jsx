@@ -8,6 +8,9 @@ import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 export default function Feed() {
   const [user_info, setUserInfo] = useState(() => {
     return JSON.parse(localStorage.getItem("user")) || {};
@@ -56,7 +59,7 @@ export default function Feed() {
     setLoading(true); // Set loading to true when fetching data
     try {
       const response = await Axios.get(
-        `http://localhost:5000/getitem?page=${page}`
+        `${serverUrl}/getitem?page=${page}`
       );
       if (!response.data || !response.data.postitems) {
         throw new Error("Invalid response structure");
@@ -75,7 +78,7 @@ export default function Feed() {
           }/${created_date.getFullYear()} ${created_date.getHours()}:${created_date.getMinutes()}`;
           const imageSrc =
             item.itemPictures && item.itemPictures.length > 0
-              ? `http://localhost:5000/${item.itemPictures[0].img}`
+              ? `${serverUrl}/${item.itemPictures[0].img}`
               : "/default-img.png";
 
           const card = (

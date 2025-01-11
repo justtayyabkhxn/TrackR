@@ -8,6 +8,9 @@ import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { setConstraint } from "../constraints";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 const SearchPage = () => {
   const [query, setQuery] = useState("");
   const location = useLocation();
@@ -54,7 +57,7 @@ const SearchPage = () => {
     const fetchItems = async () => {
       try {
         const response = await Axios.get(
-          `http://localhost:5000/searchItem/${queryValue}`
+          `${serverUrl}/searchItem/${queryValue}`
         );
         if (!response.data || !response.data.data) {
           throw new Error("Invalid response structure");
@@ -77,7 +80,7 @@ const SearchPage = () => {
             const userIsOwner = item.createdBy === user_info._id;
             const imageSrc =
               item.itemPictures && item.itemPictures.length > 0
-                ? `http://localhost:5000/${item.itemPictures[0].img}`
+                ? `${serverUrl}/${item.itemPictures[0].img}`
                 : "/default-img.png";
 
             const card = (

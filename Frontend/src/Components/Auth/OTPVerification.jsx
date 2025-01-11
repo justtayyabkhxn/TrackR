@@ -7,6 +7,9 @@ import { Spinner } from "react-bootstrap";
 import { ReactSession } from "react-client-session";
 import { ToastContainer, toast, Flip } from "react-toastify";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 const OTPVerification = () => {
   const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState("");
@@ -21,7 +24,7 @@ const OTPVerification = () => {
     const userEmail = ReactSession.get("email");
     setEmailID(userEmail); // set email
     try {
-      const response = await axios.get("http://localhost:5000/sendOTP", {
+      const response = await axios.get(`${serverUrl}/sendOTP`, {
         params: { email: userEmail },
       });
 
@@ -74,7 +77,7 @@ const OTPVerification = () => {
     try {
       const payload = { email: emailID, userOTP: OTP };
 
-      const response = await axios.get("http://localhost:5000/verifyOTP", {
+      const response = await axios.get(`${serverUrl}/verifyOTP`, {
         params: payload,
       });
 

@@ -5,6 +5,9 @@ import Navbar from "../../Components/Navbar";
 import { Button, Modal, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -15,7 +18,7 @@ export default function AdminDashboard() {
 
   // Fetch users on component mount
   useEffect(() => {
-    Axios.get("http://localhost:5000/users")
+    Axios.get(`${serverUrl}/users`)
       .then((response) => setUsers(response.data))
       .catch((error) => console.error("Error fetching users:", error));
   }, [users]); // Fetch users only once on mount
@@ -25,7 +28,7 @@ export default function AdminDashboard() {
   };
 
   const handleDeleteUser = (userId) => {
-    Axios.delete(`http://localhost:5000/users/${userId}`)
+    Axios.delete(`${serverUrl}/${userId}`)
       .then(() => setUsers(users.filter((user) => user.id !== userId)))
       .catch((error) => console.error("Error deleting user:", error));
   };
@@ -43,7 +46,7 @@ export default function AdminDashboard() {
     };
 
     setShowEmailModel(false);
-    Axios.post("http://localhost:5000/sendMail", mailData)
+    Axios.post(`${serverUrl}/sendMail`, mailData)
       .then(() => {
         setEmailMessage("");
         setemailSubject("");

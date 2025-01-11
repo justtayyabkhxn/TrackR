@@ -8,6 +8,9 @@ import PostItem from "./Post_Item";
 import "../css/Navbar.css";
 import UserProfile from "./UserProfile";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 function NavBar() {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const token = window.localStorage.getItem("token");
@@ -19,7 +22,7 @@ function NavBar() {
   useEffect(() => {
     if (token) {
       axios({
-        url: "http://localhost:5000/checktoken",
+        url: `${serverUrl}/checktoken`,
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -39,7 +42,7 @@ function NavBar() {
 
   const signOut = () => {
     axios({
-      url: "http://localhost:5000/signout",
+      url: `${serverUrl}/signout`,
       method: "POST",
       headers: {
         Authorization: token ? `Bearer ${token}` : "",

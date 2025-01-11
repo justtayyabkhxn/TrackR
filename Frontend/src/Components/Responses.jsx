@@ -5,6 +5,9 @@ import Axios from "axios";
 import { Button, Modal,Spinner } from "react-bootstrap";
 import axios from "axios";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 function Response() {
   const [responses, setResponses] = useState([]);
   const [showNumber, setShowNumber] = useState(false);
@@ -18,7 +21,7 @@ function Response() {
   const getItemName = useCallback(async (itemId) => {
     
     try {
-      const res = await axios.get(`http://localhost:5000/getItemName/${itemId}`);
+      const res = await axios.get(`${serverUrl}/getItemName/${itemId}`);
       return res.data.postName; // Ensure you access res.data.postName properly
     } catch (err) {
       console.error(err);
@@ -27,7 +30,7 @@ function Response() {
   }, []);
 
   const handleShowNumber = useCallback((response) => {
-    Axios.get(`http://localhost:5000/getnumber/${response.belongsTo}`)
+    Axios.get(`${serverUrl}/getnumber/${response.belongsTo}`)
       .then((res) => {
         setPhoneNumber(res.data.Number);
         setShowNumber(true);
@@ -42,7 +45,7 @@ function Response() {
       const userId = JSON.parse(localStorage.getItem("user"))._id;
       setLoading(true);
       try {
-        const res = await Axios.get(`http://localhost:5000/myresponses/${userId}`);
+        const res = await Axios.get(`${serverUrl}/myresponses/${userId}`);
         const responseItems = res.data.item;
         const reversedResponses = responseItems.reverse();
 

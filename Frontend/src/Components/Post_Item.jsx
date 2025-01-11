@@ -6,6 +6,9 @@ import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/lost_item.css";
 
+const serverUrl = import.meta.env.VITE_SERVER_URL;
+
+
 function PostItem() {
   const [show, setShow] = useState(false);
   const token = window.localStorage.getItem("token");
@@ -76,7 +79,7 @@ function PostItem() {
       setLoading(true);
 
       axios
-        .post("http://localhost:5000/postitem", info, {
+        .post(`${serverUrl}/postitem`, info, {
           headers: {
             Authorization: token ? `Bearer ${token}` : "",
           },
