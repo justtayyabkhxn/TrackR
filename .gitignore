@@ -1,5 +1,5 @@
 Backend/node_modules
 Frontend/node_modules
 /.env
-Frontend/.env
+
 Frontend/src/Components/oldNavbar.jsx
