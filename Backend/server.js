@@ -7,8 +7,6 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const path = require('path');
 
-// console.log(process.env.MONGO_DB_USER);
-
 // Enable CORS for your frontend URL, allowing credentials
 app.use(cors({
   origin: "http://localhost:5173",
@@ -28,13 +26,7 @@ app.use(passport.initialize());
 
 // MongoDB connection using environment variables
 console.log("Wait Connecting to Backend...");
-// mongoose.connect(
-//   `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.6kk18.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
-//   {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   }
-// );
+
 mongoose.connect(
     `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.w1qpdsc.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`
   )
